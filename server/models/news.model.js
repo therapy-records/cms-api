@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import APIError from '../helpers/APIError';
 
-const NewsPostSchema = new mongoose.Schema({
+const NewsSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -12,7 +12,7 @@ const NewsPostSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  body: {
+  mainBody: {
     type: Object,
     required: true
   },
@@ -21,8 +21,7 @@ const NewsPostSchema = new mongoose.Schema({
     required: true
   },
   editedAt: {
-    type: Date,
-    required: true
+    type: Date
   },
   imageUrl: {
     type: String
@@ -32,7 +31,7 @@ const NewsPostSchema = new mongoose.Schema({
 /**
  * Statics
  */
-NewsPostSchema.statics = {
+NewsSchema.statics = {
   /**
    * Get single news post
    * @param {ObjectId} id - The objectId of user.
@@ -54,4 +53,4 @@ NewsPostSchema.statics = {
 /**
  * @typedef User
  */
-export default mongoose.model('NewsPost', NewsPostSchema);
+export default mongoose.model('Post', NewsSchema);

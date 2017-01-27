@@ -28,8 +28,11 @@ function getPost(req, res) {
  */
 function createPost(req, res, next) {
   const news = new News({
-    newsname: req.body.newsname,
-    mobileNumber: req.body.mobileNumber
+    title: req.body.title,
+    subHeading: req.body.subHeading,
+    mainBody: req.body.mainBody,
+    createdAt: new Date()
+    // editedAt: req.body.editedAt
   });
 
   news.save()
