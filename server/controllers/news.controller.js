@@ -4,20 +4,20 @@ import News from '../models/news.model';
  * Load news and append to req.
  */
 function loadPost(req, res, next, id) {
-  News.getPost(id)
-    .then((news) => {
-      req.news = news; // eslint-disable-line no-param-reassign
+  News.getSingle(id)
+    .then((post) => {
+      req.post = post; // eslint-disable-line no-param-reassign
       return next();
     })
     .catch(e => next(e));
 }
 
 /**
- * Get news
- * @returns {news}
+ * Get news post
+ * @returns {post}
  */
 function getPost(req, res) {
-  return res.json(req.news);
+  return res.json(req.post);
 }
 
 /**

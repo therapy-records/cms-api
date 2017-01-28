@@ -12,8 +12,8 @@ router.route('/')
   /** POST /api/news - Create new post */
   .post(newsCtrl.createPost);
 
-router.route('/:id')
-  /** GET /api/news/:userId - Get post */
+router.route('/:postId')
+  /** GET /api/news/:postId - Get post */
   .get(newsCtrl.getPost)
 
   /** PUT /api/news/:postId - Update post */
@@ -22,7 +22,7 @@ router.route('/:id')
   /** DELETE /api/news/:postId - Delete post */
   .delete(newsCtrl.removePost);
 
-/** Load post when API with userId route parameter is hit */
+/** Load post when API with postId route parameter is hit */
 router.param('postId', newsCtrl.loadPost);
 
 export default router;
