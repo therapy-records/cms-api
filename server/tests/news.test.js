@@ -25,6 +25,20 @@ describe('## News APIs', () => {
     createdAt: new Date()
   };
 
+  describe('# GET /api/news', () => {
+    it('should get all posts', (done) => {
+      request(app)
+        .get('/api/news')
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body).to.be.an('array');
+          expect(res.body[0].title).to.be.a('string');
+          done();
+        })
+        .catch(done);
+    });
+  });
+
   describe('# POST /api/news', () => {
     it('should create a new post', (done) => {
       request(app)

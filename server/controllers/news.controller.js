@@ -57,15 +57,12 @@ function updatePost(req, res, next) {
 }
 
 /**
- * Get news list.
- * @property {number} req.query.skip - Number of news to be skipped.
- * @property {number} req.query.limit - Limit number of newss to be returned.
+ * Get news posts
  * @returns {news[]}
  */
 function getAllPosts(req, res, next) {
-  const { limit = 50, skip = 0 } = req.query;
-  News.list({ limit, skip })
-    .then(newss => res.json(newss))
+  News.find()
+    .then(news => res.json(news))
     .catch(e => next(e));
 }
 
