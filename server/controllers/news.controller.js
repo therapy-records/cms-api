@@ -21,10 +21,10 @@ function getPost(req, res) {
 }
 
 /**
- * Create new news
+ * Create new post
  * @property {string} req.body.newsname - The newsname of news.
  * @property {string} req.body.mobileNumber - The mobileNumber of news.
- * @returns {news}
+ * @returns {newsPost}
  */
 function createPost(req, res, next) {
   const news = new News({
@@ -35,7 +35,7 @@ function createPost(req, res, next) {
   });
 
   news.save()
-    .then(savednews => res.json(savednews))
+    .then(newsPost => res.json(newsPost))
     .catch(e => next(e));
 }
 

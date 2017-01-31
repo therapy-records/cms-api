@@ -22,6 +22,10 @@ router.route('/:postId')
   /** DELETE /api/news/:postId - Delete post */
   .delete(newsCtrl.removePost);
 
+router.route('/create')
+  /** POST /api/news/create - Create new post */
+  .post(newsCtrl.createPost);
+
 /** Load post when API with postId route parameter is hit */
 router.param('postId', newsCtrl.loadPost);
 
