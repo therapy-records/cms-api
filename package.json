@@ -91,7 +91,7 @@
   "license": "MIT",
   "config": {
     "ghooks": {
-      "pre-commit": "yarn lint && npm run test"
+      "pre-commit": "yarn lint"
     },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

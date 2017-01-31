@@ -29,7 +29,6 @@ function getPost(req, res) {
 function createPost(req, res, next) {
   const news = new News({
     title: req.body.title,
-    subHeading: req.body.subHeading,
     mainBody: req.body.mainBody,
     createdAt: new Date()
     // editedAt: req.body.editedAt

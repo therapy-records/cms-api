@@ -20,7 +20,6 @@ after((done) => {
 describe('## News APIs', () => {
   let news = {
     title: 'first post',
-    subHeading: 'all the things',
     mainBody: '{asdf:true}',
     createdAt: new Date()
   };

@@ -8,10 +8,6 @@ const NewsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  subHeading: {
-    type: String,
-    required: true
-  },
   mainBody: {
     type: Object,
     required: true
