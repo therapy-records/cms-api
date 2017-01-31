@@ -13,8 +13,7 @@ const NewsSchema = new mongoose.Schema({
     required: true
   },
   createdAt: {
-    type: Date,
-    required: true
+    type: Date
   },
   editedAt: {
     type: Date
