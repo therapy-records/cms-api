@@ -1,4 +1,5 @@
 import News from '../models/news.model';
+import tokenCtrl from './token.controller';
 
 /**
  * Load news and append to req.
@@ -60,9 +61,14 @@ function updatePost(req, res, next) {
  * @returns {news[]}
  */
 function getAllPosts(req, res, next) {
-  News.find()
-    .then(news => res.json(news))
-    .catch(e => next(e));
+  return tokenCtrl.checkToken(req, res, next)
+    .execAsync().then((user) => {
+      if (user && user._id) {
+        News.find()
+        .then(news => res.json(news))
+        .catch(e => next(e));
+      }
+    });
 }
 
 /**

@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 // import validate from 'express-validation';
 // import paramValidation from '../../config/param-validation';
 import newsCtrl from '../controllers/news.controller';
@@ -7,7 +8,9 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /api/news - Get all posts */
-  .get(newsCtrl.getAllPosts)
+  .get(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    newsCtrl.getAllPosts(req, res, next);
+  })
 
   /** POST /api/news - Create new post */
   .post(newsCtrl.createPost);
