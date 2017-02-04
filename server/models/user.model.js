@@ -1,7 +1,10 @@
 import Promise from 'bluebird';
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt-nodejs';
 import httpStatus from 'http-status';
 import APIError from '../helpers/APIError';
+
+const Schema = mongoose.Schema; // eslint-disable-line no-unused-vars
 
 /**
  * User Schema
@@ -11,14 +14,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  mobileNumber: {
+  password: {
     type: String,
-    required: true,
-    match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
+    required: true
   }
 });
 
@@ -32,8 +30,29 @@ const UserSchema = new mongoose.Schema({
 /**
  * Methods
  */
-UserSchema.method({
+UserSchema.pre('save', function preSave(next) {
+  const user = this;
+  if (!user) return next();
+  return bcrypt.genSalt(10, (err, salt) => {
+    if (err) return next(err);
+    return bcrypt.hash(user.password, salt, null, (hashErr, hash) => {
+      if (hashErr) return next(hashErr);
+      user.password = hash;
+      return next();
+    });
+  });
 });
+
+/* istanbul ignore next */
+UserSchema.methods.comparePassword = function comparePassword(passw, cb) {
+  const hash = this.password;
+  bcrypt.compare(passw, hash, (err, isMatch) => {
+    if (err) {
+      return cb(err);
+    }
+    return cb(null, isMatch);
+  });
+};
 
 /**
  * Statics

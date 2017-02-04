@@ -26,15 +26,22 @@ function get(req, res) {
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
  * @returns {User}
  */
-function create(req, res, next) {
-  const user = new User({
-    username: req.body.username,
-    mobileNumber: req.body.mobileNumber
-  });
-
-  user.save()
-    .then(savedUser => res.json(savedUser))
-    .catch(e => next(e));
+function create(req, res) {
+  if (!req.body.username || !req.body.password) {
+    res.status(400).send({ success: false, msg: 'Please provide username and password.' });
+  } else {
+    const newUser = new User({
+      username: req.body.username,
+      password: req.body.password
+    });
+    return newUser.save((err) => {
+      if (err) {
+        res.status(400).send({ success: false, msg: 'User already exists.' });
+      }
+      res.json({ success: true, msg: 'Successful created a new user.' });
+    });
+  }
+  return res.status(400).send({ success: false, msg: 'Error.' });
 }
 
 /**
@@ -47,7 +54,6 @@ function update(req, res, next) {
   const user = req.user;
   user.username = req.body.username;
   user.mobileNumber = req.body.mobileNumber;
-
   user.save()
     .then(savedUser => res.json(savedUser))
     .catch(e => next(e));
