@@ -8,12 +8,12 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /api/news - Get all posts */
-  .get(passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    newsCtrl.getAllPosts(req, res, next);
-  })
+  .get(newsCtrl.getAllPosts)
 
   /** POST /api/news - Create new post */
-  .post(newsCtrl.createPost);
+  .post(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    newsCtrl.createPost(req, res, next);
+  });
 
 router.route('/:postId')
   /** GET /api/news/:postId - Get post */

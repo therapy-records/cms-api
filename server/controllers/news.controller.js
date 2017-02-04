@@ -35,9 +35,13 @@ function createPost(req, res, next) {
     // editedAt: req.body.editedAt
   });
 
-  news.save()
-    .then(newsPost => res.json(newsPost))
-    .catch(e => next(e));
+  return tokenCtrl.checkToken(req, res, next)
+    .then(() => {
+      news.save()
+        .then((savedPost) => {
+          res.json(savedPost);
+        });
+    });
 }
 
 /**
@@ -61,14 +65,9 @@ function updatePost(req, res, next) {
  * @returns {news[]}
  */
 function getAllPosts(req, res, next) {
-  return tokenCtrl.checkToken(req, res, next)
-    .execAsync().then((user) => {
-      if (user && user._id) {
-        News.find()
-        .then(news => res.json(news))
-        .catch(e => next(e));
-      }
-    });
+  News.find()
+  .then(news => res.json(news))
+  .catch(e => next(e));
 }
 
 /**

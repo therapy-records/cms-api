@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import config from '../../config/env';
 import User from '../models/user.model';
 
+const VALID_USERNAME = 'admin';
+
 /**
  * create user
  */
@@ -24,8 +26,11 @@ function checkToken(req, res) {
   const token = getToken(req.headers);
   if (token) {
     const decoded = jwt.verify(token, config.secret); // check if this checks the expiry date
+    if (decoded._doc.username !== VALID_USERNAME) {
+      res.status(403).send({ success: false, msg: 'userNotFound' });
+    }
     return User.findOne({
-      email: decoded._doc.email
+      username: decoded._doc.username
     }, (err, user) => {
       if (err) throw err;
 
