@@ -1,5 +1,7 @@
 import User from '../models/user.model';
 
+const VALID_USERNAME = 'admin';
+
 /**
  * Load user and append to req.
  */
@@ -27,7 +29,9 @@ function get(req, res) {
  * @returns {User}
  */
 function create(req, res) {
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.username ||
+      req.body.username !== VALID_USERNAME ||
+      !req.body.password) {
     res.status(400).send({ success: false, msg: 'Please provide username and password.' });
   } else {
     const newUser = new User({
