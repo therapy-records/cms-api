@@ -7,15 +7,12 @@ const JWT_EXPIRY_DATE = '7 days';
 
 /* istanbul ignore next */
 function getAuthToken(req, res) {
-  if (req.body.username !== VALID_USERNAME) {
-    res.json({ success: false, msg: 'userNotFound' });
-  }
   return User.findOne({
     username: req.body.username
   }, (err, usr) => {
     if (err) throw err;
-    if (!usr) {
-      res.status(400).send({ success: false, msg: 'userNotFound' });
+    if (!usr || usr.username !== VALID_USERNAME) {
+      res.send({ success: false, msg: 'userNotFound' });
     } else {
       usr.comparePassword(req.body.password, (cPErr, isMatch) => {
         if (isMatch && !cPErr) {
@@ -24,10 +21,10 @@ function getAuthToken(req, res) {
             if (jwtErr) {
               return jwtErr;
             }
-            res.json({ success: true, token: `JWT ${token}`, userId: usr._id });
+            res.send({ success: true, token: `JWT ${token}`, userId: usr._id });
           });
         } else {
-          res.json({ success: false, msg: 'incorrectPassword' });
+          res.send({ success: false, msg: 'incorrectPassword' });
         }
       });
     }
