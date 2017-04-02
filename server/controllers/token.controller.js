@@ -46,6 +46,4 @@ function checkToken(req, res) {
   return res.status(403).send({ success: false, msg: 'No token provided.' });
 }
 
-export default {
-  checkToken
-};
+export default checkToken;

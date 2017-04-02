@@ -1,5 +1,5 @@
 import News from '../models/news.model';
-import tokenCtrl from './token.controller';
+import checkToken from './token.controller';
 
 /**
  * Load news and append to req.
@@ -24,7 +24,7 @@ function getPost(req, res) {
 /**
  * Create new post
  * @property {string} req.body.newsname - The newsname of news.
- * @property {string} req.body.mobileNumber - The mobileNumber of news.
+ * @property {object} req.body.mainBody - The html content of news post.
  * @returns {newsPost}
  */
 function createPost(req, res, next) {
@@ -35,7 +35,7 @@ function createPost(req, res, next) {
     // editedAt: req.body.editedAt
   });
 
-  return tokenCtrl.checkToken(req, res, next)
+  checkToken(req, res, next)
     .then(() => {
       news.save()
         .then((savedPost) => {
@@ -47,7 +47,7 @@ function createPost(req, res, next) {
 /**
  * Update existing news
  * @property {string} req.body.newsname - The newsname of news.
- * @property {string} req.body.mobileNumber - The mobileNumber of news.
+ * @property {object} req.body.mainBody - The html content of news post.
  * @returns {news}
  */
 function updatePost(req, res, next) {
@@ -71,7 +71,7 @@ function getAllPosts(req, res, next) {
 }
 
 /**
- * Delete news.
+ * Delete news
  * @returns {news}
  */
 function removePost(req, res, next) {
