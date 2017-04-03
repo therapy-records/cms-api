@@ -6,13 +6,13 @@ const VALID_USERNAME = 'admin';
 const JWT_EXPIRY_DATE = '7 days';
 
 /* istanbul ignore next */
-function getAuthToken(req, res) {
+function createAuthToken(req, res) {
   return User.findOne({
     username: req.body.username
   }, (err, usr) => {
     if (err) throw err;
     if (!usr || usr.username !== VALID_USERNAME) {
-      res.send({ success: false, msg: 'userNotFound' });
+      res.send(401, { success: false, msg: 'userNotFound' });
     } else {
       usr.comparePassword(req.body.password, (cPErr, isMatch) => {
         if (isMatch && !cPErr) {
@@ -31,4 +31,4 @@ function getAuthToken(req, res) {
   });
 }
 
-export default { getAuthToken };
+export default createAuthToken;
