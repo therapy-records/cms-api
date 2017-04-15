@@ -29,8 +29,8 @@ const NewsSchema = new mongoose.Schema({
 NewsSchema.statics = {
   /**
    * Get single news post
-   * @param {ObjectId} id - The objectId of user.
-   * @returns {Promise<User, APIError>}
+   * @param {ObjectId} id - The objectId of post.
+   * @returns {Promise<Post, APIError>}
    */
   getSingle(id) {
     return this.findById(id)
@@ -42,10 +42,28 @@ NewsSchema.statics = {
         const err = new APIError('No such post exists', httpStatus.NOT_FOUND);
         return Promise.reject(err);
       });
+  },
+
+  /**
+   * Edit single news post
+   * @param {ObjectId} id - The objectId of post.
+   * @returns {Promise<Post, APIError>}
+   */
+  edit(obj) {
+    return this.findOneAndUpdate({ _id: obj._id },
+      obj, { new: true })
+      .exec()
+      .then((updatedPost) => {
+        if (updatedPost) {
+          return updatedPost;
+        }
+        const err = new APIError('Error saving post', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
   }
 };
 
 /**
- * @typedef User
+ * @typedef Post
  */
 export default mongoose.model('Post', NewsSchema);

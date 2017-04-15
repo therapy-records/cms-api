@@ -53,4 +53,25 @@ describe('## News APIs', () => {
         .catch(done);
     });
   });
+
+  describe('# PUT /api/news', () => {
+    it('should edit a post', (done) => {
+      const newPost = {
+        title: 'updated post title',
+        mainBody: '<p>something</p>'
+      };
+      request(app)
+        .put('/api/news/58f1ed7dc2d168865d732793')
+        .send(newPost)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.title).to.equal(newPost.title);
+          expect(res.body.mainBody).to.equal(newPost.mainBody);
+          expect(res.body.editedAt).to.exist();
+          news = res.body;
+          done();
+        })
+        .catch(done);
+    });
+  });
 });

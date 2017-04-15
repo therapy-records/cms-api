@@ -20,7 +20,9 @@ router.route('/:postId')
   .get(newsCtrl.getPost)
 
   /** PUT /api/news/:postId - Update post */
-  .put(newsCtrl.updatePost)
+  .put(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    newsCtrl.editPost(req, res, next);
+  })
 
   /** DELETE /api/news/:postId - Delete post */
   .delete(newsCtrl.removePost);

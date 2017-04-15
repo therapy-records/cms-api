@@ -1,5 +1,5 @@
 import News from '../models/news.model';
-import checkToken from './token.controller';
+import checkToken, { verifyToken } from './token.controller';
 
 /**
  * Load news and append to req.
@@ -46,22 +46,22 @@ function createPost(req, res, next) {
 
 /**
  * Update existing news
- * @property {string} req.body.newsname - The newsname of news.
- * @property {object} req.body.mainBody - The html content of news post.
+ * @property {string} req.body.title
+ * @property {object} req.body.mainBody
  * @returns {news}
  */
-function updatePost(req, res, next) {
-  const news = req.news;
-  news.newsname = req.body.newsname;
-  news.mobileNumber = req.body.mobileNumber;
-
-  news.save()
-    .then(savednews => res.json(savednews))
-    .catch(e => next(e));
+function editPost(req, res, next) {
+  return verifyToken(req, res, next)
+    .then(() => {
+      req.body.editedAt = new Date(); // eslint-disable-line no-param-reassign
+      News.edit(req.body)
+        .then(savedPost => res.json(savedPost))
+        .catch(e => next(e));
+    });
 }
 
 /**
- * Get news posts
+ * Get all news posts
  * @returns {news[]}
  */
 function getAllPosts(req, res, next) {
@@ -81,4 +81,4 @@ function removePost(req, res, next) {
     .catch(e => next(e));
 }
 
-export default { loadPost, getPost, createPost, updatePost, getAllPosts, removePost };
+export default { loadPost, getPost, createPost, editPost, getAllPosts, removePost };
