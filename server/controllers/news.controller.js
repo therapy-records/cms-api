@@ -72,13 +72,15 @@ function getAllPosts(req, res, next) {
 
 /**
  * Delete news
- * @returns {news}
+ * @returns {message}
  */
-function removePost(req, res, next) {
-  const news = req.news;
-  news.remove()
-    .then(deletedPost => res.json(deletedPost))
-    .catch(e => next(e));
+function removePost(req, res) {
+  News.findByIdAndRemove(req.params.postId, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ message: 'Post deleted' });
+  });
 }
 
 export default { loadPost, getPost, createPost, editPost, getAllPosts, removePost };
