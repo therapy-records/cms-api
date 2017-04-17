@@ -1,7 +1,7 @@
 import express from 'express';
+import validate from 'express-validation';
 import passport from 'passport';
-// import validate from 'express-validation';
-// import paramValidation from '../../config/param-validation';
+import paramValidation from '../../config/param-validation';
 import newsCtrl from '../controllers/news.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -20,9 +20,10 @@ router.route('/:postId')
   .get(newsCtrl.getPost)
 
   /** PUT /api/news/:postId - Update post */
-  .put(passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    newsCtrl.editPost(req, res, next);
-  })
+  .put(validate(paramValidation.editNewsPost),
+    passport.authenticate('jwt', { session: false }), (req, res, next) => {
+      newsCtrl.editPost(req, res, next);
+    })
 
   /** DELETE /api/news/:postId - Delete post */
   .delete(newsCtrl.removePost);

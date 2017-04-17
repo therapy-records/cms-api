@@ -51,7 +51,7 @@ function createPost(req, res, next) {
  * @returns {news}
  */
 function editPost(req, res, next) {
-  return verifyToken(req, res, next)
+  verifyToken(req, res, next)
     .then(() => {
       req.body.editedAt = new Date(); // eslint-disable-line no-param-reassign
       News.edit(req.body)

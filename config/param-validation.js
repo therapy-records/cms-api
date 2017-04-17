@@ -1,6 +1,13 @@
 import Joi from 'joi';
 
 export default {
+  // PUT /api/news/:id
+  editNewsPost: {
+    body: {
+      title: Joi.string().required(),
+      mainBody: Joi.string().required()
+    }
+  },
   // POST /api/users
   createUser: {
     body: {
