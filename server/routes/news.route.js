@@ -26,11 +26,15 @@ router.route('/:postId')
     })
 
   /** DELETE /api/news/:postId - Delete post */
-  .delete(newsCtrl.removePost);
+  .delete(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    newsCtrl.removePost(req, res, next);
+  });
 
 router.route('/create')
   /** POST /api/news/create - Create new post */
-  .post(newsCtrl.createPost);
+  .post(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    newsCtrl.createPost(req, res, next);
+  });
 
 /** Load post when API with postId route parameter is hit */
 router.param('postId', newsCtrl.loadPost);
