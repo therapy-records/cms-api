@@ -8,7 +8,7 @@ const NewsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  mainBody: {
+  bodyMain: {
     type: Object,
     required: true
   },
@@ -18,9 +18,18 @@ const NewsSchema = new mongoose.Schema({
   editedAt: {
     type: Date
   },
-  imageUrl: {
+  ticketsLink: {
     type: String
-  }
+  },
+  venueLink: {
+    type: String
+  },
+  videoEmbed: {
+    type: String
+  },
+  // imageUrl: {
+  //   type: String
+  // }
 });
 
 /**

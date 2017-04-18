@@ -20,8 +20,11 @@ after((done) => {
 describe('## News APIs', () => {
   let news = {
     title: 'first post',
-    mainBody: '{asdf:true}',
-    createdAt: new Date()
+    bodyMain: '{asdf:true}',
+    createdAt: new Date(),
+    ticketsLink: 'http://google.com',
+    venueLink: 'http://yahoo.com',
+    videoEmbed: 'http://youtube.com/asdf'
   };
 
   describe('# GET /api/news', () => {
@@ -46,7 +49,10 @@ describe('## News APIs', () => {
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body.title).to.equal(news.title);
-          expect(res.body.mainBody).to.equal(news.mainBody);
+          expect(res.body.bodyMain).to.equal(news.bodyMain);
+          expect(res.body.ticketsLink).to.equal(news.ticketsLink);
+          expect(res.body.venueLink).to.equal(news.venueLink);
+          expect(res.body.videoEmbed).to.equal(news.videoEmbed);
           news = res.body;
           done();
         })
@@ -58,7 +64,7 @@ describe('## News APIs', () => {
     it('should edit a post', (done) => {
       const newPost = {
         title: 'updated post title',
-        mainBody: '<p>something</p>'
+        bodyMain: '<p>something</p>'
       };
       request(app)
         .put('/api/news/58f1ed7dc2d168865d732793')
@@ -66,7 +72,7 @@ describe('## News APIs', () => {
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body.title).to.equal(newPost.title);
-          expect(res.body.mainBody).to.equal(newPost.mainBody);
+          expect(res.body.bodyMain).to.equal(newPost.bodyMain);
           expect(res.body.editedAt).to.exist();
           news = res.body;
           done();

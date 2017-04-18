@@ -24,13 +24,13 @@ function getPost(req, res) {
 /**
  * Create new post
  * @property {string} req.body.newsname - The newsname of news.
- * @property {object} req.body.mainBody - The html content of news post.
+ * @property {object} req.body.bodyMain - The html content of news post.
  * @returns {newsPost}
  */
 function createPost(req, res, next) {
   const news = new News({
     title: req.body.title,
-    mainBody: req.body.mainBody,
+    bodyMain: req.body.bodyMain,
     createdAt: new Date()
     // editedAt: req.body.editedAt
   });
@@ -47,7 +47,7 @@ function createPost(req, res, next) {
 /**
  * Update existing news
  * @property {string} req.body.title
- * @property {object} req.body.mainBody
+ * @property {object} req.body.bodyMain
  * @returns {news}
  */
 function editPost(req, res, next) {

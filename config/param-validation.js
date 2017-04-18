@@ -5,7 +5,7 @@ export default {
   editNewsPost: {
     body: {
       title: Joi.string().required(),
-      mainBody: Joi.string().required()
+      bodyMain: Joi.string().required()
     }
   },
   // POST /api/users
