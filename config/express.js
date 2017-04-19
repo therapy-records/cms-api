@@ -33,8 +33,11 @@ app.use(methodOverride());
 // secure apps by setting various HTTP headers
 app.use(helmet());
 
-// enable CORS - Cross Origin Resource Sharing
-app.use(cors());
+app.use(cors({
+  // TODO for prod: add CMS domain
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}));
 
 // enable detailed API logging in dev env
 if (config.env === 'development') {
