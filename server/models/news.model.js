@@ -27,9 +27,9 @@ const NewsSchema = new mongoose.Schema({
   videoEmbed: {
     type: String
   },
-  // imageUrl: {
-  //   type: String
-  // }
+  mainImageUrl: {
+    type: String
+  }
 });
 
 /**

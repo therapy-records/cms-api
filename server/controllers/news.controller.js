@@ -1,5 +1,5 @@
 import News from '../models/news.model';
-import checkToken, { verifyToken } from './token.controller';
+import { verifyToken } from './token.controller';
 
 /**
  * Load news and append to req.
@@ -31,16 +31,17 @@ function createPost(req, res, next) {
   const news = new News({
     title: req.body.title,
     bodyMain: req.body.bodyMain,
+    mainImageUrl: req.body.mainImageUrl,
     createdAt: new Date()
-    // editedAt: req.body.editedAt
   });
 
-  checkToken(req, res, next)
+  verifyToken(req, res, next)
     .then(() => {
       news.save()
         .then((savedPost) => {
           res.json(savedPost);
-        });
+        })
+        .catch(e => next(e));
     });
 }
 
