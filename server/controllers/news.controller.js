@@ -32,6 +32,7 @@ function createPost(req, res, next) {
     title: req.body.title,
     bodyMain: req.body.bodyMain,
     mainImageUrl: req.body.mainImageUrl,
+    miniGalleryImages: req.body.miniGalleryImages,
     createdAt: new Date()
   });
 

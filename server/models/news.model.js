@@ -29,6 +29,9 @@ const NewsSchema = new mongoose.Schema({
   },
   mainImageUrl: {
     type: String
+  },
+  miniGalleryImages: {
+    type: Array
   }
 });
 
