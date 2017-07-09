@@ -1,4 +1,5 @@
 import News from '../models/news.model';
+import NewsQueue from '../models/newsQueue.model';
 import { verifyToken } from './token.controller';
 
 /**
@@ -36,6 +37,32 @@ function createPost(req, res, next) {
     createdAt: new Date()
   });
 
+  verifyToken(req, res, next)
+    .then(() => {
+      news.save()
+        .then((savedPost) => {
+          res.json(savedPost);
+        })
+        .catch(e => next(e));
+    });
+}
+
+
+/**
+ * Create new post
+ * @property {string} req.body.newsname - The newsname of news.
+ * @property {object} req.body.bodyMain - The html content of news post.
+ * @returns {newsPost}
+ */
+function createPostQueue(req, res, next) {
+  const news = new NewsQueue({
+    title: req.body.title,
+    bodyMain: req.body.bodyMain,
+    mainImageUrl: req.body.mainImageUrl,
+    miniGalleryImages: req.body.miniGalleryImages,
+    createdAt: req.body.scheduledTime,
+    scheduledTime: req.body.scheduledTime
+  });
   verifyToken(req, res, next)
     .then(() => {
       news.save()
@@ -85,4 +112,12 @@ function removePost(req, res) {
   });
 }
 
-export default { loadPost, getPost, createPost, editPost, getAllPosts, removePost };
+export default {
+  loadPost,
+  getPost,
+  createPost,
+  createPostQueue,
+  editPost,
+  getAllPosts,
+  removePost
+};

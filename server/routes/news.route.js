@@ -15,6 +15,12 @@ router.route('/')
     newsCtrl.createPost(req, res, next);
   });
 
+router.route('/queue')
+  /** POST /api/news/queue - Create new post in queue*/
+  .post(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    newsCtrl.createPostQueue(req, res, next);
+  });
+
 router.route('/:postId')
   /** GET /api/news/:postId - Get post */
   .get(newsCtrl.getPost)

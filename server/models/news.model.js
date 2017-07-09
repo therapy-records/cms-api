@@ -2,38 +2,9 @@ import Promise from 'bluebird';
 import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import APIError from '../helpers/APIError';
+import _NewsSchema from './newsSchema';
 
-const NewsSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  bodyMain: {
-    type: Object,
-    required: true
-  },
-  createdAt: {
-    type: Date
-  },
-  editedAt: {
-    type: Date
-  },
-  ticketsLink: {
-    type: String
-  },
-  venueLink: {
-    type: String
-  },
-  videoEmbed: {
-    type: String
-  },
-  mainImageUrl: {
-    type: String
-  },
-  miniGalleryImages: {
-    type: Array
-  }
-});
+const NewsSchema = _NewsSchema();
 
 /**
  * Statics
