@@ -1,5 +1,5 @@
 import News from '../models/news.model';
-import NewsQueue from '../models/newsQueue.model';
+import QueueNewsPost from '../models/queueNewsPost.model';
 import { verifyToken } from './token.controller';
 
 /**
@@ -55,7 +55,7 @@ function createPost(req, res, next) {
  * @returns {newsPost}
  */
 function createPostQueue(req, res, next) {
-  const news = new NewsQueue({
+  const news = new QueueNewsPost({
     title: req.body.title,
     bodyMain: req.body.bodyMain,
     mainImageUrl: req.body.mainImageUrl,

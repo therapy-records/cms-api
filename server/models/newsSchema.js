@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-const NewsSchema = (add) => {
+const NewsSchema = (add, collectionName) => {
+  const _collectionName = collectionName ? { collection: collectionName } : {};
+
   const schema = mongoose.Schema({ // eslint-disable-line new-cap
     title: {
       type: String,
@@ -31,7 +33,7 @@ const NewsSchema = (add) => {
     miniGalleryImages: {
       type: Array
     }
-  });
+  }, _collectionName);
 
   if (add) {
     schema.add(add);
