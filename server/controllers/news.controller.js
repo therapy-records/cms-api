@@ -100,6 +100,16 @@ function getAllPosts(req, res, next) {
 }
 
 /**
+ * Get all queue posts
+ * @returns {news[]}
+ */
+function getAllPostsQueue(req, res, next) {
+  QueueNewsPost.find()
+  .then(news => res.json(news))
+  .catch(e => next(e));
+}
+
+/**
  * Delete news
  * @returns {message}
  */
@@ -119,5 +129,6 @@ export default {
   createPostQueue,
   editPost,
   getAllPosts,
+  getAllPostsQueue,
   removePost
 };
