@@ -122,6 +122,19 @@ function removePost(req, res) {
   });
 }
 
+/**
+ * Delete queue post
+ * @returns {message}
+ */
+function removeQueuePost(req, res) {
+  QueueNewsPost.findByIdAndRemove(req.params.queuePostId, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ message: 'Post deleted' });
+  });
+}
+
 export default {
   loadPost,
   getPost,
@@ -130,5 +143,6 @@ export default {
   editPost,
   getAllPosts,
   getAllPostsQueue,
-  removePost
+  removePost,
+  removeQueuePost
 };

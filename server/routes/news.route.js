@@ -25,6 +25,12 @@ router.route('/queue')
     newsCtrl.createPostQueue(req, res, next);
   });
 
+router.route('/queue/:queuePostId')
+  /** DELETE /api/news/queue/:queuePostId - Delete post in queue */
+  .delete(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    newsCtrl.removeQueuePost(req, res, next);
+  });
+
 router.route('/:postId')
   /** GET /api/news/:postId - Get post */
   .get(newsCtrl.getPost)
