@@ -28,8 +28,15 @@ router.route('/queue')
 router.route('/queue/:queuePostId')
   /** DELETE /api/news/queue/:queuePostId - Delete post in queue */
   .delete(passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    newsCtrl.removeQueuePost(req, res, next);
-  });
+    newsCtrl.removePostQueue(req, res, next);
+  })
+
+  /** PUT /api/news/:postId - Update post */
+  .put(validate(paramValidation.editNewsPost),
+    passport.authenticate('jwt', { session: false }), (req, res, next) => {
+      newsCtrl.editPostQueue(req, res, next);
+    });
+
 
 router.route('/:postId')
   /** GET /api/news/:postId - Get post */
@@ -53,6 +60,10 @@ router.route('/create')
   });
 
 /** Load post when API with postId route parameter is hit */
-router.param('postId', newsCtrl.loadPost);
+// router.param('postId', newsCtrl.loadPost);
+
+/** Load post when API with queuePostId route parameter is hit */
+router.param('queuePostId', newsCtrl.loadPostQueue);
+
 
 export default router;

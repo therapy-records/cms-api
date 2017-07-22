@@ -15,6 +15,18 @@ function loadPost(req, res, next, id) {
 }
 
 /**
+ * Load queue post and append to req.
+ */
+function loadPostQueue(req, res, next, id) {
+  QueueNewsPost.getSingle(id)
+    .then((post) => {
+      req.post = post; // eslint-disable-line no-param-reassign
+      return next();
+    })
+    .catch(e => next(e));
+}
+
+/**
  * Get news post
  * @returns {post}
  */
@@ -90,6 +102,22 @@ function editPost(req, res, next) {
 }
 
 /**
+ * Update existing queue post
+ * @property {string} req.body.title
+ * @property {object} req.body.bodyMain
+ * @returns {news}
+ */
+function editPostQueue(req, res, next) {
+  verifyToken(req, res, next)
+    .then(() => {
+      req.body.editedAt = new Date(); // eslint-disable-line no-param-reassign
+      QueueNewsPost.edit(req.body)
+        .then(savedPost => res.json(savedPost))
+        .catch(e => next(e));
+    });
+}
+
+/**
  * Get all news posts
  * @returns {news[]}
  */
@@ -126,7 +154,7 @@ function removePost(req, res) {
  * Delete queue post
  * @returns {message}
  */
-function removeQueuePost(req, res) {
+function removePostQueue(req, res) {
   QueueNewsPost.findByIdAndRemove(req.params.queuePostId, (err) => {
     if (err) {
       res.status(500).send(err);
@@ -137,12 +165,14 @@ function removeQueuePost(req, res) {
 
 export default {
   loadPost,
+  loadPostQueue,
   getPost,
   createPost,
   createPostQueue,
   editPost,
+  editPostQueue,
   getAllPosts,
   getAllPostsQueue,
   removePost,
-  removeQueuePost
+  removePostQueue,
 };
