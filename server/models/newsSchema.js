@@ -30,6 +30,9 @@ const NewsSchema = (add, collectionName) => {
     mainImageUrl: {
       type: String
     },
+    secondaryImageUrl: {
+      type: String
+    },
     miniGalleryImages: {
       type: Array
     }

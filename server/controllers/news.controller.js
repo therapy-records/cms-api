@@ -45,6 +45,7 @@ function createPost(req, res, next) {
     title: req.body.title,
     bodyMain: req.body.bodyMain,
     mainImageUrl: req.body.mainImageUrl,
+    secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
     createdAt: new Date()
   });
@@ -71,6 +72,7 @@ function createPostQueue(req, res, next) {
     title: req.body.title,
     bodyMain: req.body.bodyMain,
     mainImageUrl: req.body.mainImageUrl,
+    secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
     createdAt: req.body.scheduledTime,
     scheduledTime: req.body.scheduledTime
