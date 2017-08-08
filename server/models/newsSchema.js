@@ -35,6 +35,11 @@ const NewsSchema = (add, collectionName) => {
     },
     miniGalleryImages: {
       type: Array
+    },
+    socialShare: {
+      hashtags: {
+        type: Array
+      }
     }
   }, _collectionName);
 

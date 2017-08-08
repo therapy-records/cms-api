@@ -47,6 +47,7 @@ function createPost(req, res, next) {
     mainImageUrl: req.body.mainImageUrl,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
+    socialShare: req.body.socialShare,
     createdAt: new Date()
   });
 
