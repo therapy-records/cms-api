@@ -60,7 +60,7 @@ router.route('/create')
   });
 
 /** Load post when API with postId route parameter is hit */
-// router.param('postId', newsCtrl.loadPost);
+router.param('postId', newsCtrl.loadPost);
 
 /** Load post when API with queuePostId route parameter is hit */
 router.param('queuePostId', newsCtrl.loadPostQueue);
