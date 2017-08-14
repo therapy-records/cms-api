@@ -27,8 +27,8 @@ const NewsSchema = (add, collectionName) => {
     videoEmbed: {
       type: String
     },
-    mainImageUrl: {
-      type: String
+    mainImage: {
+      type: Object
     },
     secondaryImageUrl: {
       type: String
