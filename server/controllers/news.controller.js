@@ -72,7 +72,7 @@ function createPostQueue(req, res, next) {
   const news = new QueueNewsPost({
     title: req.body.title,
     bodyMain: req.body.bodyMain,
-    mainImageUrl: req.body.mainImageUrl,
+    mainImage: req.body.mainImage,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
     createdAt: req.body.scheduledTime,
