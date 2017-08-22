@@ -44,6 +44,7 @@ function createPost(req, res, next) {
   const news = new News({
     title: req.body.title,
     bodyMain: req.body.bodyMain,
+    quotes: req.body.quotes,
     mainImage: req.body.mainImage,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
@@ -72,6 +73,7 @@ function createPostQueue(req, res, next) {
   const news = new QueueNewsPost({
     title: req.body.title,
     bodyMain: req.body.bodyMain,
+    quotes: req.body.quotes,
     mainImage: req.body.mainImage,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,

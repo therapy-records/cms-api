@@ -12,6 +12,9 @@ const NewsSchema = (add, collectionName) => {
       type: Object,
       required: true
     },
+    quotes: {
+      type: Array
+    },
     createdAt: {
       type: Date
     },
