@@ -35,7 +35,7 @@ app.use(helmet());
 
 app.use(cors({
   // TODO for prod: add CMS domain
-  origin: 'http://localhost:3000',
+  origin: config.corsOrigin,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
 

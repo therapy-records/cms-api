@@ -1,6 +1,12 @@
+import dotenv from 'dotenv';
+
+dotenv.load();
+
 export default {
   env: 'production',
-  jwtSecret: '0a6b944d-d2fb-46fc-a85e-0295c986cd9f',
-  db: 'mongodb://localhost/express-mongoose-es6-rest-api-production',
-  port: 4040
+  jwtSecret: process.env.JWT_SECRET,
+  db: process.env.DB_HOST,
+  port: 4040,
+  corsOrigin: process.env.CORS_ORIGIN,
+  validUn: process.env.VALID_UN
 };

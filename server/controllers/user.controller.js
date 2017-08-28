@@ -1,7 +1,5 @@
 import User from '../models/user.model';
 
-const VALID_USERNAME = 'admin';
-
 /**
  * Load user and append to req.
  */
@@ -27,10 +25,10 @@ function get(req, res) {
  * @property {string} req.body.username - The username of user.
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
  * @returns {User}
- */
+
 function create(req, res) {
   if (!req.body.username ||
-      req.body.username !== VALID_USERNAME ||
+      req.body.username !== config.validUn ||
       !req.body.password) {
     res.status(400).send({ success: false, msg: 'Please provide username and password.' });
   } else {
@@ -47,13 +45,14 @@ function create(req, res) {
   }
   return res.status(400).send({ success: false, msg: 'Error.' });
 }
+*/
 
 /**
  * Update existing user
  * @property {string} req.body.username - The username of user.
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
  * @returns {User}
- */
+
 function update(req, res, next) {
   const user = req.user;
   user.username = req.body.username;
@@ -62,29 +61,18 @@ function update(req, res, next) {
     .then(savedUser => res.json(savedUser))
     .catch(e => next(e));
 }
-
-/**
- * Get user list.
- * @property {number} req.query.skip - Number of users to be skipped.
- * @property {number} req.query.limit - Limit number of users to be returned.
- * @returns {User[]}
  */
-function list(req, res, next) {
-  const { limit = 50, skip = 0 } = req.query;
-  User.list({ limit, skip })
-    .then(users => res.json(users))
-    .catch(e => next(e));
-}
 
 /**
  * Delete user.
  * @returns {User}
- */
+
 function remove(req, res, next) {
   const user = req.user;
   user.remove()
     .then(deletedUser => res.json(deletedUser))
     .catch(e => next(e));
 }
+ */
 
-export default { load, get, create, update, list, remove };
+export default { load, get };

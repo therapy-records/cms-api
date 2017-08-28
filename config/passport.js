@@ -9,7 +9,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 module.exports = (passport) => {
   const opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
-  opts.secretOrKey = config.secret;
+  opts.secretOrKey = config.jwtSecret;
   passport.use(new JwtStrategy(opts, (jwtPayload, done) => {
     User.findOne({ id: jwtPayload.sub }, (err, user) => {
       if (err) {
