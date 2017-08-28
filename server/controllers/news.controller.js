@@ -41,15 +41,26 @@ function getPost(req, res) {
  * @returns {newsPost}
  */
 function createPost(req, res, next) {
+  const _mainImage = {
+    url: req.body.mainImage.url,
+    externalLink: req.body.mainImage.externalLink
+  };
+  if (req.body.ticketsLink &&
+      req.body.mainImage.url &&
+     !req.body.mainImage.externalLink) {
+    _mainImage.externalLink = req.body.ticketsLink;
+  }
   const news = new News({
     title: req.body.title,
     bodyMain: req.body.bodyMain,
     quotes: req.body.quotes,
-    mainImage: req.body.mainImage,
+    mainImage: _mainImage,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
     socialShare: req.body.socialShare,
-    createdAt: new Date()
+    createdAt: new Date(),
+    ticketsLink: req.body.ticketsLink,
+    venueLink: req.body.venueLink
   });
 
   verifyToken(req, res, next)
@@ -62,7 +73,6 @@ function createPost(req, res, next) {
     });
 }
 
-
 /**
  * Create new post
  * @property {string} req.body.newsname - The newsname of news.
@@ -70,15 +80,26 @@ function createPost(req, res, next) {
  * @returns {newsPost}
  */
 function createPostQueue(req, res, next) {
+  const _mainImage = {
+    url: req.body.mainImage.url,
+    externalLink: req.body.mainImage.externalLink
+  };
+  if (req.body.ticketsLink &&
+      req.body.mainImage.url &&
+     !req.body.mainImage.externalLink) {
+    _mainImage.externalLink = req.body.ticketsLink;
+  }
   const news = new QueueNewsPost({
     title: req.body.title,
     bodyMain: req.body.bodyMain,
     quotes: req.body.quotes,
-    mainImage: req.body.mainImage,
+    mainImage: _mainImage,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
     createdAt: req.body.scheduledTime,
-    scheduledTime: req.body.scheduledTime
+    scheduledTime: req.body.scheduledTime,
+    ticketsLink: req.body.ticketsLink,
+    venueLink: req.body.venueLink
   });
   verifyToken(req, res, next)
     .then(() => {
