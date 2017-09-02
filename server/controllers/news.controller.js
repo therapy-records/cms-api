@@ -2,6 +2,16 @@ import News from '../models/news.model';
 import QueueNewsPost from '../models/queueNewsPost.model';
 import { verifyToken } from './token.controller';
 
+
+/**
+ * Create a url friendly string
+ * @property string: 'Hello World Test'
+ * @returns 'hello-world-test'
+ */
+function urlFriendlyString(str) {
+  return str.replace(/\s+/g, '-').toLowerCase();
+}
+
 /**
  * Load news and append to req.
  */
@@ -52,6 +62,7 @@ function createPost(req, res, next) {
   }
   const news = new News({
     title: req.body.title,
+    urlTitle: urlFriendlyString(req.body.title),
     bodyMain: req.body.bodyMain,
     quotes: req.body.quotes,
     mainImage: _mainImage,
@@ -91,6 +102,7 @@ function createPostQueue(req, res, next) {
   }
   const news = new QueueNewsPost({
     title: req.body.title,
+    urlTitle: urlFriendlyString(req.body.title),
     bodyMain: req.body.bodyMain,
     quotes: req.body.quotes,
     mainImage: _mainImage,

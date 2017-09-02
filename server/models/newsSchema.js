@@ -8,6 +8,10 @@ const NewsSchema = (add, collectionName) => {
       type: String,
       required: true
     },
+    urlTitle: {
+      type: String,
+      required: true
+    },
     bodyMain: {
       type: Object,
       required: true
