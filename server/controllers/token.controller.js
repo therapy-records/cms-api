@@ -40,7 +40,7 @@ function checkToken(req, res) {
         return res.status(403).send({ errorCheckingToken: true });
       }
       if (user) {
-        return res.status(200).send({ success: true, user });
+        return res.status(200).send({ success: true });
       }
       return err;
     });
