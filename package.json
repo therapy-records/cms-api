@@ -72,6 +72,7 @@
     "morgan": "1.7.0",
     "passport": "0.3.2",
     "passport-jwt": "2.2.1",
+    "run-sequence": "^2.1.0",
     "winston": "2.3.0"
   },
   "devDependencies": {
@@ -87,7 +88,6 @@
     "ghooks": "^1.2.4",
     "isparta": "4.0.0",
     "mocha": "3.2.0",
-    "run-sequence": "^1.1.5",
     "supertest": "2.0.1",
     "supertest-as-promised": "4.0.2",
     "validate-commit-msg": "^2.6.1"
