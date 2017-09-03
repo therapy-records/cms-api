@@ -34,10 +34,14 @@ app.use(methodOverride());
 app.use(helmet());
 
 app.use(cors({
-  // TODO for prod: add CMS domain
   origin: config.corsOrigin,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', config.corsOrigin);
+  next();
+});
 
 // enable detailed API logging in dev env
 if (config.env === 'development') {
