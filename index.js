@@ -3,6 +3,8 @@ import util from 'util';
 import config from './config/env';
 import app from './config/express';
 
+const port = process.env.PORT || config.port;
+
 const debug = require('debug')('express-mongoose-es6-rest-api:index');
 
 // make bluebird default Promise
@@ -29,7 +31,7 @@ if (config.MONGOOSE_DEBUG) {
 if (!module.parent) {
   // listen on port config.port
   app.listen(config.port, () => {
-    debug(`server started on port ${config.port} (${config.env})`);
+    debug(`server started on port ${port} (${config.env})`);
   });
 }
 

@@ -6,7 +6,7 @@ export default {
   env: 'production',
   jwtSecret: process.env.JWT_SECRET,
   db: process.env.DB_HOST,
-  port: 2000,
+  port: 3000,
   corsOrigin: process.env.CORS_ORIGIN,
   validUn: process.env.VALID_UN
 };
