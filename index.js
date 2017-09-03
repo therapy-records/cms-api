@@ -3,7 +3,7 @@ import util from 'util';
 import config from './config/env';
 import app from './config/express';
 
-const port = process.env.PORT || config.port;
+const port = process.env.PORT || config.port || 3000;
 
 const debug = require('debug')('express-mongoose-es6-rest-api:index');
 
@@ -27,7 +27,7 @@ if (config.MONGOOSE_DEBUG) {
 }
 
 // listen on port config.port
-app.listen('3000', () => {
+app.listen(port, () => {
   debug(`server started on port ${port} (${config.env})`);
 });
 
