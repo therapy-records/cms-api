@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import collaboratorsCtrl from '../controllers/collaborators.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -9,13 +10,19 @@ router.route('/')
 
 router.route('/:collaboratorId')
   /** GET /api/collaborators/:id - Get collaborator */
-  .get(collaboratorsCtrl.getSingle)
+  .get(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    collaboratorsCtrl.getSingle(req, res, next);
+  })
 
   /** PUT /api/collaborators/:id - Edit collaborator */
-  .put(collaboratorsCtrl.editSingle)
+  .put(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    collaboratorsCtrl.editSingle(req, res, next);
+  })
 
   /** DELETE /api/collaborators/:id - Delete collaborator */
-  .delete(collaboratorsCtrl.removeSingle);
+  .delete(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    collaboratorsCtrl.removeSingle(req, res, next);
+  });
 
 router.param('collaboratorId', collaboratorsCtrl.loadSingle);
 
