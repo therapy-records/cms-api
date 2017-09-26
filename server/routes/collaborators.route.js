@@ -6,7 +6,12 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /api/collaborators - Get all */
-  .get(collaboratorsCtrl.getAll);
+  .get(collaboratorsCtrl.getAll)
+
+  /** POST /api/collaborators - Create collaborator */
+  .post(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    collaboratorsCtrl.createSingle(req, res, next);
+  });
 
 router.route('/:collaboratorId')
   /** GET /api/collaborators/:id - Get collaborator */
