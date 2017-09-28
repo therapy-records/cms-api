@@ -161,8 +161,8 @@ function editPostQueue(req, res, next) {
  */
 function getAllPosts(req, res, next) {
   News.find()
-  .then(news => res.json(news))
-  .catch(e => next(e));
+    .then(news => res.json(news))
+    .catch(e => next(e));
 }
 
 /**
