@@ -6,12 +6,7 @@ import app from '../../index';
 
 chai.config.includeStack = true;
 
-// TODO: /id DELETE
-// TODO: news queue endpoints
-// TODO: news queue/id endpoints
-
 // TODO: get credentials from somewhere instead of in the code
-// also add task in trello board to ensure test/dev/prod credentials
 
 const MOCK = {
   AUTH_USER: {
