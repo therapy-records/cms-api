@@ -15,9 +15,7 @@ router.route('/')
 
 router.route('/:collaboratorId')
   /** GET /api/collaborators/:id - Get collaborator */
-  .get(passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    collaboratorsCtrl.getSingle(req, res, next);
-  })
+  .get(collaboratorsCtrl.getSingle)
 
   /** PUT /api/collaborators/:id - Edit collaborator */
   .put(passport.authenticate('jwt', { session: false }), (req, res, next) => {
