@@ -184,7 +184,7 @@ function removePost(req, res) {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ message: 'Post deleted' });
+    res.json({ message: 'Article deleted' });
   });
 }
 
@@ -197,7 +197,7 @@ function removePostQueue(req, res) {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ message: 'Post deleted' });
+    res.json({ message: 'Article (in queue) deleted' });
   });
 }
 

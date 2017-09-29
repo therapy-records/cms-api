@@ -138,4 +138,26 @@ describe('## Collaborators APIs', () => {
         .catch(done);
     });
   });
+  describe('# DELETE /api/collaborators/id', () => {
+    it('should return unauthorized when no token provided', (done) => {
+      request(app)
+        .delete(`/api/collaborators/${MOCK.EDITED_COLLABORATOR._id}`)
+        .send(MOCK.EDITED_COLLABORATOR)
+        .expect(httpStatus.UNAUTHORIZED)
+        .then(() => done())
+        .catch(done);
+    });
+    it('should remove a collaborator', (done) => {
+      request(app)
+        .delete(`/api/collaborators/${MOCK.EDITED_COLLABORATOR._id}`)
+        .set('Authorization', JWT_VALID)
+        .send(MOCK.EDITED_COLLABORATOR)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.message).to.equal('Collaborator deleted');
+          done();
+        })
+        .catch(done);
+    });
+  });
 });

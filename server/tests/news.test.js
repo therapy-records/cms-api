@@ -6,12 +6,11 @@ import app from '../../index';
 
 chai.config.includeStack = true;
 
-// TODO: /id DELETE
 // TODO: news queue endpoints
 // TODO: news queue/id endpoints
+// TODO: news queue delete
 
 // TODO: get credentials from somewhere instead of in the code
-// also add task in trello board to ensure test/dev/prod credentials
 
 const MOCK = {
   AUTH_USER: {
@@ -158,6 +157,29 @@ describe('## News APIs', () => {
           // TODO: test mainImage conditions
           expect(res.body.title).to.equal(MOCK.EDITED_NEWS_ARTICLE.title);
           expect(res.body.bodyMain).to.equal(MOCK.EDITED_NEWS_ARTICLE.bodyMain);
+          done();
+        })
+        .catch(done);
+    });
+  });
+
+  describe('# DELETE /api/news/id', () => {
+    it('should return unauthorized when no token provided', (done) => {
+      request(app)
+        .delete(`/api/news/${MOCK.EDITED_NEWS_ARTICLE._id}`)
+        .send(MOCK.EDITED_NEWS_ARTICLE)
+        .expect(httpStatus.UNAUTHORIZED)
+        .then(() => done())
+        .catch(done);
+    });
+    it('should remove an article', (done) => {
+      request(app)
+        .delete(`/api/news/${MOCK.EDITED_NEWS_ARTICLE._id}`)
+        .set('Authorization', JWT_VALID)
+        .send(MOCK.EDITED_NEWS_ARTICLE)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.message).to.equal('Article deleted');
           done();
         })
         .catch(done);
