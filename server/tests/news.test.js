@@ -95,7 +95,6 @@ describe('## News APIs', () => {
         .send(MOCK.NEWS_ARTICLE)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: test mainImage conditions
           const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE.title);
           expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE.title);
           expect(res.body.urlTitle).to.equal(expectedUrlTitle);
@@ -153,7 +152,6 @@ describe('## News APIs', () => {
         .send(MOCK.EDITED_NEWS_ARTICLE)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: test mainImage conditions
           const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE.title);
           expect(res.body.urlTitle).to.equal(expectedUrlTitle);
           expect(res.body.title).to.equal(MOCK.EDITED_NEWS_ARTICLE.title);
@@ -263,7 +261,6 @@ describe('## News APIs', () => {
         .send(MOCK.NEWS_ARTICLE_QUEUE)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: test mainImage conditions
           const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE_QUEUE.title);
           expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE_QUEUE.title);
           expect(res.body.urlTitle).to.equal(expectedUrlTitle);

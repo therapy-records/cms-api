@@ -1,7 +1,10 @@
 import News from '../models/news.model';
 import QueueNewsPost from '../models/queueNewsPost.model';
 import { verifyToken } from './token.controller';
-import { urlFriendlyString } from '../utils';
+import {
+  urlFriendlyString,
+  createNewsArticleMainImage
+} from '../utils';
 
 /**
  * Load news and append to req.
@@ -42,15 +45,11 @@ function getPost(req, res) {
  * @returns {newsPost}
  */
 function createPost(req, res, next) {
-  const _mainImage = {
-    url: req.body.mainImage && req.body.mainImage.url,
-    externalLink: req.body.mainImage && req.body.mainImage.externalLink
-  };
-  if (req.body.ticketsLink &&
-     (req.body.mainImage && req.body.mainImage.url) &&
-     !req.body.mainImage.externalLink) {
-    _mainImage.externalLink = req.body.ticketsLink;
-  }
+  const _mainImage = createNewsArticleMainImage(
+    req.body.mainImage,
+    req.body.ticketsLink
+  );
+
   const news = new News({
     title: req.body.title,
     urlTitle: urlFriendlyString(req.body.title),
@@ -82,15 +81,10 @@ function createPost(req, res, next) {
  * @returns {newsPost}
  */
 function createPostQueue(req, res, next) {
-  const _mainImage = {
-    url: req.body.mainImage && req.body.mainImage.url,
-    externalLink: req.body.mainImage && req.body.mainImage.externalLink
-  };
-  if (req.body.ticketsLink &&
-     (req.body.mainImage && req.body.mainImage.url) &&
-     !req.body.mainImage.externalLink) {
-    _mainImage.externalLink = req.body.ticketsLink;
-  }
+  const _mainImage = createNewsArticleMainImage(
+    req.body.mainImage,
+    req.body.ticketsLink
+  );
   const news = new QueueNewsPost({
     title: req.body.title,
     urlTitle: urlFriendlyString(req.body.title),
