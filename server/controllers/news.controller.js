@@ -1,16 +1,7 @@
 import News from '../models/news.model';
 import QueueNewsPost from '../models/queueNewsPost.model';
 import { verifyToken } from './token.controller';
-
-
-/**
- * Create a url friendly string
- * @property string: 'Hello World Test'
- * @returns 'hello-world-test'
- */
-function urlFriendlyString(str) {
-  return str.replace(/\s+/g, '-').toLowerCase();
-}
+import { urlFriendlyString } from '../utils';
 
 /**
  * Load news and append to req.
