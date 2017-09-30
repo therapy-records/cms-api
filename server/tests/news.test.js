@@ -6,10 +6,6 @@ import app from '../../index';
 
 chai.config.includeStack = true;
 
-// TODO: news queue endpoints
-// TODO: news queue/id endpoints
-// TODO: news queue delete
-
 // TODO: get credentials from somewhere instead of in the code
 
 const MOCK = {
@@ -17,7 +13,7 @@ const MOCK = {
     username: 'b1admin',
     password: 'M5fz0I2Tthb9J|B'
   },
-  NEWS_ARTICLE: {
+  NEWS_ARTICLE_BASE: {
     title: 'first article',
     bodyMain: '<p>asdf</p>',
     quotes: [
@@ -37,8 +33,11 @@ const MOCK = {
     venueLink: 'http://yahoo.com',
     videoEmbed: 'http://youtube.com/asdf',
   },
-  EDITED_NEWS_ARTICLE: {}
+  EDITED_NEWS_ARTICLE: {},
 };
+
+MOCK.NEWS_ARTICLE_QUEUE = MOCK.NEWS_ARTICLE_BASE;
+MOCK.NEWS_ARTICLE = MOCK.NEWS_ARTICLE_BASE;
 
 let JWT_VALID = '';
 
@@ -185,7 +184,7 @@ describe('## News APIs', () => {
         .catch(done);
     });
   });
-/*
+
   describe('# GET /api/news/queue', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
@@ -212,83 +211,84 @@ describe('## News APIs', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
         .post('/api/news/queue')
-        .send(MOCK.NEWS_ARTICLE)
+        .send(MOCK.NEWS_ARTICLE_QUEUE)
         .expect(httpStatus.UNAUTHORIZED)
         .then(() => done())
         .catch(done);
     });
     it('should create a new article', (done) => {
+      MOCK.NEWS_ARTICLE_QUEUE.scheduledTime = new Date();
       request(app)
         .post('/api/news/queue')
         .set('Authorization', JWT_VALID)
-        .send(MOCK.NEWS_ARTICLE)
+        .send(MOCK.NEWS_ARTICLE_QUEUE)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: test urlFriendlyString
-          // TODO: test mainImage conditions
-          expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE.title);
-          expect(res.body.bodyMain).to.equal(MOCK.NEWS_ARTICLE.bodyMain);
-          expect(res.body.quotes).to.eql(MOCK.NEWS_ARTICLE.quotes);
-          expect(res.body.mainImage).to.deep.eq(MOCK.NEWS_ARTICLE.mainImage);
-          expect(res.body.secondaryImageUrl).to.equal(MOCK.NEWS_ARTICLE.secondaryImageUrl);
-          expect(res.body.miniGalleryImages).to.deep.eq(MOCK.NEWS_ARTICLE.miniGalleryImages);
-          expect(res.body.socialShare).to.eql(MOCK.NEWS_ARTICLE.socialShare);
+          expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE_QUEUE.title);
+          expect(res.body.bodyMain).to.equal(MOCK.NEWS_ARTICLE_QUEUE.bodyMain);
+          expect(res.body.scheduledTime).to.be.a('string');
+          expect(res.body.quotes).to.eql(MOCK.NEWS_ARTICLE_QUEUE.quotes);
+          expect(res.body.mainImage).to.deep.eq(MOCK.NEWS_ARTICLE_QUEUE.mainImage);
+          expect(res.body.secondaryImageUrl).to.equal(MOCK.NEWS_ARTICLE_QUEUE.secondaryImageUrl);
+          expect(res.body.miniGalleryImages).to.deep.eq(MOCK.NEWS_ARTICLE_QUEUE.miniGalleryImages);
+          expect(res.body.socialShare).to.eql(MOCK.NEWS_ARTICLE_QUEUE.socialShare);
           expect(res.body.createdAt).to.be.a('string');
-          expect(res.body.ticketsLink).to.equal(MOCK.NEWS_ARTICLE.ticketsLink);
-          expect(res.body.venueLink).to.equal(MOCK.NEWS_ARTICLE.venueLink);
-          MOCK.EDITED_NEWS_ARTICLE = res.body;
+          expect(res.body.ticketsLink).to.equal(MOCK.NEWS_ARTICLE_QUEUE.ticketsLink);
+          expect(res.body.venueLink).to.equal(MOCK.NEWS_ARTICLE_QUEUE.venueLink);
+          MOCK.NEWS_ARTICLE_QUEUE._id = res.body._id;
           done();
         })
         .catch(done);
-    });
-  });
-
-  describe('# GET /api/news/queue/id', () => {
-    it('should get a single article', (done) => {
-      request(app)
-        .get(`/api/news/queue/${MOCK.EDITED_NEWS_ARTICLE._id}`)
-        .expect(httpStatus.OK)
-        .then((res) => {
-          expect(res.body).to.be.an('object');
-          expect(res.body.title).to.be.a('string');
-          done();
-        });
     });
   });
 
   describe('# PUT /api/news/queue/id', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
-        .put(`/api/news/queue/${MOCK.EDITED_NEWS_ARTICLE._id}`)
-        .send(MOCK.NEWS_ARTICLE)
+        .put(`/api/news/queue/${MOCK.NEWS_ARTICLE_QUEUE._id}`)
+        .send(MOCK.NEWS_ARTICLE_QUEUE)
         .expect(httpStatus.UNAUTHORIZED)
         .then(() => done())
         .catch(done);
     });
 
     it('should update an article', (done) => {
-      const editedNews = {
-        title: 'edited title',
-        bodyMain: '<p>hello test</p>'
-      };
-
-      MOCK.EDITED_NEWS_ARTICLE.title = editedNews.title;
-      MOCK.EDITED_NEWS_ARTICLE.title = editedNews.bodyMain;
-
       request(app)
-        .put(`/api/news/queue/${MOCK.EDITED_NEWS_ARTICLE._id}`)
+        .put(`/api/news/queue/${MOCK.NEWS_ARTICLE_QUEUE._id}`)
         .set('Authorization', JWT_VALID)
-        .send(MOCK.EDITED_NEWS_ARTICLE)
+        .send(MOCK.NEWS_ARTICLE_QUEUE)
         .expect(httpStatus.OK)
         .then((res) => {
           // TODO: test urlFriendlyString
           // TODO: test mainImage conditions
-          expect(res.body.title).to.equal(MOCK.EDITED_NEWS_ARTICLE.title);
-          expect(res.body.bodyMain).to.equal(MOCK.EDITED_NEWS_ARTICLE.bodyMain);
+          expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE_QUEUE.title);
+          expect(res.body.bodyMain).to.equal(MOCK.NEWS_ARTICLE_QUEUE.bodyMain);
           done();
         })
         .catch(done);
     });
   });
-  */
+
+  describe('# DELETE /api/news/queue/id', () => {
+    it('should return unauthorized when no token provided', (done) => {
+      request(app)
+        .delete(`/api/news/queue/${MOCK.NEWS_ARTICLE_QUEUE._id}`)
+        .send(MOCK.NEWS_ARTICLE_QUEUE)
+        .expect(httpStatus.UNAUTHORIZED)
+        .then(() => done())
+        .catch(done);
+    });
+    it('should remove an article', (done) => {
+      request(app)
+        .delete(`/api/news/queue/${MOCK.NEWS_ARTICLE_QUEUE._id}`)
+        .set('Authorization', JWT_VALID)
+        .send(MOCK.NEWS_ARTICLE_QUEUE)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.message).to.equal('Article (in queue) deleted');
+          done();
+        })
+        .catch(done);
+    });
+  });
 });

@@ -52,11 +52,11 @@ function getPost(req, res) {
  */
 function createPost(req, res, next) {
   const _mainImage = {
-    url: req.body.mainImage.url,
-    externalLink: req.body.mainImage.externalLink
+    url: req.body.mainImage && req.body.mainImage.url,
+    externalLink: req.body.mainImage && req.body.mainImage.externalLink
   };
   if (req.body.ticketsLink &&
-      req.body.mainImage.url &&
+     (req.body.mainImage && req.body.mainImage.url) &&
      !req.body.mainImage.externalLink) {
     _mainImage.externalLink = req.body.ticketsLink;
   }
@@ -92,11 +92,11 @@ function createPost(req, res, next) {
  */
 function createPostQueue(req, res, next) {
   const _mainImage = {
-    url: req.body.mainImage.url,
-    externalLink: req.body.mainImage.externalLink
+    url: req.body.mainImage && req.body.mainImage.url,
+    externalLink: req.body.mainImage && req.body.mainImage.externalLink
   };
   if (req.body.ticketsLink &&
-      req.body.mainImage.url &&
+     (req.body.mainImage && req.body.mainImage.url) &&
      !req.body.mainImage.externalLink) {
     _mainImage.externalLink = req.body.ticketsLink;
   }
@@ -108,6 +108,7 @@ function createPostQueue(req, res, next) {
     mainImage: _mainImage,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
+    socialShare: req.body.socialShare,
     createdAt: req.body.scheduledTime,
     scheduledTime: req.body.scheduledTime,
     ticketsLink: req.body.ticketsLink,
