@@ -2,16 +2,15 @@ import mongoose from 'mongoose';
 import request from 'supertest-as-promised';
 import httpStatus from 'http-status';
 import chai, { expect } from 'chai';
+import config from '../../config/env';
 import app from '../../index';
 
 chai.config.includeStack = true;
 
-// TODO: get credentials from somewhere instead of in the code
-
 const MOCK = {
   AUTH_USER: {
-    username: 'b1admin',
-    password: 'M5fz0I2Tthb9J|B'
+    username: config.username,
+    password: config.pword
   },
   COLLABORATOR: {
     name: 'someone',
