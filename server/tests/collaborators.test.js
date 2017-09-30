@@ -15,8 +15,34 @@ const MOCK = {
   },
   COLLABORATOR: {
     name: 'someone',
-    role: 'teae',
-    imgUrl: 'google.com'
+    role: 'tea',
+    about: '<p>amazing person</p>',
+    avatarUrl: 'google.com',
+    urls: {
+      website: 'http://website.com',
+      facebook: 'http://facebook.com',
+      instagram: 'http://instagram.com',
+      twitter: 'http://twitter.com',
+      soundcloud: 'http://soundcloud.com',
+      bio: 'http://mybio.com',
+      email: 'hello@test.com',
+      phone: '012345678910',
+      other: [
+        {
+          url: 'something.com',
+          title: 'amazing website'
+        },
+        {
+          url: 'somethingelse.com',
+          title: 'a website'
+        }
+      ]
+    },
+    collabOn: [
+      'album A',
+      'collab B',
+      'album C'
+    ]
   },
   EDITED_COLLABORATOR: {}
 };
@@ -78,7 +104,14 @@ describe('## Collaborators APIs', () => {
         .send(MOCK.COLLABORATOR)
         .expect(httpStatus.OK)
         .then((res) => {
+          delete res.body.urls.other[0]._id; // eslint-disable-line no-param-reassign
+          delete res.body.urls.other[1]._id; // eslint-disable-line no-param-reassign
           expect(res.body.name).to.equal(MOCK.COLLABORATOR.name);
+          expect(res.body.role).to.equal(MOCK.COLLABORATOR.role);
+          expect(res.body.about).to.deep.eq(MOCK.COLLABORATOR.about);
+          expect(res.body.avatarUrl).to.equal(MOCK.COLLABORATOR.avatarUrl);
+          expect(res.body.urls).to.deep.eq(MOCK.COLLABORATOR.urls);
+          expect(res.body.collabOn).to.deep.eq(MOCK.COLLABORATOR.collabOn);
           MOCK.EDITED_COLLABORATOR = res.body;
           done();
         })
@@ -112,12 +145,26 @@ describe('## Collaborators APIs', () => {
       const editedCollaborator = {
         name: 'new name',
         role: 'coffee person',
-        imgUrl: 'google.com/something.jpg'
+        about: 'testing',
+        avatarUrl: 'google.com/something.jpg',
+        urls: {
+          website: 'test.com',
+          facebook: 'facebook.com/test',
+          other: []
+        },
+        collabOn: [
+          'hello a',
+          'hello b',
+          'hello c'
+        ]
       };
 
       MOCK.EDITED_COLLABORATOR.name = editedCollaborator.name;
       MOCK.EDITED_COLLABORATOR.role = editedCollaborator.role;
-      MOCK.EDITED_COLLABORATOR.imgUrl = editedCollaborator.imgUrl;
+      MOCK.EDITED_COLLABORATOR.about = editedCollaborator.about;
+      MOCK.EDITED_COLLABORATOR.avatarUrl = editedCollaborator.avatarUrl;
+      MOCK.EDITED_COLLABORATOR.urls = editedCollaborator.urls;
+      MOCK.EDITED_COLLABORATOR.collabOn = editedCollaborator.collabOn;
 
       request(app)
         .put(`/api/collaborators/${MOCK.EDITED_COLLABORATOR._id}`)
@@ -127,7 +174,10 @@ describe('## Collaborators APIs', () => {
         .then((res) => {
           expect(res.body.name).to.equal(MOCK.EDITED_COLLABORATOR.name);
           expect(res.body.role).to.equal(MOCK.EDITED_COLLABORATOR.role);
-          expect(res.body.imgUrl).to.equal(MOCK.EDITED_COLLABORATOR.imgUrl);
+          expect(res.body.about).to.equal(MOCK.EDITED_COLLABORATOR.about);
+          expect(res.body.avatarUrl).to.equal(MOCK.EDITED_COLLABORATOR.avatarUrl);
+          expect(res.body.urls).to.deep.eq(MOCK.EDITED_COLLABORATOR.urls);
+          expect(res.body.collabOn).to.deep.eq(MOCK.EDITED_COLLABORATOR.collabOn);
           done();
         })
         .catch(done);

@@ -11,7 +11,10 @@ function createSingle(req, res, next) {
   const collaborator = new Collaborators({
     name: req.body.name,
     role: req.body.role,
-    imgUrl: req.body.imgUrl
+    about: req.body.about,
+    avatarUrl: req.body.avatarUrl,
+    urls: req.body.urls,
+    collabOn: req.body.collabOn
   });
   verifyToken(req, res, next)
     .then(() => {

@@ -16,9 +16,48 @@ const CollaboratorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  imgUrl: {
+  about: {
     type: String,
     required: true
+  },
+  avatarUrl: {
+    type: String,
+    required: true
+  },
+  urls: {
+    website: {
+      type: String
+    },
+    facebook: {
+      type: String
+    },
+    instagram: {
+      type: String
+    },
+    twitter: {
+      type: String
+    },
+    soundcloud: {
+      type: String
+    },
+    bio: {
+      type: String
+    },
+    email: {
+      type: String
+    },
+    phone: {
+      type: String
+    },
+    other: [
+      {
+        url: String,
+        title: String
+      }
+    ]
+  },
+  collabOn: {
+    type: Array
   }
 });
 
