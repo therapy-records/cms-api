@@ -1,7 +1,6 @@
 import chai, { expect } from 'chai';
 import { urlFriendlyString } from '../utils';
 
-
 chai.config.includeStack = true;
 
 after(done => done());

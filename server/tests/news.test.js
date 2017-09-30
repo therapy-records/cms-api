@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import request from 'supertest-as-promised';
 import httpStatus from 'http-status';
 import chai, { expect } from 'chai';
+import { urlFriendlyString } from '../utils';
 import app from '../../index';
 
 chai.config.includeStack = true;
@@ -95,9 +96,10 @@ describe('## News APIs', () => {
         .send(MOCK.NEWS_ARTICLE)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: test urlFriendlyString
           // TODO: test mainImage conditions
+          const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE.title);
           expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE.title);
+          expect(res.body.urlTitle).to.equal(expectedUrlTitle);
           expect(res.body.bodyMain).to.equal(MOCK.NEWS_ARTICLE.bodyMain);
           expect(res.body.quotes).to.eql(MOCK.NEWS_ARTICLE.quotes);
           expect(res.body.mainImage).to.deep.eq(MOCK.NEWS_ARTICLE.mainImage);
@@ -152,8 +154,9 @@ describe('## News APIs', () => {
         .send(MOCK.EDITED_NEWS_ARTICLE)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: test urlFriendlyString
           // TODO: test mainImage conditions
+          const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE.title);
+          expect(res.body.urlTitle).to.equal(expectedUrlTitle);
           expect(res.body.title).to.equal(MOCK.EDITED_NEWS_ARTICLE.title);
           expect(res.body.bodyMain).to.equal(MOCK.EDITED_NEWS_ARTICLE.bodyMain);
           done();
@@ -224,7 +227,9 @@ describe('## News APIs', () => {
         .send(MOCK.NEWS_ARTICLE_QUEUE)
         .expect(httpStatus.OK)
         .then((res) => {
+          const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE_QUEUE.title);
           expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE_QUEUE.title);
+          expect(res.body.urlTitle).to.equal(expectedUrlTitle);
           expect(res.body.bodyMain).to.equal(MOCK.NEWS_ARTICLE_QUEUE.bodyMain);
           expect(res.body.scheduledTime).to.be.a('string');
           expect(res.body.quotes).to.eql(MOCK.NEWS_ARTICLE_QUEUE.quotes);
@@ -259,9 +264,10 @@ describe('## News APIs', () => {
         .send(MOCK.NEWS_ARTICLE_QUEUE)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: test urlFriendlyString
           // TODO: test mainImage conditions
+          const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE_QUEUE.title);
           expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE_QUEUE.title);
+          expect(res.body.urlTitle).to.equal(expectedUrlTitle);
           expect(res.body.bodyMain).to.equal(MOCK.NEWS_ARTICLE_QUEUE.bodyMain);
           done();
         })
