@@ -1,13 +1,32 @@
 import express from 'express';
-// import validate from 'express-validation';
-// import passport from 'passport';
-// import paramValidation from '../../config/param-validation';
+import passport from 'passport';
 import pressCtrl from '../controllers/press.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
-  /** GET /api/press - Get all articles */
-  .get(pressCtrl.getAllArticles);
+  /** GET /api/press - Get all */
+  .get(pressCtrl.getAll)
+
+  /** POST /api/press - Create press */
+  .post(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    pressCtrl.createSingle(req, res, next);
+  });
+
+router.route('/:pressId')
+  /** GET /api/press/:id - Get press */
+  .get(pressCtrl.getSingle)
+
+  /** PUT /api/press/:id - Edit press */
+  .put(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    pressCtrl.editSingle(req, res, next);
+  })
+
+  /** DELETE /api/press/:id - Delete press */
+  .delete(passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    pressCtrl.removeSingle(req, res, next);
+  });
+
+router.param('pressId', pressCtrl.loadSingle);
 
 export default router;

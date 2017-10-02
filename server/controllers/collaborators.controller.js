@@ -27,7 +27,7 @@ function createSingle(req, res, next) {
 }
 
 /**
- * Load news and append to req.
+ * Load collab and append to req.
  */
 function loadSingle(req, res, next, id) {
   Collaborators.getSingle(id)

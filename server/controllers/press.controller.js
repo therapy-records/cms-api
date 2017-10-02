@@ -1,41 +1,66 @@
-// import Press from '../models/press.model';
+import Press from '../models/press.model';
+import { verifyToken } from './token.controller';
 
-const mockPress = [
-  {
-    copy: 'Getting to know Fiona Ross',
-    author: 'Jazz Voices',
-    href: 'https://www.jazzvoices.org/about',
-    thumbUrl: 'jazzvoices.jpg'
-  },
-  {
-    copy: 'JAZZ INTERVIEW les mardi et jeudi à 14h. Luke Seabright rencontre la chanteuse...',
-    author: 'Art District Radio',
-    href: 'http://artdistrict-radio.com/index.php/podcasts/jazz-interview-rencontre-la-chanteuse-de-jazz-fiona-ross-426',
-    thumbUrl: 'artdistrictradio.jpg'
-  },
-  {
-    copy: 'FIONA ROSS. Jazz vocalist,songwriter,performer and producer',
-    author: 'Jonathan Sketch Sketcher',
-    href: 'https://www.facebook.com/notes/jonathan-sketch-sketcher/fiona-ross-jazz-vocalistsongwriterperformer-and-producer/10154484207861266/',
-    thumbUrl: 'jonathansketchsketcher.jpg'
-  },
-  {
-    copy: 'FEATURE/INTERVIEW Fiona Ross (New album Just Me And Sometimes Someone Else)',
-    author: 'London Jazz News',
-    href: 'http://www.londonjazznews.com/2017/07/feature-interview-fiona-ross-new-album.html',
-    thumbUrl: 'londonjazznews.jpg'
-  },
-];
-
-/**
- * Get all news articles
- * @returns {press[]}
- */
-function getAllArticles(req, res) {
-  res.json(mockPress);
+function getAll(req, res, next) {
+  Press.find()
+    .then(press => res.json(press))
+    .catch(err => next(err));
 }
 
+function createSingle(req, res, next) {
+  const press = new Press({
+    author: req.body.author,
+    copy: req.body.copy,
+    mainImageUrl: req.body.mainImageUrl,
+    externalLink: req.body.externalLink,
+    createdAt: new Date()
+  });
+  verifyToken(req, res, next)
+    .then(() => {
+      press.save()
+        .then((savedPress) => {
+          res.json(savedPress);
+        })
+        .catch(e => next(e));
+    });
+}
+
+/**
+ * Load single press and append to req.
+ */
+function loadSingle(req, res, next, id) {
+  Press.getSingle(id)
+    .then((press) => {
+      req.press = press; // eslint-disable-line no-param-reassign
+      return next();
+    })
+    .catch(e => next(e));
+}
+
+function getSingle(req, res) {
+  return res.json(req.press);
+}
+
+function editSingle(req, res, next) {
+  Press.edit(req.body)
+    .then(savedPress => res.json(savedPress))
+    .catch(e => next(e));
+}
+
+function removeSingle(req, res) {
+  Press.findByIdAndRemove(req.params.pressId, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ message: 'Press deleted' });
+  });
+}
 
 export default {
-  getAllArticles,
+  getAll,
+  createSingle,
+  loadSingle,
+  getSingle,
+  editSingle,
+  removeSingle
 };
