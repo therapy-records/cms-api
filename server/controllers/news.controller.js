@@ -53,15 +53,16 @@ function createPost(req, res, next) {
   const news = new News({
     title: req.body.title,
     urlTitle: urlFriendlyString(req.body.title),
+    createdAt: new Date(),
     bodyMain: req.body.bodyMain,
     quotes: req.body.quotes,
     mainImage: _mainImage,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
     socialShare: req.body.socialShare,
-    createdAt: new Date(),
     ticketsLink: req.body.ticketsLink,
-    venueLink: req.body.venueLink
+    venueLink: req.body.venueLink,
+    videoEmbed: req.body.videoEmbed
   });
 
   verifyToken(req, res, next)
@@ -85,19 +86,21 @@ function createPostQueue(req, res, next) {
     req.body.mainImage,
     req.body.ticketsLink
   );
+
   const news = new QueueNewsPost({
     title: req.body.title,
     urlTitle: urlFriendlyString(req.body.title),
+    createdAt: req.body.scheduledTime,
+    scheduledTime: req.body.scheduledTime,
     bodyMain: req.body.bodyMain,
     quotes: req.body.quotes,
     mainImage: _mainImage,
     secondaryImageUrl: req.body.secondaryImageUrl,
     miniGalleryImages: req.body.miniGalleryImages,
     socialShare: req.body.socialShare,
-    createdAt: req.body.scheduledTime,
-    scheduledTime: req.body.scheduledTime,
     ticketsLink: req.body.ticketsLink,
-    venueLink: req.body.venueLink
+    venueLink: req.body.venueLink,
+    videoEmbed: req.body.videoEmbed
   });
   verifyToken(req, res, next)
     .then(() => {

@@ -98,15 +98,16 @@ describe('## News APIs', () => {
           const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE.title);
           expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE.title);
           expect(res.body.urlTitle).to.equal(expectedUrlTitle);
+          expect(res.body.createdAt).to.be.a('string');
           expect(res.body.bodyMain).to.equal(MOCK.NEWS_ARTICLE.bodyMain);
           expect(res.body.quotes).to.eql(MOCK.NEWS_ARTICLE.quotes);
           expect(res.body.mainImage).to.deep.eq(MOCK.NEWS_ARTICLE.mainImage);
           expect(res.body.secondaryImageUrl).to.equal(MOCK.NEWS_ARTICLE.secondaryImageUrl);
           expect(res.body.miniGalleryImages).to.deep.eq(MOCK.NEWS_ARTICLE.miniGalleryImages);
           expect(res.body.socialShare).to.eql(MOCK.NEWS_ARTICLE.socialShare);
-          expect(res.body.createdAt).to.be.a('string');
           expect(res.body.ticketsLink).to.equal(MOCK.NEWS_ARTICLE.ticketsLink);
           expect(res.body.venueLink).to.equal(MOCK.NEWS_ARTICLE.venueLink);
+          expect(res.body.videoEmbed).to.equal(MOCK.NEWS_ARTICLE.videoEmbed);
           MOCK.EDITED_NEWS_ARTICLE = res.body;
           done();
         })
