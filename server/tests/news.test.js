@@ -14,7 +14,7 @@ const MOCK = {
     password: config.pword
   },
   NEWS_ARTICLE_BASE: {
-    title: 'first article',
+    title: 'testing article',
     bodyMain: '<p>asdf</p>',
     quotes: [
       { author: 'asdf', copy: 'test1' },
@@ -41,7 +41,6 @@ MOCK.NEWS_ARTICLE = MOCK.NEWS_ARTICLE_BASE;
 
 let JWT_VALID = '';
 
-
 after((done) => {
   // required because https://github.com/Automattic/mongoose/issues/1251#issuecomment-65793092
   mongoose.models = {};
@@ -51,6 +50,18 @@ after((done) => {
 });
 
 describe('## News APIs', () => {
+  after((done) => {
+    request(app)
+      .delete('api/test/news')
+      .then((err) => {
+        if (err) {
+          throw err;
+        }
+        done();
+      });
+    done();
+  });
+
   describe('# POST /api/auth/login', () => {
     it('should return a JWT', (done) => {
       request(app)
@@ -63,19 +74,6 @@ describe('## News APIs', () => {
         JWT_VALID = res.body.token;
         done();
       });
-    });
-  });
-
-  describe('# GET /api/news', () => {
-    it('should get all articles', (done) => {
-      request(app)
-        .get('/api/news')
-        .expect(httpStatus.OK)
-        .then((res) => {
-          expect(res.body).to.be.an('array');
-          expect(res.body[0].title).to.be.a('string');
-          done();
-        });
     });
   });
 
@@ -112,6 +110,19 @@ describe('## News APIs', () => {
           done();
         })
         .catch(done);
+    });
+  });
+
+  describe('# GET /api/news', () => {
+    it('should get all articles', (done) => {
+      request(app)
+        .get('/api/news')
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body).to.be.an('array');
+          expect(res.body[0].title).to.be.a('string');
+          done();
+        });
     });
   });
 
@@ -186,28 +197,6 @@ describe('## News APIs', () => {
     });
   });
 
-  describe('# GET /api/news/queue', () => {
-    it('should return unauthorized when no token provided', (done) => {
-      request(app)
-        .get('/api/news/queue')
-        .send(MOCK.NEWS_ARTICLE)
-        .expect(httpStatus.UNAUTHORIZED)
-        .then(() => done())
-        .catch(done);
-    });
-    it('should get all articles', (done) => {
-      request(app)
-        .get('/api/news/queue')
-        .set('Authorization', JWT_VALID)
-        .expect(httpStatus.OK)
-        .then((res) => {
-          expect(res.body).to.be.an('array');
-          expect(res.body[0].title).to.be.a('string');
-          done();
-        });
-    });
-  });
-
   describe('# POST /api/news/queue', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
@@ -242,6 +231,28 @@ describe('## News APIs', () => {
           done();
         })
         .catch(done);
+    });
+  });
+
+  describe('# GET /api/news/queue', () => {
+    it('should return unauthorized when no token provided', (done) => {
+      request(app)
+        .get('/api/news/queue')
+        .send(MOCK.NEWS_ARTICLE)
+        .expect(httpStatus.UNAUTHORIZED)
+        .then(() => done())
+        .catch(done);
+    });
+    it('should get all articles', (done) => {
+      request(app)
+        .get('/api/news/queue')
+        .set('Authorization', JWT_VALID)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body).to.be.an('array');
+          expect(res.body[0].title).to.be.a('string');
+          done();
+        });
     });
   });
 

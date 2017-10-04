@@ -58,6 +58,18 @@ after((done) => {
 });
 
 describe('## Collaborators APIs', () => {
+  after((done) => {
+    request(app)
+      .delete('api/test/collaborators')
+      .then((err) => {
+        if (err) {
+          throw err;
+        }
+        done();
+      });
+    done();
+  });
+
   describe('# POST /api/auth/login', () => {
     it('should return a JWT', (done) => {
       request(app)
@@ -71,19 +83,6 @@ describe('## Collaborators APIs', () => {
         done();
       })
       .catch(done);
-    });
-  });
-
-  describe('# GET /api/collaborators', () => {
-    it('should get all collaborators', (done) => {
-      request(app)
-        .get('/api/collaborators')
-        .expect(httpStatus.OK)
-        .then((res) => {
-          expect(res.body).to.be.an('array');
-          expect(res.body[0].name).to.be.a('string');
-          done();
-        });
     });
   });
 
@@ -115,6 +114,19 @@ describe('## Collaborators APIs', () => {
           done();
         })
         .catch(done);
+    });
+  });
+
+  describe('# GET /api/collaborators', () => {
+    it('should get all collaborators', (done) => {
+      request(app)
+        .get('/api/collaborators')
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body).to.be.an('array');
+          expect(res.body[0].name).to.be.a('string');
+          done();
+        });
     });
   });
 

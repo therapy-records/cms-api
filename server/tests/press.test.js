@@ -33,6 +33,18 @@ after((done) => {
 });
 
 describe('## Press APIs', () => {
+  after((done) => {
+    request(app)
+      .delete('api/test/press')
+      .then((err) => {
+        if (err) {
+          throw err;
+        }
+        done();
+      });
+    done();
+  });
+
   describe('# POST /api/auth/login', () => {
     it('should return a JWT', (done) => {
       request(app)
@@ -46,19 +58,6 @@ describe('## Press APIs', () => {
         done();
       })
       .catch(done);
-    });
-  });
-
-  describe('# GET /api/press', () => {
-    it('should get all press', (done) => {
-      request(app)
-        .get('/api/press')
-        .expect(httpStatus.OK)
-        .then((res) => {
-          expect(res.body).to.be.an('array');
-          expect(res.body[0].author).to.be.a('string');
-          done();
-        });
     });
   });
 
@@ -86,6 +85,19 @@ describe('## Press APIs', () => {
           done();
         })
         .catch(done);
+    });
+  });
+
+  describe('# GET /api/press', () => {
+    it('should get all press', (done) => {
+      request(app)
+        .get('/api/press')
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body).to.be.an('array');
+          expect(res.body[0].author).to.be.a('string');
+          done();
+        });
     });
   });
 

@@ -5,7 +5,7 @@ dotenv.load();
 export default {
   env: 'test',
   jwtSecret: process.env.TEST_JWT_SECRET,
-  db: process.env.DB_HOST,
+  db: process.env.TEST_DB_HOST,
   username: process.env.TEST_USERNAME,
   pword: process.env.TEST_PWORD,
   port: process.env.PORT,

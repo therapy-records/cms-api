@@ -201,5 +201,5 @@ export default {
   getAllPosts,
   getAllPostsQueue,
   removePost,
-  removePostQueue,
+  removePostQueue
 };
