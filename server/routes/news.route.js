@@ -53,12 +53,6 @@ router.route('/:postId')
     newsCtrl.removePost(req, res, next);
   });
 
-router.route('/create')
-  /** POST /api/news/create - Create new post */
-  .post(passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    newsCtrl.createPost(req, res, next);
-  });
-
 /** Load post when API with postId route parameter is hit */
 router.param('postId', newsCtrl.loadPost);
 
