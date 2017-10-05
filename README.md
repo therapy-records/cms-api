@@ -2,6 +2,8 @@
 
 An API for artist albums, news, bookings, releases and more.
 
+[API documentation](https://github.com/therapy-records/cms-api/blob/master/API.md)
+
 Boilerplate from [Express & mongoose REST API Boilerplate](https://github.com/KunalKapadia/express-mongoose-es6-rest-api)
 
 ## Getting Started
