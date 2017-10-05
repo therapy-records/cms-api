@@ -29,7 +29,7 @@ function checkToken(req, res) {
   if (token) {
     const decoded = jwt.verify(token, config.jwtSecret); // check if this checks the expiry date
     if (decoded._doc.username !== config.validUn) {
-      res.status(403).send({ success: false, msg: 'userNotFound' });
+      res.status(403).send({ success: false, message: 'User not found.' });
     }
     return User.findOne({
       username: decoded._doc.username
@@ -45,7 +45,7 @@ function checkToken(req, res) {
       return err;
     });
   }
-  return res.status(403).send({ success: false, msg: 'No token provided.' });
+  return res.status(403).send({ success: false, message: 'No token provided.' });
 }
 
 /* istanbul ignore next */
@@ -54,7 +54,7 @@ export function verifyToken(req, res) {
   if (token) {
     const decoded = jwt.verify(token, config.jwtSecret); // check if this checks the expiry date
     if (decoded._doc.username !== config.validUn) {
-      res.status(403).send({ success: false, msg: 'userNotFound' });
+      res.status(403).send({ success: false, message: 'User not found.' });
     }
     return User.findOne({
       username: decoded._doc.username
@@ -70,7 +70,7 @@ export function verifyToken(req, res) {
       return err;
     });
   }
-  return res.status(403).send({ success: false, msg: 'No token provided.' });
+  return res.status(403).send({ success: false, message: 'No token provided.' });
 }
 
 

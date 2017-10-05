@@ -11,7 +11,7 @@ function createAuthToken(req, res) {
   }, (err, usr) => {
     if (err) throw err;
     if (!usr || usr.username !== config.validUn) {
-      res.status(401).send({ success: false, msg: 'userNotFound' });
+      res.status(401).send({ success: false, message: 'User not found.' });
     } else {
       usr.comparePassword(req.body.password, (cPErr, isMatch) => {
         if (isMatch && !cPErr) {
@@ -23,7 +23,7 @@ function createAuthToken(req, res) {
             res.send({ success: true, token: `JWT ${token}`, userId: usr._id });
           });
         } else {
-          res.send({ success: false, msg: 'incorrectPassword' });
+          res.send({ success: false, message: 'Incorrect password.' });
         }
       });
     }

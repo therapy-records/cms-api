@@ -30,7 +30,7 @@ function create(req, res) {
   if (!req.body.username ||
       req.body.username !== config.validUn ||
       !req.body.password) {
-    res.status(400).send({ success: false, msg: 'Please provide username and password.' });
+    res.status(400).send({ success: false, message: 'Please provide username and password.' });
   } else {
     const newUser = new User({
       username: req.body.username,
@@ -38,12 +38,12 @@ function create(req, res) {
     });
     return newUser.save((err) => {
       if (err) {
-        res.status(400).send({ success: false, msg: 'User already exists.' });
+        res.status(400).send({ success: false, message: 'User already exists.' });
       }
-      res.json({ success: true, msg: 'Successful created a new user.' });
+      res.json({ success: true, message: 'Successful created a new user.' });
     });
   }
-  return res.status(400).send({ success: false, msg: 'Error.' });
+  return res.status(400).send({ success: false, message: 'Error.' });
 }
 */
 
