@@ -159,3 +159,46 @@
   ```
   See (press schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
 
+
+## Other Work
+- GET `api/other-work`
+  - returns 200 with an array of objects
+
+- POST `api/other-work`
+  - returns 200 with the saved object
+  - expects an object containing at least:
+  ```
+  {
+    title: 'My title',
+    copy: '<p>fantastic review...</p>',
+    mainImageUrl: 'me.com/profile.png',
+    releaseDate: Mon Apr 02 2018 11:34:54 GMT+0100 (BST),
+    externalLink: 'google.com/an-article'
+  }
+  ```
+
+  See (otehr-work schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/otherWork.model.js) for optional fields.
+
+
+## Other Work - single
+#### Single other-work article
+- GET `api/other-work/:id`
+  - returns 200 with an object
+
+- DELETE `api/other-work/:id`
+  - returns 200 with a success message
+
+- PUT `api/other-work/:id`
+  - returns 200 with saved article object
+  - expects an object containing at least:
+  ```
+  {
+    title: 'My title',
+    copy: '<p>fantastic review...</p>',
+    mainImageUrl: 'me.com/profile.png',
+    releaseDate: Mon Apr 02 2018 11:34:54 GMT+0100 (BST),
+    externalLink: 'google.com/an-article'
+  }
+  ```
+  See (otehr-work schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/otherWork.model.js) for optional fields.
+

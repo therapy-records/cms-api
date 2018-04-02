@@ -15,4 +15,8 @@ router.route('/press')
   /** DELETE /api/test/press */
   .delete(testCtrl.deleteAllPress);
 
+router.route('/other-work')
+  /** DELETE /api/test/other-work */
+  .delete(testCtrl.deleteAllOtherWork);
+
 export default router;

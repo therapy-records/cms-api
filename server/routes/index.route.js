@@ -3,6 +3,7 @@ import authRoutes from './auth.route';
 import collaboratorsRoutes from './collaborators.route';
 import newsRoutes from './news.route';
 import pressRoutes from './press.route';
+import otherWorkRoutes from './otherWork.route';
 import testRoutes from './test.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -18,6 +19,8 @@ router.use('/collaborators', collaboratorsRoutes);
 router.use('/news', newsRoutes);
 
 router.use('/press', pressRoutes);
+
+router.use('/other-work', otherWorkRoutes);
 
 // router.use('/user', userRoutes);
 

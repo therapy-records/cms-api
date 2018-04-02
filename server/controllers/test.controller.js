@@ -2,6 +2,7 @@ import config from '../../config/env';
 import News from '../models/news.model';
 import Collaborators from '../models/collaborators.model';
 import Press from '../models/press.model';
+import OtherWork from '../models/otherWork.model';
 
 function deleteAllNewsArticles(req, res) {
   if (config.env === 'test') {
@@ -36,8 +37,21 @@ function deleteAllPress(req, res) {
   }
 }
 
+
+function deleteAllOtherWork(req, res) {
+  if (config.env === 'test') {
+    OtherWork.remove({}, (err, press) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json(press);
+    });
+  }
+}
+
 export default {
   deleteAllNewsArticles,
   deleteAllCollaborators,
-  deleteAllPress
+  deleteAllPress,
+  deleteAllOtherWork
 };
