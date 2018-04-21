@@ -1,8 +1,8 @@
-import express from 'express';
-import validate from 'express-validation';
-import passport from 'passport';
-import paramValidation from '../../config/param-validation';
-import newsCtrl from '../controllers/news.controller';
+const express = require('express');
+const validate = require('express-validation');
+const passport = require('passport');
+const paramValidation = require('../../config/param-validation');
+const newsCtrl = require('../controllers/news.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -60,4 +60,4 @@ router.param('postId', newsCtrl.loadPost);
 router.param('queuePostId', newsCtrl.loadPostQueue);
 
 
-export default router;
+module.exports = router;

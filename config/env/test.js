@@ -1,10 +1,12 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.load();
 
-export default {
+module.exports = {
   env: 'test',
+  MONGOOSE_DEBUG: true,
   jwtSecret: process.env.TEST_JWT_SECRET,
+  // jwtSecret: process.env.JWT_SECRET,
   db: process.env.TEST_DB_HOST,
   username: process.env.TEST_USERNAME,
   pword: process.env.TEST_PWORD,

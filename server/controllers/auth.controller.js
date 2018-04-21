@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
-import User from '../models/user.model';
-import config from '../../config/env';
+const jwt = require('jsonwebtoken');
+const User = require('../models/user.model');
+const config = require('../../config/env');
 
 const JWT_EXPIRY_DATE = '7 days';
 
@@ -30,4 +30,4 @@ function createAuthToken(req, res) {
   });
 }
 
-export default createAuthToken;
+module.exports = { createAuthToken };

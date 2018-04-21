@@ -1,8 +1,8 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.load();
 
-export default {
+module.exports = {
   env: 'production',
   jwtSecret: process.env.JWT_SECRET,
   db: process.env.DB_HOST,

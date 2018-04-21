@@ -1,11 +1,12 @@
-import mongoose from 'mongoose';
-import request from 'supertest-as-promised';
-import httpStatus from 'http-status';
-import chai, { expect } from 'chai';
-import config from '../../config/env';
-import app from '../../index';
+const mongoose = require('mongoose');
+const request = require('supertest');
+const httpStatus = require('http-status');
+const chai = require('chai');
+const config = require('../../config/env');
+const app = require('../../index');
 
 chai.config.includeStack = true;
+const expect = chai.expect;
 
 const MOCK = {
   AUTH_USER: {

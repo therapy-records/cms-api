@@ -1,5 +1,5 @@
-import express from 'express';
-import testCtrl from '../controllers/test.controller';
+const express = require('express');
+const testCtrl = require('../controllers/test.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -19,4 +19,4 @@ router.route('/other-work')
   /** DELETE /api/test/other-work */
   .delete(testCtrl.deleteAllOtherWork);
 
-export default router;
+module.exports = router;

@@ -1,1 +1,1 @@
-web: yarn build && gulp serve
+web: yarn start

@@ -1,8 +1,8 @@
-import Promise from 'bluebird';
-import mongoose from 'mongoose';
-import httpStatus from 'http-status';
-import APIError from '../helpers/APIError';
-import _NewsSchema from './newsSchema';
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const httpStatus = require('http-status');
+const APIError = require('../helpers/APIError');
+const _NewsSchema = require('./newsSchema');
 
 const NewsSchema = _NewsSchema();
 
@@ -49,4 +49,4 @@ NewsSchema.statics = {
 /**
  * @typedef Post
  */
-export default mongoose.model('Post', NewsSchema);
+module.exports = mongoose.model('Post', NewsSchema);

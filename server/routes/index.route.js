@@ -1,10 +1,10 @@
-import express from 'express';
-import authRoutes from './auth.route';
-import collaboratorsRoutes from './collaborators.route';
-import newsRoutes from './news.route';
-import pressRoutes from './press.route';
-import otherWorkRoutes from './otherWork.route';
-import testRoutes from './test.route';
+const express = require('express');
+const authRoutes = require('./auth.route');
+const collaboratorsRoutes = require('./collaborators.route');
+const newsRoutes = require('./news.route');
+const pressRoutes = require('./press.route');
+const otherWorkRoutes = require('./otherWork.route');
+const testRoutes = require('./test.route');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -26,4 +26,4 @@ router.use('/other-work', otherWorkRoutes);
 
 router.use('/test', testRoutes);
 
-export default router;
+module.exports = router;

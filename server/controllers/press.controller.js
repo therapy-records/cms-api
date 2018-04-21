@@ -1,5 +1,5 @@
-import Press from '../models/press.model';
-import { verifyToken } from './token.controller';
+const Press = require('../models/press.model');
+const { verifyToken } = require('./token.controller');
 
 function getAll(req, res, next) {
   Press.find()
@@ -56,7 +56,7 @@ function removeSingle(req, res) {
   });
 }
 
-export default {
+module.exports = {
   getAll,
   createSingle,
   loadSingle,

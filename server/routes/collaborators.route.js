@@ -1,6 +1,6 @@
-import express from 'express';
-import passport from 'passport';
-import collaboratorsCtrl from '../controllers/collaborators.controller';
+const express = require('express');
+const passport = require('passport');
+const collaboratorsCtrl = require('../controllers/collaborators.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -29,4 +29,4 @@ router.route('/:collaboratorId')
 
 router.param('collaboratorId', collaboratorsCtrl.loadSingle);
 
-export default router;
+module.exports = router;

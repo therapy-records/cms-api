@@ -36,13 +36,3 @@ yarn lint
 # Run lint on any file change
 yarn lint:watch
 ```
-
-Other gulp tasks:
-```sh
-# Wipe out dist and coverage directory
-gulp clean
-
-# Default task: Wipes out dist and coverage directory. Compiles using babel.
-gulp
-```
-

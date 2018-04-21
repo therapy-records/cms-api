@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const NewsSchema = (add, collectionName) => {
   const _collectionName = collectionName ? { collection: collectionName } : {};
@@ -56,4 +56,4 @@ const NewsSchema = (add, collectionName) => {
   return schema;
 };
 
-export default NewsSchema;
+module.exports = NewsSchema;

@@ -1,10 +1,10 @@
-import News from '../models/news.model';
-import QueueNewsPost from '../models/queueNewsPost.model';
-import { verifyToken } from './token.controller';
-import {
+const News = require('../models/news.model');
+const QueueNewsPost = require('../models/queueNewsPost.model');
+const { verifyToken } = require('./token.controller');
+const {
   urlFriendlyString,
   createNewsArticleMainImage
-} from '../utils';
+} = require('../utils');
 
 /**
  * Load news and append to req.
@@ -190,7 +190,7 @@ function removePostQueue(req, res) {
   });
 }
 
-export default {
+module.exports = {
   loadPost,
   loadPostQueue,
   getPost,

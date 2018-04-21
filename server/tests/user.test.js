@@ -1,9 +1,9 @@
 /*
-import mongoose from 'mongoose';
-import request from 'supertest-as-promised';
-import httpStatus from 'http-status';
-import chai, { expect } from 'chai';
-import app from '../../index';
+const mongoose = require('mongoose');
+const request = require('supertest');
+const httpStatus = require('http-status');
+const chai, { expect } = require('chai');
+const app = require('../../index');
 
 chai.config.includeStack = true;
 

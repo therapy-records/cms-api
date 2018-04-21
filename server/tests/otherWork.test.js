@@ -1,11 +1,12 @@
-import mongoose from 'mongoose';
-import request from 'supertest-as-promised';
-import httpStatus from 'http-status';
-import chai, { expect } from 'chai';
-import config from '../../config/env';
-import app from '../../index';
+const mongoose = require('mongoose');
+const request = require('supertest');
+const httpStatus = require('http-status');
+const chai = require('chai');
+const config = require('../../config/env');
+const app = require('../../index');
 
 chai.config.includeStack = true;
+const expect = chai.expect;
 
 const MOCK = {
   AUTH_USER: {
@@ -96,7 +97,7 @@ describe('## Other Work APIs', () => {
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body).to.be.an('array');
-          expect(res.body[0].author).to.be.a('string');
+          expect(res.body[0].title).to.be.a('string');
           done();
         });
     });
@@ -109,7 +110,7 @@ describe('## Other Work APIs', () => {
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body).to.be.an('object');
-          expect(res.body.author).to.be.a('string');
+          expect(res.body.title).to.be.a('string');
           done();
         });
     });
@@ -126,16 +127,20 @@ describe('## Other Work APIs', () => {
     });
     it('should update other work', (done) => {
       const editedOtherWork = {
-        author: 'new author',
+        title: 'new title',
         copy: 'new copy',
         mainImageUrl: 'newImageurl.jpg',
-        externalLink: 'awholenewworld.com'
+        releaseDate: new Date(),
+        externalLink: 'testing.com',
+        createdAt: new Date()
       };
 
-      MOCK.EDITED_OTHER_WORK.author = editedOtherWork.author;
+      MOCK.EDITED_OTHER_WORK.title = editedOtherWork.title;
       MOCK.EDITED_OTHER_WORK.copy = editedOtherWork.copy;
       MOCK.EDITED_OTHER_WORK.mainImageUrl = editedOtherWork.mainImageUrl;
+      MOCK.EDITED_OTHER_WORK.releaseDate = editedOtherWork.releaseDate;
       MOCK.EDITED_OTHER_WORK.externalLink = editedOtherWork.externalLink;
+      MOCK.EDITED_OTHER_WORK.createdAt = editedOtherWork.createdAt;
 
       request(app)
         .put(`/api/other-work/${MOCK.EDITED_OTHER_WORK._id}`)
@@ -143,10 +148,12 @@ describe('## Other Work APIs', () => {
         .send(MOCK.EDITED_OTHER_WORK)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.author).to.equal(MOCK.EDITED_OTHER_WORK.author);
+          expect(res.body.title).to.equal(MOCK.EDITED_OTHER_WORK.title);
           expect(res.body.copy).to.equal(MOCK.EDITED_OTHER_WORK.copy);
           expect(res.body.mainImageUrl).to.equal(MOCK.EDITED_OTHER_WORK.mainImageUrl);
+          expect(res.body.releaseDate).to.be.a('string');
           expect(res.body.externalLink).to.equal(MOCK.EDITED_OTHER_WORK.externalLink);
+          expect(res.body.createdAt).to.be.a('string');
           done();
         })
         .catch(done);

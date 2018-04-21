@@ -1,6 +1,6 @@
-import express from 'express';
-import passport from 'passport';
-import pressCtrl from '../controllers/press.controller';
+const express = require('express');
+const passport = require('passport');
+const pressCtrl = require('../controllers/press.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -29,4 +29,4 @@ router.route('/:pressId')
 
 router.param('pressId', pressCtrl.loadSingle);
 
-export default router;
+module.exports = router;

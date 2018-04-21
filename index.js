@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import util from 'util';
-import config from './config/env';
-import app from './config/express';
+const mongoose = require('mongoose');
+const util = require('util');
+const config = require('./config/env');
+const app = require('./config/express');
 
 const port = process.env.PORT || config.port || 3000;
 
@@ -31,4 +31,4 @@ app.listen(port, () => {
   debug(`server started on port ${port} (${config.env})`);
 });
 
-export default app;
+module.exports = app;

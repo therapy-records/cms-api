@@ -1,6 +1,6 @@
-import Joi from 'joi';
+const Joi = require('joi');
 
-export default {
+module.exports = {
   // PUT /api/news/:id
   editNewsPost: {
     body: {

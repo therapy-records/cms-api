@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import httpStatus from 'http-status';
-import APIError from '../helpers/APIError';
+const mongoose = require('mongoose');
+const httpStatus = require('http-status');
+const APIError = require('../helpers/APIError');
 
 /**
  * Other Work Schema
@@ -69,4 +69,4 @@ OtherWork.statics = {
 /**
  * @typedef OtherWork
  */
-export default mongoose.model('OtherWork', OtherWork);
+module.exports = mongoose.model('OtherWork', OtherWork);

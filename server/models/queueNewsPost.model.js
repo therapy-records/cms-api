@@ -1,8 +1,8 @@
-import Promise from 'bluebird';
-import mongoose from 'mongoose';
-import httpStatus from 'http-status';
-import APIError from '../helpers/APIError';
-import NewsSchema from './newsSchema';
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const httpStatus = require('http-status');
+const APIError = require('../helpers/APIError');
+const NewsSchema = require('./newsSchema');
 
 const QueueNewsPostSchema = NewsSchema({ // eslint-disable-line new-cap
   scheduledTime: {
@@ -50,4 +50,4 @@ QueueNewsPostSchema.statics = {
 /**
  * @typedef QueuePost
  */
-export default mongoose.model('queueNewsPost', QueueNewsPostSchema);
+module.exports = mongoose.model('queueNewsPost', QueueNewsPostSchema);

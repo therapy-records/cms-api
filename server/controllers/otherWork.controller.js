@@ -1,5 +1,5 @@
-import OtherWork from '../models/otherWork.model';
-import { verifyToken } from './token.controller';
+const OtherWork = require('../models/otherWork.model');
+const { verifyToken } = require('./token.controller');
 
 function getAll(req, res, next) {
   OtherWork.find()
@@ -57,7 +57,7 @@ function removeSingle(req, res) {
   });
 }
 
-export default {
+module.exports = {
   getAll,
   createSingle,
   loadSingle,

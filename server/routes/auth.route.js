@@ -1,15 +1,15 @@
-import express from 'express';
-import checkToken from '../controllers/token.controller';
-import createAuthToken from '../controllers/auth.controller';
+const express = require('express');
+const tokenCtrl = require('../controllers/token.controller');
+const authCtrl = require('../controllers/auth.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** POST /api/auth - Post for auth check */
-  .post(checkToken);
+  .post(tokenCtrl.checkToken);
 
 router.route('/login')
   /** POST /api/auth/login - Post to get auth token */
-  .post(createAuthToken);
+  .post(authCtrl.createAuthToken);
 
-export default router;
+module.exports = router;

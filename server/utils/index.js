@@ -30,7 +30,7 @@ const createNewsArticleMainImage = (mainImage, ticketsLink) => {
   return _mainImage;
 };
 
-export default {
+module.exports = {
   urlFriendlyString,
   createNewsArticleMainImage
 };

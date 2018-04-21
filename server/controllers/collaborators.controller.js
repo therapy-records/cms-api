@@ -1,5 +1,5 @@
-import Collaborators from '../models/collaborators.model';
-import { verifyToken } from './token.controller';
+const Collaborators = require('../models/collaborators.model');
+const tokenCtrl = require('./token.controller');
 
 function getAll(req, res, next) {
   Collaborators.find()
@@ -16,7 +16,7 @@ function createSingle(req, res, next) {
     urls: req.body.urls,
     collabOn: req.body.collabOn
   });
-  verifyToken(req, res, next)
+  tokenCtrl.verifyToken(req, res, next)
     .then(() => {
       collaborator.save()
         .then((savedCollab) => {
@@ -57,7 +57,7 @@ function removeSingle(req, res) {
   });
 }
 
-export default {
+module.exports = {
   getAll,
   createSingle,
   loadSingle,

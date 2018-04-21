@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import httpStatus from 'http-status';
-import APIError from '../helpers/APIError';
+const mongoose = require('mongoose');
+const httpStatus = require('http-status');
+const APIError = require('../helpers/APIError');
 
 const Schema = mongoose.Schema; // eslint-disable-line no-unused-vars
 
@@ -96,4 +96,4 @@ CollaboratorSchema.statics = {
 /**
  * @typedef Collaborator
  */
-export default mongoose.model('Collaborator', CollaboratorSchema);
+module.exports = mongoose.model('Collaborator', CollaboratorSchema);

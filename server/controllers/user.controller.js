@@ -1,4 +1,4 @@
-import User from '../models/user.model';
+const User = require('../models/user.model');
 
 /**
  * Load user and append to req.
@@ -75,4 +75,4 @@ function remove(req, res, next) {
 }
  */
 
-export default { load, get };
+module.exports = { load, get };

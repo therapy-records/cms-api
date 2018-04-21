@@ -1,6 +1,6 @@
-import express from 'express';
-import passport from 'passport';
-import otherWorkCtrl from '../controllers/otherWork.controller';
+const express = require('express');
+const passport = require('passport');
+const otherWorkCtrl = require('../controllers/otherWork.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -29,4 +29,4 @@ router.route('/:otherWorkId')
 
 router.param('otherWorkId', otherWorkCtrl.loadSingle);
 
-export default router;
+module.exports = router;

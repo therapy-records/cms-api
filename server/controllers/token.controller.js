@@ -1,7 +1,7 @@
 /* eslint object-shorthand: 0 */
-import jwt from 'jsonwebtoken';
-import config from '../../config/env';
-import User from '../models/user.model';
+const jwt = require('jsonwebtoken');
+const config = require('../../config/env');
+const User = require('../models/user.model');
 
 /**
  * create user
@@ -49,7 +49,7 @@ function checkToken(req, res) {
 }
 
 /* istanbul ignore next */
-export function verifyToken(req, res) {
+function verifyToken(req, res) {
   const token = getToken(req.headers);
   if (token) {
     const decoded = jwt.verify(token, config.jwtSecret); // check if this checks the expiry date
@@ -74,4 +74,7 @@ export function verifyToken(req, res) {
 }
 
 
-export default checkToken;
+module.exports = {
+  checkToken,
+  verifyToken
+};

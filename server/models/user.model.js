@@ -1,8 +1,8 @@
-import Promise from 'bluebird';
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt-nodejs';
-import httpStatus from 'http-status';
-import APIError from '../helpers/APIError';
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
+const httpStatus = require('http-status');
+const APIError = require('../helpers/APIError');
 
 const Schema = mongoose.Schema; // eslint-disable-line no-unused-vars
 
@@ -93,4 +93,4 @@ UserSchema.statics = {
 /**
  * @typedef User
  */
-export default mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

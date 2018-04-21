@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import httpStatus from 'http-status';
-import APIError from '../helpers/APIError';
+const mongoose = require('mongoose');
+const httpStatus = require('http-status');
+const APIError = require('../helpers/APIError');
 
 /**
  * Press Schema
@@ -65,4 +65,4 @@ PressSchema.statics = {
 /**
  * @typedef Press
  */
-export default mongoose.model('Press', PressSchema);
+module.exports = mongoose.model('Press', PressSchema);

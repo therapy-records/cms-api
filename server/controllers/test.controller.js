@@ -1,8 +1,8 @@
-import config from '../../config/env';
-import News from '../models/news.model';
-import Collaborators from '../models/collaborators.model';
-import Press from '../models/press.model';
-import OtherWork from '../models/otherWork.model';
+const config = require('../../config/env');
+const News = require('../models/news.model');
+const Collaborators = require('../models/collaborators.model');
+const Press = require('../models/press.model');
+const OtherWork = require('../models/otherWork.model');
 
 function deleteAllNewsArticles(req, res) {
   if (config.env === 'test') {
@@ -49,7 +49,7 @@ function deleteAllOtherWork(req, res) {
   }
 }
 
-export default {
+module.exports = {
   deleteAllNewsArticles,
   deleteAllCollaborators,
   deleteAllPress,

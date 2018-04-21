@@ -1,10 +1,11 @@
-import chai, { expect } from 'chai';
-import {
+const chai = require('chai');
+const {
   urlFriendlyString,
   createNewsArticleMainImage
-} from '../utils';
+} = require('../utils');
 
 chai.config.includeStack = true;
+const expect = chai.expect;
 
 after(done => done());
 
