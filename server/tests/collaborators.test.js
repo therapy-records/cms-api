@@ -1,4 +1,3 @@
-/*
 const mongoose = require('mongoose');
 const request = require('supertest');
 const httpStatus = require('http-status');
@@ -219,4 +218,3 @@ describe('## Collaborators APIs', () => {
     });
   });
 });
-*/
