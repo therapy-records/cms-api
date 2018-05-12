@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const config = require('../../config/env');
 
 /**
  * Load user and append to req.
@@ -23,14 +24,18 @@ function get(req, res) {
 /**
  * Create new user
  * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.password - The password of user.
  * @returns {User}
-
+*/
 function create(req, res) {
   if (!req.body.username ||
-      req.body.username !== config.validUn ||
-      !req.body.password) {
+    !req.body.password) {
     res.status(400).send({ success: false, message: 'Please provide username and password.' });
+  }
+
+  if (req.body.username &&
+      req.body.username !== config.validUn) {
+      res.status(400).send({ success: false, message: 'Invalid username' });    
   } else {
     const newUser = new User({
       username: req.body.username,
@@ -40,39 +45,22 @@ function create(req, res) {
       if (err) {
         res.status(400).send({ success: false, message: 'User already exists.' });
       }
-      res.json({ success: true, message: 'Successful created a new user.' });
+      res.json({ success: true, message: 'Successfully created a new user.', userId: newUser._id });
     });
   }
   return res.status(400).send({ success: false, message: 'Error.' });
 }
-*/
-
-/**
- * Update existing user
- * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
- * @returns {User}
-
-function update(req, res, next) {
-  const user = req.user;
-  user.username = req.body.username;
-  user.mobileNumber = req.body.mobileNumber;
-  user.save()
-    .then(savedUser => res.json(savedUser))
-    .catch(e => next(e));
-}
- */
 
 /**
  * Delete user.
  * @returns {User}
-
+*/
 function remove(req, res, next) {
   const user = req.user;
   user.remove()
     .then(deletedUser => res.json(deletedUser))
     .catch(e => next(e));
 }
- */
+ 
 
-module.exports = { load, get };
+module.exports = { create, load, get, remove };
