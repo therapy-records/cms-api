@@ -31,15 +31,15 @@ function checkToken(req, res) {
     // TODO: ensure expiry date checks
     return jwt.verify(token, config.jwtSecret, (err, decoded) => {
       if (err ||
-          (decoded._doc.username !== config.validUn)) {
-          return res.status(403).send({ success: false, message: 'User not found.' });
+         (decoded._doc.username !== config.validUn)) {
+        return res.status(403).send({ success: false, message: 'User not found.' });
       }
       decodedObj = decoded;
 
       return User.findOne({
         username: decodedObj._doc.username
-      }, (err, user) => {
-        if (err) throw err;
+      }, (userErr, user) => {
+        if (userErr) throw userErr;
         if (!user) {
           return res.status(403).send({ errorCheckingToken: true });
         }
@@ -57,7 +57,7 @@ function checkToken(req, res) {
 function verifyToken(req, res) {
   const token = getToken(req.headers);
   if (token) {
-    const decoded = jwt.verify(token, config.jwtSecret); // check if this checks the expiry date
+    const decoded = jwt.verify(token, config.jwtSecret); // TODO: ensure expiry date checks
     if (decoded._doc.username !== config.validUn) {
       res.status(403).send({ success: false, message: 'User not found.' });
     }

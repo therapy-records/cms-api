@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const httpStatus = require('http-status');
 const chai = require('chai');
+const config = require('../../config/env');
 const app = require('../../index');
 
 chai.config.includeStack = true;
@@ -16,19 +17,18 @@ after((done) => {
 });
 
 describe('## User APIs', () => {
-  let validUserObj = {
-    username: 'b2test',
-    password: 'password'
-  },
-  createdUser = {};
- 
-  describe('# POST /api/user', () => {
+  const validUserObj = {
+    username: config.validUn,
+    password: config.pword
+  };
+  const createdUser = {};
 
+  describe('# POST /api/user', () => {
     describe('with no username', () => {
       it('should return error message', (done) => {
         const invalidUserObj = {
           password: 'password'
-        }
+        };
         request(app)
           .post('/api/user')
           .send(invalidUserObj)
@@ -36,7 +36,6 @@ describe('## User APIs', () => {
           .then((res) => {
             expect(res.body.success).to.equal(false);
             expect(res.body.message).to.equal('Please provide username and password.');
-            user = res.body;
             done();
           })
           .catch(done);
@@ -45,9 +44,7 @@ describe('## User APIs', () => {
 
     describe('with no password', () => {
       it('should return error message', (done) => {
-        const invalidUserObj = {
-          username: 'dummy'
-        }
+        const invalidUserObj = { username: 'dummy' };
         request(app)
           .post('/api/user')
           .send(invalidUserObj)
@@ -55,7 +52,6 @@ describe('## User APIs', () => {
           .then((res) => {
             expect(res.body.success).to.equal(false);
             expect(res.body.message).to.equal('Please provide username and password.');
-            user = res.body;
             done();
           })
           .catch(done);
@@ -67,35 +63,33 @@ describe('## User APIs', () => {
         const invalidUserObj = {
           username: 'dummy',
           password: 'password'
-        }
+        };
         request(app)
           .post('/api/user')
-          .send(invalidUserObj)
-          .expect(httpStatus.BAD_REQUEST)
-          .then((res) => {
-            expect(res.body.success).to.equal(false);
-            expect(res.body.message).to.equal('Invalid username');
-            user = res.body;
-            done();
-          })
-          .catch(done);
+            .send(invalidUserObj)
+            .expect(httpStatus.BAD_REQUEST)
+            .then((res) => {
+              expect(res.body.success).to.equal(false);
+              expect(res.body.message).to.equal('Invalid username');
+              done();
+            })
+            .catch(done);
       });
     });
 
     it('should create a new user', (done) => {
       request(app)
         .post('/api/user')
-        .send(validUserObj)
-        .expect(httpStatus.OK)
-        .then((res) => {
-          console.log(`created new user ${validUserObj.username}`);
-          expect(res.body.success).to.equal(true);
-          expect(res.body.message).to.equal('Successfully created a new user.');
-          expect(res.body.userId).to.be.a('string');
-          createdUser._id = res.body.userId;
-          done();
-        })
-        .catch(done); 
+          .send(validUserObj)
+          .expect(httpStatus.OK)
+          .then((res) => {
+            expect(res.body.success).to.equal(true);
+            expect(res.body.message).to.equal('Successfully created a new user.');
+            expect(res.body.userId).to.be.a('string');
+            createdUser._id = res.body.userId;
+            done();
+          })
+          .catch(done);
     });
   });
 

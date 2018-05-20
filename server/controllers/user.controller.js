@@ -35,7 +35,7 @@ function create(req, res) {
 
   if (req.body.username &&
       req.body.username !== config.validUn) {
-      res.status(400).send({ success: false, message: 'Invalid username' });    
+    res.status(400).send({ success: false, message: 'Invalid username' });
   } else {
     const newUser = new User({
       username: req.body.username,
@@ -61,6 +61,5 @@ function remove(req, res, next) {
     .then(deletedUser => res.json(deletedUser))
     .catch(e => next(e));
 }
- 
 
 module.exports = { create, load, get, remove };

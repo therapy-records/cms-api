@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-
 const request = require('supertest');
 const httpStatus = require('http-status');
 const chai = require('chai');
@@ -31,15 +29,15 @@ describe('## Auth', () => {
     it('should return a JWT', (done) => {
       request(app)
         .post('/api/auth/login')
-        .send(MOCK.AUTH_USER)
-        .expect(httpStatus.OK)
-        .then((res) => {
-          expect(res.body).to.be.an('object');
-          expect(res.body.token).to.be.a('string');
-          JWT_VALID = res.body.token;
-          done();
-        })
-        .catch(done);
+          .send(MOCK.AUTH_USER)
+          .expect(httpStatus.OK)
+          .then((res) => {
+            expect(res.body).to.be.an('object');
+            expect(res.body.token).to.be.a('string');
+            JWT_VALID = res.body.token;
+            done();
+          })
+          .catch(done);
     });
   });
 
@@ -86,6 +84,70 @@ describe('## Auth', () => {
             done();
           })
           .catch(done);
+    });
+  });
+
+  describe('# POST /api/auth/login', () => {
+    describe('when no username', () => {
+      it('should return 401 user not found message', (done) => {
+        request(app)
+          .post('/api/auth/login')
+          .set('Authorization', 'Bearer invalid')
+          .send({ username: '' })
+          .expect(httpStatus.UNAUTHORIZED)
+          .then((res) => {
+            expect(res.body.success).to.eq(false);
+            expect(res.body.message).to.eq('User not found.');
+            done();
+          })
+          .catch(done);
+      });
+    });
+    describe('when username is invalid', () => {
+      it('should return 401 user not found message', (done) => {
+        request(app)
+          .post('/api/auth/login')
+          .set('Authorization', 'Bearer invalid')
+          .send({ username: 'asdf' })
+          .expect(httpStatus.UNAUTHORIZED)
+          .then((res) => {
+            expect(res.body.success).to.eq(false);
+            expect(res.body.message).to.eq('User not found.');
+            done();
+          })
+          .catch(done);
+      });
+    });
+
+    describe('when password does not match', () => {
+      it('should return 401 user not found message', (done) => {
+        request(app)
+          .post('/api/auth/login')
+          .set('Authorization', 'Bearer invalid')
+          .send({ username: config.validUn, password: 'aaaa' })
+          .expect(httpStatus.UNAUTHORIZED)
+          .then((res) => {
+            expect(res.body.success).to.eq(false);
+            expect(res.body.message).to.eq('Incorrect password.');
+            done();
+          })
+          .catch(done);
+      });
+    });
+
+    it('should return OK with token and userId', (done) => {
+      request(app)
+        .post('/api/auth/login')
+        .set('Authorization', JWT_VALID)
+        .send({ username: config.validUn, password: config.pword })
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.success).to.eq(true);
+          expect(res.body.token).to.be.a('string');
+          expect(res.body.userId).to.be.a('string');
+          done();
+        })
+        .catch(done);
     });
   });
 });

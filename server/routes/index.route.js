@@ -26,7 +26,7 @@ router.use('/other-work', otherWorkRoutes);
 
 if (config.nonProductionRoutes === 'true') {
   router.use('/user', userRoutes);
-  router.use('/test', testRoutes); 
+  router.use('/test', testRoutes);
 }
 
 module.exports = router;

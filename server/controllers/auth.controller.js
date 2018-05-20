@@ -23,7 +23,7 @@ function createAuthToken(req, res) {
             res.send({ success: true, token: `JWT ${token}`, userId: usr._id });
           });
         } else {
-          res.send({ success: false, message: 'Incorrect password.' });
+          res.status(401).send({ success: false, message: 'Incorrect password.' });
         }
       });
     }
