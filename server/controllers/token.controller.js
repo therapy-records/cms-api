@@ -27,22 +27,27 @@ const getToken = (headers) => {
 function checkToken(req, res) {
   const token = getToken(req.headers);
   if (token) {
-    const decoded = jwt.verify(token, config.jwtSecret); // check if this checks the expiry date
-    if (decoded._doc.username !== config.validUn) {
-      res.status(403).send({ success: false, message: 'User not found.' });
-    }
-    return User.findOne({
-      username: decoded._doc.username
-    }, (err, user) => {
-      if (err) throw err;
+    let decodedObj;
+    // TODO: ensure expiry date checks
+    return jwt.verify(token, config.jwtSecret, (err, decoded) => {
+      if (err ||
+          (decoded._doc.username !== config.validUn)) {
+          return res.status(403).send({ success: false, message: 'User not found.' });
+      }
+      decodedObj = decoded;
 
-      if (!user) {
-        return res.status(403).send({ errorCheckingToken: true });
-      }
-      if (user) {
-        return res.status(200).send({ success: true });
-      }
-      return err;
+      return User.findOne({
+        username: decodedObj._doc.username
+      }, (err, user) => {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({ errorCheckingToken: true });
+        }
+        if (user) {
+          return res.status(200).send({ success: true });
+        }
+        return err;
+      });
     });
   }
   return res.status(403).send({ success: false, message: 'No token provided.' });

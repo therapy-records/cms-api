@@ -49,7 +49,6 @@ const MOCK = {
 
 let JWT_VALID = '';
 
-
 after((done) => {
   // required because https://github.com/Automattic/mongoose/issues/1251#issuecomment-65793092
   mongoose.models = {};
