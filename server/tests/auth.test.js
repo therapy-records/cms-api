@@ -52,7 +52,7 @@ describe('## Auth', () => {
             .expect(httpStatus.FORBIDDEN)
             .then((res) => {
               expect(res.body.success).to.eq(false);
-              expect(res.body.message).to.eq('User not found.');
+              expect(res.body.message).to.eq('User not found');
               done();
             })
             .catch(done);
@@ -68,7 +68,7 @@ describe('## Auth', () => {
           .expect(httpStatus.FORBIDDEN)
           .then((res) => {
             expect(res.body.success).to.eq(false);
-            expect(res.body.message).to.eq('No token provided.');
+            expect(res.body.message).to.eq('No token provided');
             done();
           })
           .catch(done);
@@ -97,7 +97,7 @@ describe('## Auth', () => {
           .expect(httpStatus.UNAUTHORIZED)
           .then((res) => {
             expect(res.body.success).to.eq(false);
-            expect(res.body.message).to.eq('User not found.');
+            expect(res.body.message).to.eq('User not found');
             done();
           })
           .catch(done);
@@ -112,7 +112,7 @@ describe('## Auth', () => {
           .expect(httpStatus.UNAUTHORIZED)
           .then((res) => {
             expect(res.body.success).to.eq(false);
-            expect(res.body.message).to.eq('User not found.');
+            expect(res.body.message).to.eq('User not found');
             done();
           })
           .catch(done);
@@ -128,7 +128,7 @@ describe('## Auth', () => {
           .expect(httpStatus.UNAUTHORIZED)
           .then((res) => {
             expect(res.body.success).to.eq(false);
-            expect(res.body.message).to.eq('Incorrect password.');
+            expect(res.body.message).to.eq('Invalid username or password');
             done();
           })
           .catch(done);
