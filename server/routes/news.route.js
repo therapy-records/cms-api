@@ -15,29 +15,6 @@ router.route('/')
     newsCtrl.createPost(req, res, next);
   });
 
-router.route('/queue')
-  /** GET /api/news/queue - Get all posts in queue */
-  .get(passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    newsCtrl.getAllPostsQueue(req, res, next);
-  })
-  /** POST /api/news/queue - Create new post in queue*/
-  .post(passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    newsCtrl.createPostQueue(req, res, next);
-  });
-
-router.route('/queue/:queuePostId')
-  /** DELETE /api/news/queue/:queuePostId - Delete post in queue */
-  .delete(passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    newsCtrl.removePostQueue(req, res, next);
-  })
-
-  /** PUT /api/news/:postId - Update post */
-  .put(validate(paramValidation.editNewsPost),
-    passport.authenticate('jwt', { session: false }), (req, res, next) => {
-      newsCtrl.editPostQueue(req, res, next);
-    });
-
-
 router.route('/:postId')
   /** GET /api/news/:postId - Get post */
   .get(newsCtrl.getPost)
@@ -55,9 +32,5 @@ router.route('/:postId')
 
 /** Load post when API with postId route parameter is hit */
 router.param('postId', newsCtrl.loadPost);
-
-/** Load post when API with queuePostId route parameter is hit */
-router.param('queuePostId', newsCtrl.loadPostQueue);
-
 
 module.exports = router;
