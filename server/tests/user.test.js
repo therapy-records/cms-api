@@ -24,24 +24,6 @@ describe('## User APIs', () => {
   const createdUser = {};
 
   describe('# POST /api/user', () => {
-    describe('with no username', () => {
-      it('should return error message', (done) => {
-        const invalidUserObj = {
-          password: 'password'
-        };
-        request(app)
-          .post('/api/user')
-          .send(invalidUserObj)
-          .expect(httpStatus.BAD_REQUEST)
-          .then((res) => {
-            expect(res.body.success).to.equal(false);
-            expect(res.body.message).to.equal('Please provide username and password.');
-            done();
-          })
-          .catch(done);
-      });
-    });
-
     describe('with no password', () => {
       it('should return error message', (done) => {
         const invalidUserObj = { username: 'dummy' };
