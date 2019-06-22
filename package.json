@@ -71,7 +71,7 @@
     "eslint-plugin-import": "1.16.0",
     "eslint-watch": "2.1.14",
     "ghooks": "^1.2.4",
-    "isparta": "4.0.0",
+    "isparta": "4.1.1",
     "mocha": "3.2.0",
     "nyc": "11.8.0",
     "supertest": "3.0.0",
