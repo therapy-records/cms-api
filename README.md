@@ -16,6 +16,8 @@ git clone git@github.com:therapy-records/cms-api.git && cd cms-api
 yarn install && yarn start
 ```
 
+Port is 4040.
+
 Tests:
 ```sh
 # Run tests written in ES6 along with code coverage
