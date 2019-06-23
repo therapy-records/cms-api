@@ -33,7 +33,8 @@ if (config.MONGOOSE_DEBUG) {
 
 // listen on port config.port
 app.listen(port, () => {
-  debug(`server started on port ${port} (${config.env})`);
+  console.log(`server started on port ${port}(${config.env})`); // eslint-disable-line
+  // debug(`server started on port ${port} (${config.env})`);
 });
 
 module.exports = app;

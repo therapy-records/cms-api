@@ -3,9 +3,9 @@ const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
 
 /**
- * Other Work Schema
+ * Journalism Schema
  */
-const OtherWork = new mongoose.Schema({
+const Journalism = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -32,20 +32,20 @@ const OtherWork = new mongoose.Schema({
   }
 });
 
-OtherWork.statics = {
+Journalism.statics = {
   /**
-   * Get single other work article
-   * @param {ObjectId} id - The objectId of the OtherWork
-   * @returns {Promise<OtherWork, APIError>}
+   * Get single journalism article
+   * @param {ObjectId} id - The objectId of the Journalism
+   * @returns {Promise<Journalism, APIError>}
    */
   getSingle(id) {
     return this.findById(id)
       .exec()
-      .then((otherWork) => {
-        if (otherWork) {
-          return otherWork;
+      .then((journalism) => {
+        if (journalism) {
+          return journalism;
         }
-        const err = new APIError('No such other work article exists', httpStatus.NOT_FOUND);
+        const err = new APIError('No such journalism article exists', httpStatus.NOT_FOUND);
         return Promise.reject(err);
       });
   },
@@ -54,11 +54,11 @@ OtherWork.statics = {
     return this.findOneAndUpdate({ _id: obj._id },
       obj, { new: true })
       .exec()
-      .then((otherWorkUpdated) => {
-        if (otherWorkUpdated) {
-          return otherWorkUpdated;
+      .then((journalismUpdated) => {
+        if (journalismUpdated) {
+          return journalismUpdated;
         }
-        const err = new APIError('Error saving other work', httpStatus.NOT_FOUND);
+        const err = new APIError('Error saving journalism', httpStatus.NOT_FOUND);
         return Promise.reject(err);
       });
   }
@@ -67,6 +67,6 @@ OtherWork.statics = {
 
 
 /**
- * @typedef OtherWork
+ * @typedef Journalism
  */
-module.exports = mongoose.model('OtherWork', OtherWork);
+module.exports = mongoose.model('Journalism', Journalism);

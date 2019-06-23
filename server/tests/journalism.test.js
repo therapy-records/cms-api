@@ -33,10 +33,10 @@ after((done) => {
   done();
 });
 
-describe('## Other Work APIs', () => {
+describe('## Journalism APIs', () => {
   after((done) => {
     request(app)
-      .delete('api/test/other-work')
+      .delete('api/test/journalism')
       .then((err) => {
         if (err) {
           throw err;
@@ -62,18 +62,18 @@ describe('## Other Work APIs', () => {
     });
   });
 
-  describe('# POST /api/other-work', () => {
+  describe('# POST /api/journalism', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
-        .post('/api/other-work')
+        .post('/api/journalism')
         .send(MOCK.OTHER_WORK)
         .expect(httpStatus.UNAUTHORIZED)
         .then(() => done())
         .catch(done);
     });
-    it('should create new other work', (done) => {
+    it('should create new journalism', (done) => {
       request(app)
-        .post('/api/other-work')
+        .post('/api/journalism')
         .set('Authorization', JWT_VALID)
         .send(MOCK.OTHER_WORK)
         .expect(httpStatus.OK)
@@ -90,10 +90,10 @@ describe('## Other Work APIs', () => {
     });
   });
 
-  describe('# GET /api/other-work', () => {
-    it('should get all other work', (done) => {
+  describe('# GET /api/journalism', () => {
+    it('should get all journalism', (done) => {
       request(app)
-        .get('/api/other-work')
+        .get('/api/journalism')
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body).to.be.an('array');
@@ -103,10 +103,10 @@ describe('## Other Work APIs', () => {
     });
   });
 
-  describe('# GET /api/other-work/id', () => {
-    it('should get single other work', (done) => {
+  describe('# GET /api/journalism/id', () => {
+    it('should get single journalism', (done) => {
       request(app)
-        .get(`/api/other-work/${MOCK.EDITED_OTHER_WORK._id}`)
+        .get(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body).to.be.an('object');
@@ -116,17 +116,17 @@ describe('## Other Work APIs', () => {
     });
   });
 
-  describe('# PUT /api/other-work/id', () => {
+  describe('# PUT /api/journalism/id', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
-        .put(`/api/other-work/${MOCK.EDITED_OTHER_WORK._id}`)
+        .put(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
         .send(MOCK.EDITED_OTHER_WORK)
         .expect(httpStatus.UNAUTHORIZED)
         .then(() => done())
         .catch(done);
     });
-    it('should update other work', (done) => {
-      const editedOtherWork = {
+    it('should update journalism', (done) => {
+      const editedJournalism = {
         title: 'new title',
         copy: 'new copy',
         mainImageUrl: 'newImageurl.jpg',
@@ -135,15 +135,15 @@ describe('## Other Work APIs', () => {
         createdAt: new Date()
       };
 
-      MOCK.EDITED_OTHER_WORK.title = editedOtherWork.title;
-      MOCK.EDITED_OTHER_WORK.copy = editedOtherWork.copy;
-      MOCK.EDITED_OTHER_WORK.mainImageUrl = editedOtherWork.mainImageUrl;
-      MOCK.EDITED_OTHER_WORK.releaseDate = editedOtherWork.releaseDate;
-      MOCK.EDITED_OTHER_WORK.externalLink = editedOtherWork.externalLink;
-      MOCK.EDITED_OTHER_WORK.createdAt = editedOtherWork.createdAt;
+      MOCK.EDITED_OTHER_WORK.title = editedJournalism.title;
+      MOCK.EDITED_OTHER_WORK.copy = editedJournalism.copy;
+      MOCK.EDITED_OTHER_WORK.mainImageUrl = editedJournalism.mainImageUrl;
+      MOCK.EDITED_OTHER_WORK.releaseDate = editedJournalism.releaseDate;
+      MOCK.EDITED_OTHER_WORK.externalLink = editedJournalism.externalLink;
+      MOCK.EDITED_OTHER_WORK.createdAt = editedJournalism.createdAt;
 
       request(app)
-        .put(`/api/other-work/${MOCK.EDITED_OTHER_WORK._id}`)
+        .put(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
         .set('Authorization', JWT_VALID)
         .send(MOCK.EDITED_OTHER_WORK)
         .expect(httpStatus.OK)
@@ -159,23 +159,23 @@ describe('## Other Work APIs', () => {
         .catch(done);
     });
   });
-  describe('# DELETE /api/other-work/id', () => {
+  describe('# DELETE /api/journalism/id', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
-        .delete(`/api/other-work/${MOCK.EDITED_OTHER_WORK._id}`)
+        .delete(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
         .send(MOCK.EDITED_OTHER_WORK)
         .expect(httpStatus.UNAUTHORIZED)
         .then(() => done())
         .catch(done);
     });
-    it('should remove other work', (done) => {
+    it('should remove journalism', (done) => {
       request(app)
-        .delete(`/api/other-work/${MOCK.EDITED_OTHER_WORK._id}`)
+        .delete(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
         .set('Authorization', JWT_VALID)
         .send(MOCK.EDITED_OTHER_WORK)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.message).to.equal('Other Work article deleted');
+          expect(res.body.message).to.equal('Journalism article deleted');
           done();
         })
         .catch(done);

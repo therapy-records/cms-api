@@ -15,8 +15,8 @@ router.route('/press')
   /** DELETE /api/test/press */
   .delete(testCtrl.deleteAllPress);
 
-router.route('/other-work')
-  /** DELETE /api/test/other-work */
-  .delete(testCtrl.deleteAllOtherWork);
+router.route('/journalism')
+  /** DELETE /api/test/journalism */
+  .delete(testCtrl.deleteAllJournalism);
 
 module.exports = router;

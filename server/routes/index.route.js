@@ -3,7 +3,7 @@ const authRoutes = require('./auth.route');
 const collaboratorsRoutes = require('./collaborators.route');
 const newsRoutes = require('./news.route');
 const pressRoutes = require('./press.route');
-const otherWorkRoutes = require('./otherWork.route');
+const journalismRoutes = require('./journalism.route');
 const userRoutes = require('./user.route');
 const testRoutes = require('./test.route');
 const config = require('../../config/env');
@@ -22,7 +22,7 @@ router.use('/news', newsRoutes);
 
 router.use('/press', pressRoutes);
 
-router.use('/other-work', otherWorkRoutes);
+router.use('/journalism', journalismRoutes);
 
 if (config.nonProductionRoutes === 'true') {
   router.use('/user', userRoutes);

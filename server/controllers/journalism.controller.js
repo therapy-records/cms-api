@@ -1,14 +1,14 @@
-const OtherWork = require('../models/otherWork.model');
+const Journalism = require('../models/journalism.model');
 const { verifyToken } = require('./token.controller');
 
 function getAll(req, res, next) {
-  OtherWork.find()
-    .then(otherWork => res.json(otherWork))
+  Journalism.find()
+    .then(journalism => res.json(journalism))
     .catch(err => next(err));
 }
 
 function createSingle(req, res, next) {
-  const otherWorkObj = new OtherWork({
+  const journalismObj = new Journalism({
     title: req.body.title,
     copy: req.body.copy,
     mainImageUrl: req.body.mainImageUrl,
@@ -18,42 +18,42 @@ function createSingle(req, res, next) {
   });
   verifyToken(req, res, next)
     .then(() => {
-      otherWorkObj.save()
-        .then((savedOtherWork) => {
-          res.json(savedOtherWork);
+      journalismObj.save()
+        .then((savedJournalism) => {
+          res.json(savedJournalism);
         })
         .catch(e => next(e));
     });
 }
 
 /**
- * Load single other work and append to req.
+ * Load single journalism and append to req.
  */
 function loadSingle(req, res, next, id) {
-  OtherWork.getSingle(id)
-    .then((otherWork) => {
-      req.otherWork = otherWork; // eslint-disable-line no-param-reassign
+  Journalism.getSingle(id)
+    .then((journalism) => {
+      req.journalism = journalism; // eslint-disable-line no-param-reassign
       return next();
     })
     .catch(e => next(e));
 }
 
 function getSingle(req, res) {
-  return res.json(req.otherWork);
+  return res.json(req.journalism);
 }
 
 function editSingle(req, res, next) {
-  OtherWork.edit(req.body)
-    .then(savedOtherWork => res.json(savedOtherWork))
+  Journalism.edit(req.body)
+    .then(savedJournalism => res.json(savedJournalism))
     .catch(e => next(e));
 }
 
 function removeSingle(req, res) {
-  OtherWork.findByIdAndRemove(req.params.otherWorkId, (err) => {
+  Journalism.findByIdAndRemove(req.params.journalismId, (err) => {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ message: 'Other Work article deleted' });
+    res.json({ message: 'Journalism article deleted' });
   });
 }
 

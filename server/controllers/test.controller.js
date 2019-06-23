@@ -2,7 +2,7 @@ const config = require('../../config/env');
 const News = require('../models/news.model');
 const Collaborators = require('../models/collaborators.model');
 const Press = require('../models/press.model');
-const OtherWork = require('../models/otherWork.model');
+const Journalism = require('../models/journalism.model');
 
 function deleteAllNewsArticles(req, res) {
   if (config.env === 'test') {
@@ -38,9 +38,9 @@ function deleteAllPress(req, res) {
 }
 
 
-function deleteAllOtherWork(req, res) {
+function deleteAllJournalism(req, res) {
   if (config.env === 'test') {
-    OtherWork.remove({}, (err, press) => {
+    Journalism.remove({}, (err, press) => {
       if (err) {
         res.send(err);
       }
@@ -53,5 +53,5 @@ module.exports = {
   deleteAllNewsArticles,
   deleteAllCollaborators,
   deleteAllPress,
-  deleteAllOtherWork
+  deleteAllJournalism
 };

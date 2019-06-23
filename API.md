@@ -124,11 +124,11 @@
   See (press schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
 
 
-## Other Work
-- GET `api/other-work`
+## Journalism
+- GET `api/journalism`
   - returns 200 with an array of objects
 
-- POST `api/other-work`
+- POST `api/journalism`
   - returns 200 with the saved object
   - expects an object containing at least:
   ```
@@ -141,18 +141,18 @@
   }
   ```
 
-  See (otehr-work schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/otherWork.model.js) for optional fields.
+  See (otehr-work schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
 
-## Other Work - single
-#### Single other-work article
-- GET `api/other-work/:id`
+## Journalism - single
+#### Single journalism article
+- GET `api/journalism/:id`
   - returns 200 with an object
 
-- DELETE `api/other-work/:id`
+- DELETE `api/journalism/:id`
   - returns 200 with a success message
 
-- PUT `api/other-work/:id`
+- PUT `api/journalism/:id`
   - returns 200 with saved article object
   - expects an object containing at least:
   ```
@@ -164,5 +164,5 @@
     externalLink: 'google.com/an-article'
   }
   ```
-  See (otehr-work schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/otherWork.model.js) for optional fields.
+  See (otehr-work schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
