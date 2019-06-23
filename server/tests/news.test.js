@@ -15,24 +15,16 @@ const MOCK = {
     password: config.pword
   },
   NEWS_ARTICLE_BASE: {
-    title: 'testing article',
-    bodyMain: '<p>asdf</p>',
-    quotes: [
-      { author: 'asdf', copy: 'test1' },
-      { author: 'asdf', copy: 'test2' },
-    ],
-    mainImage: {
-      url: 'test.com/something.jpg',
-      externalLink: 'something.com'
-    },
-    secondaryImageUrl: 'test.com/hello.png',
-    miniGalleryImages: ['test.com/image.png', 'test.com/image.png'],
-    socialShare: {
-      hashtags: ['#something', '#yes']
-    },
-    ticketsLink: 'http://google.com',
-    venueLink: 'http://yahoo.com',
-    videoEmbed: 'http://youtube.com/asdf',
+    title: 'Test article',
+    sections: [
+      {
+        images: [
+          { url: 'test.com/something.jpg' },
+          { url: 'test.com/something2.jpg' }
+        ],
+        copy: 'Testing'
+      }
+    ]
   },
   EDITED_NEWS_ARTICLE: {},
 };
@@ -97,15 +89,7 @@ describe('## News APIs', () => {
           expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE.title);
           expect(res.body.urlTitle).to.equal(expectedUrlTitle);
           expect(res.body.createdAt).to.be.a('string');
-          expect(res.body.bodyMain).to.equal(MOCK.NEWS_ARTICLE.bodyMain);
-          expect(res.body.quotes).to.eql(MOCK.NEWS_ARTICLE.quotes);
-          expect(res.body.mainImage).to.deep.eq(MOCK.NEWS_ARTICLE.mainImage);
-          expect(res.body.secondaryImageUrl).to.equal(MOCK.NEWS_ARTICLE.secondaryImageUrl);
-          expect(res.body.miniGalleryImages).to.deep.eq(MOCK.NEWS_ARTICLE.miniGalleryImages);
-          expect(res.body.socialShare).to.eql(MOCK.NEWS_ARTICLE.socialShare);
-          expect(res.body.ticketsLink).to.equal(MOCK.NEWS_ARTICLE.ticketsLink);
-          expect(res.body.venueLink).to.equal(MOCK.NEWS_ARTICLE.venueLink);
-          expect(res.body.videoEmbed).to.equal(MOCK.NEWS_ARTICLE.videoEmbed);
+          expect(res.body.sections).to.be.an('array');
           MOCK.EDITED_NEWS_ARTICLE = res.body;
           done();
         })
@@ -152,11 +136,18 @@ describe('## News APIs', () => {
     it('should update an article', (done) => {
       const editedNews = {
         title: 'edited title',
-        bodyMain: '<p>hello test</p>'
+        sections: [
+          {
+            images: [
+              { url: 'test.com/something-else.jpg' }
+            ],
+            copy: 'updated copy'
+          }
+        ]
       };
 
       MOCK.EDITED_NEWS_ARTICLE.title = editedNews.title;
-      MOCK.EDITED_NEWS_ARTICLE.title = editedNews.bodyMain;
+      MOCK.EDITED_NEWS_ARTICLE.sections = editedNews.sections;
 
       request(app)
         .put(`/api/news/${MOCK.EDITED_NEWS_ARTICLE._id}`)
@@ -167,7 +158,7 @@ describe('## News APIs', () => {
           const expectedUrlTitle = urlFriendlyString(MOCK.NEWS_ARTICLE.title);
           expect(res.body.urlTitle).to.equal(expectedUrlTitle);
           expect(res.body.title).to.equal(MOCK.EDITED_NEWS_ARTICLE.title);
-          expect(res.body.bodyMain).to.equal(MOCK.EDITED_NEWS_ARTICLE.bodyMain);
+          expect(res.body.sections).to.be.an('array');
           done();
         })
         .catch(done);

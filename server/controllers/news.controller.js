@@ -1,8 +1,7 @@
 const News = require('../models/news.model');
 const { verifyToken } = require('./token.controller');
 const {
-  urlFriendlyString,
-  createNewsArticleMainImage
+  urlFriendlyString
 } = require('../utils');
 
 /**
@@ -27,29 +26,16 @@ function getPost(req, res) {
 
 /**
  * Create new post
- * @property {string} req.body.newsname - The newsname of news.
- * @property {object} req.body.bodyMain - The html content of news post.
+ * @property {string} req.body.title - The main article title, e.g 'June update'
+ * @property {object} req.body.sections - The image and copy sections of the news article
  * @returns {newsPost}
  */
 function createPost(req, res, next) {
-  const _mainImage = createNewsArticleMainImage(
-    req.body.mainImage,
-    req.body.ticketsLink
-  );
-
   const news = new News({
     title: req.body.title,
     urlTitle: urlFriendlyString(req.body.title),
     createdAt: new Date(),
-    bodyMain: req.body.bodyMain,
-    quotes: req.body.quotes,
-    mainImage: _mainImage,
-    secondaryImageUrl: req.body.secondaryImageUrl,
-    miniGalleryImages: req.body.miniGalleryImages,
-    socialShare: req.body.socialShare,
-    ticketsLink: req.body.ticketsLink,
-    venueLink: req.body.venueLink,
-    videoEmbed: req.body.videoEmbed
+    sections: req.body.sections
   });
 
   verifyToken(req, res, next)

@@ -11,42 +11,18 @@ const NewsSchema = (add, collectionName) => {
     urlTitle: {
       type: String
     },
-    bodyMain: {
-      type: Object,
-      required: true
-    },
-    quotes: {
-      type: Array
-    },
     createdAt: {
       type: Date
     },
     editedAt: {
       type: Date
     },
-    ticketsLink: {
-      type: String
-    },
-    venueLink: {
-      type: String
-    },
-    videoEmbed: {
-      type: String
-    },
-    mainImage: {
-      type: Object
-    },
-    secondaryImageUrl: {
-      type: String
-    },
-    miniGalleryImages: {
-      type: Array
-    },
-    socialShare: {
-      hashtags: {
-        type: Array
-      }
-    }
+    sections: [{
+      images: [{
+        url: String
+      }],
+      copy: String
+    }]
   }, _collectionName);
 
   if (add) {

@@ -1,11 +1,20 @@
 const Joi = require('joi');
 
+const newsSectionImages = Joi.object().keys({
+  url: Joi.string()
+});
+
+const newsSection = Joi.object().keys({
+  images: Joi.array().items(newsSectionImages),
+  copy: Joi.string().required()
+});
+
 module.exports = {
   // PUT /api/news/:id
   editNewsPost: {
     body: {
       title: Joi.string().required(),
-      bodyMain: Joi.string().required()
+      sections: Joi.array().items(newsSection)
     }
   },
   // POST /api/users
