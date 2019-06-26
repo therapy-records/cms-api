@@ -10,11 +10,11 @@ after(done => done());
 
 describe('## Utils', () => {
   describe('urlFriendlyString', () => {
-    it('should return a formatted string', () => {
-      const str = 'hello world all the 123 things';
+    it('should return a formatted string without special characters, white space or uppercase letters', () => {
+      const str = 'hello WORLD! all the 123 things, amazing!@£$ - great stuff!';
       const actual = urlFriendlyString(str);
-      const expected = 'hello-world-all-the-123-things';
-      expect(actual).to.eq(expected);
+      const expected = 'hello-world-all-the-123-things-amazing-great-stuff';
+     expect(actual).to.eq(expected);
     });
   });
 });
