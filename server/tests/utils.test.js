@@ -14,7 +14,7 @@ describe('## Utils', () => {
       const str = 'hello WORLD! all the 123 things, amazing!@£$ - great stuff!';
       const actual = urlFriendlyString(str);
       const expected = 'hello-world-all-the-123-things-amazing-great-stuff';
-     expect(actual).to.eq(expected);
+      expect(actual).to.eq(expected);
     });
   });
 });
