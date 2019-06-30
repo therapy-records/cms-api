@@ -63,9 +63,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
-    "commitizen": "^2.9.2",
     "cross-env": "5.2.0",
-    "cz-conventional-changelog": "1.2.0",
     "eslint": "5.16.0",
     "eslint-config-airbnb-base": "7.1.0",
     "eslint-import-resolver-node": "0.3.2",
@@ -75,16 +73,12 @@
     "isparta": "4.1.1",
     "mocha": "6.1.4",
     "nyc": "14.1.1",
-    "supertest": "4.0.2",
-    "validate-commit-msg": "^2.6.1"
+    "supertest": "4.0.2"
   },
   "license": "MIT",
   "config": {
     "ghooks": {
       "pre-commit": "yarn lint"
-    },
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
