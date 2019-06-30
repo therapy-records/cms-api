@@ -73,16 +73,16 @@ describe('## Collaborators APIs', () => {
   describe('# POST /api/auth/login', () => {
     it('should return a JWT', (done) => {
       request(app)
-      .post('/api/auth/login')
-      .send(MOCK.AUTH_USER)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        expect(res.body).to.be.an('object');
-        expect(res.body.token).to.be.a('string');
-        JWT_VALID = res.body.token;
-        done();
-      })
-      .catch(done);
+        .post('/api/auth/login')
+        .send(MOCK.AUTH_USER)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body).to.be.an('object');
+          expect(res.body.token).to.be.a('string');
+          JWT_VALID = res.body.token;
+          done();
+        })
+        .catch(done);
     });
   });
 

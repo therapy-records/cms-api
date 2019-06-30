@@ -48,30 +48,30 @@ describe('## User APIs', () => {
         };
         request(app)
           .post('/api/user')
-            .send(invalidUserObj)
-            .expect(httpStatus.BAD_REQUEST)
-            .then((res) => {
-              expect(res.body.success).to.equal(false);
-              expect(res.body.message).to.equal('Invalid username');
-              done();
-            })
-            .catch(done);
+          .send(invalidUserObj)
+          .expect(httpStatus.BAD_REQUEST)
+          .then((res) => {
+            expect(res.body.success).to.equal(false);
+            expect(res.body.message).to.equal('Invalid username');
+            done();
+          })
+          .catch(done);
       });
     });
 
     it('should create a new user', (done) => {
       request(app)
         .post('/api/user')
-          .send(validUserObj)
-          .expect(httpStatus.OK)
-          .then((res) => {
-            expect(res.body.success).to.equal(true);
-            expect(res.body.message).to.equal('Successfully created a new user.');
-            expect(res.body.userId).to.be.a('string');
-            createdUser._id = res.body.userId;
-            done();
-          })
-          .catch(done);
+        .send(validUserObj)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.success).to.equal(true);
+          expect(res.body.message).to.equal('Successfully created a new user.');
+          expect(res.body.userId).to.be.a('string');
+          createdUser._id = res.body.userId;
+          done();
+        })
+        .catch(done);
     });
   });
 

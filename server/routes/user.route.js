@@ -11,8 +11,8 @@ router.route('/')
   .post(userCtrl.create);
 
 router.route('/:userId')
-  /** GET /api/user/:userId - Get user */
-  // .get(userCtrl.get)
+/** GET /api/user/:userId - Get user */
+// .get(userCtrl.get)
 
   /** DELETE /api/user/:userId - Delete user */
   .delete(userCtrl.remove);

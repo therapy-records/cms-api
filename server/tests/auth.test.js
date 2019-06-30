@@ -29,15 +29,15 @@ describe('## Auth', () => {
     it('should return a JWT', (done) => {
       request(app)
         .post('/api/auth/login')
-          .send(MOCK.AUTH_USER)
-          .expect(httpStatus.OK)
-          .then((res) => {
-            expect(res.body).to.be.an('object');
-            expect(res.body.token).to.be.a('string');
-            JWT_VALID = res.body.token;
-            done();
-          })
-          .catch(done);
+        .send(MOCK.AUTH_USER)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body).to.be.an('object');
+          expect(res.body.token).to.be.a('string');
+          JWT_VALID = res.body.token;
+          done();
+        })
+        .catch(done);
     });
   });
 
@@ -47,15 +47,15 @@ describe('## Auth', () => {
         const userObj = { username: 'asdf' };
         request(app)
           .post('/api/auth')
-            .set('Authorization', 'Bearer invalid')
-            .send(userObj)
-            .expect(httpStatus.FORBIDDEN)
-            .then((res) => {
-              expect(res.body.success).to.eq(false);
-              expect(res.body.message).to.eq('User not found');
-              done();
-            })
-            .catch(done);
+          .set('Authorization', 'Bearer invalid')
+          .send(userObj)
+          .expect(httpStatus.FORBIDDEN)
+          .then((res) => {
+            expect(res.body.success).to.eq(false);
+            expect(res.body.message).to.eq('User not found');
+            done();
+          })
+          .catch(done);
       });
     });
     describe('when no token is provided', () => {
@@ -77,13 +77,13 @@ describe('## Auth', () => {
     it('should return OK', (done) => {
       request(app)
         .post('/api/auth')
-          .set('Authorization', JWT_VALID)
-          .expect(httpStatus.OK)
-          .then((res) => {
-            expect(res.body.success).to.eq(true);
-            done();
-          })
-          .catch(done);
+        .set('Authorization', JWT_VALID)
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.success).to.eq(true);
+          done();
+        })
+        .catch(done);
     });
   });
 
