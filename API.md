@@ -7,7 +7,7 @@
   - returns 200 with 'OK' string
   
 ## News
-#### Articles that are or can be live right now
+#### Articles that are live
 - GET `api/news`
   - returns 200 with an array of objects
 
@@ -38,7 +38,14 @@
   ```
   {
     title: 'my title',
-    bodyMain: '<p>amazing article</p>'
+    sections: [
+      copy: 'hello world',
+      sections: [
+        {
+          images:  url: 'test.com/test.jpg'
+        }
+      ]
+    ]
   }
   ```
   See (news schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
