@@ -11,7 +11,7 @@ function createSingle(req, res, next) {
   const press = new Press({
     author: req.body.author,
     copy: req.body.copy,
-    mainImageUrl: req.body.mainImageUrl,
+    imageUrl: req.body.imageUrl,
     externalLink: req.body.externalLink,
     createdAt: new Date()
   });

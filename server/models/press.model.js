@@ -14,7 +14,7 @@ const PressSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  mainImageUrl: {
+  imageUrl: {
     type: String,
     required: true
   },

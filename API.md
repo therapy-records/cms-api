@@ -101,7 +101,7 @@
   {
     author: 'my title',
     copy: '<p>fantastic performance...</p>',
-    mainImageUrl: 'me.com/profile.png',
+    imageUrl: 'me.com/profile.png',
     externalLink: 'google.com/an-article'
   }
   ```
@@ -124,7 +124,7 @@
   {
     author: 'my title',
     copy: '<p>fantastic performance...</p>',
-    mainImageUrl: 'me.com/profile.png',
+    imageUrl: 'me.com/profile.png',
     externalLink: 'google.com/an-article'
   }
   ```
@@ -142,7 +142,7 @@
   {
     title: 'My title',
     copy: '<p>fantastic review...</p>',
-    mainImageUrl: 'me.com/profile.png',
+    imageUrl: 'me.com/profile.png',
     releaseDate: Mon Apr 02 2018 11:34:54 GMT+0100 (BST),
     externalLink: 'google.com/an-article'
   }
@@ -166,7 +166,7 @@
   {
     title: 'My title',
     copy: '<p>fantastic review...</p>',
-    mainImageUrl: 'me.com/profile.png',
+    imageUrl: 'me.com/profile.png',
     releaseDate: Mon Apr 02 2018 11:34:54 GMT+0100 (BST),
     externalLink: 'google.com/an-article'
   }

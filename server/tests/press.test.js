@@ -16,7 +16,7 @@ const MOCK = {
   PRESS: {
     author: 'press 123',
     copy: 'test copy',
-    mainImageUrl: 'images.com/me.jpg',
+    imageUrl: 'images.com/me.jpg',
     externalLink: 'google.com'
   },
   EDITED_PRESS: {}
@@ -80,7 +80,7 @@ describe('## Press APIs', () => {
         .then((res) => {
           expect(res.body.author).to.equal(MOCK.PRESS.author);
           expect(res.body.copy).to.equal(MOCK.PRESS.copy);
-          expect(res.body.mainImageUrl).to.deep.eq(MOCK.PRESS.mainImageUrl);
+          expect(res.body.imageUrl).to.deep.eq(MOCK.PRESS.imageUrl);
           expect(res.body.createdAt).to.be.a('string');
           MOCK.EDITED_PRESS = res.body;
           done();
@@ -128,13 +128,13 @@ describe('## Press APIs', () => {
       const editedPress = {
         author: 'new author',
         copy: 'new copy',
-        mainImageUrl: 'newImageurl.jpg',
+        imageUrl: 'newImageurl.jpg',
         externalLink: 'awholenewworld.com'
       };
 
       MOCK.EDITED_PRESS.author = editedPress.author;
       MOCK.EDITED_PRESS.copy = editedPress.copy;
-      MOCK.EDITED_PRESS.mainImageUrl = editedPress.mainImageUrl;
+      MOCK.EDITED_PRESS.imageUrl = editedPress.imageUrl;
       MOCK.EDITED_PRESS.externalLink = editedPress.externalLink;
 
       request(app)
@@ -145,7 +145,7 @@ describe('## Press APIs', () => {
         .then((res) => {
           expect(res.body.author).to.equal(MOCK.EDITED_PRESS.author);
           expect(res.body.copy).to.equal(MOCK.EDITED_PRESS.copy);
-          expect(res.body.mainImageUrl).to.equal(MOCK.EDITED_PRESS.mainImageUrl);
+          expect(res.body.imageUrl).to.equal(MOCK.EDITED_PRESS.imageUrl);
           expect(res.body.externalLink).to.equal(MOCK.EDITED_PRESS.externalLink);
           done();
         })

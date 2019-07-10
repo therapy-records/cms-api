@@ -16,7 +16,7 @@ const MOCK = {
   OTHER_WORK: {
     title: 'test 123',
     copy: 'test copy',
-    mainImageUrl: 'images.com/me.jpg',
+    imageUrl: 'images.com/me.jpg',
     externalLink: 'google.com',
     releaseDate: 'Mon Apr 02 2018 11:34:54 GMT+0100 (BST)'
   },
@@ -80,7 +80,7 @@ describe('## Journalism APIs', () => {
         .then((res) => {
           expect(res.body.title).to.equal(MOCK.OTHER_WORK.title);
           expect(res.body.copy).to.equal(MOCK.OTHER_WORK.copy);
-          expect(res.body.mainImageUrl).to.deep.eq(MOCK.OTHER_WORK.mainImageUrl);
+          expect(res.body.imageUrl).to.deep.eq(MOCK.OTHER_WORK.imageUrl);
           expect(res.body.releaseDate).to.deep.eq(MOCK.OTHER_WORK.releaseDate);
           expect(res.body.createdAt).to.be.a('string');
           MOCK.EDITED_OTHER_WORK = res.body;
@@ -129,7 +129,7 @@ describe('## Journalism APIs', () => {
       const editedJournalism = {
         title: 'new title',
         copy: 'new copy',
-        mainImageUrl: 'newImageurl.jpg',
+        imageUrl: 'newImageurl.jpg',
         releaseDate: new Date(),
         externalLink: 'testing.com',
         createdAt: new Date()
@@ -137,7 +137,7 @@ describe('## Journalism APIs', () => {
 
       MOCK.EDITED_OTHER_WORK.title = editedJournalism.title;
       MOCK.EDITED_OTHER_WORK.copy = editedJournalism.copy;
-      MOCK.EDITED_OTHER_WORK.mainImageUrl = editedJournalism.mainImageUrl;
+      MOCK.EDITED_OTHER_WORK.imageUrl = editedJournalism.imageUrl;
       MOCK.EDITED_OTHER_WORK.releaseDate = editedJournalism.releaseDate;
       MOCK.EDITED_OTHER_WORK.externalLink = editedJournalism.externalLink;
       MOCK.EDITED_OTHER_WORK.createdAt = editedJournalism.createdAt;
@@ -150,7 +150,7 @@ describe('## Journalism APIs', () => {
         .then((res) => {
           expect(res.body.title).to.equal(MOCK.EDITED_OTHER_WORK.title);
           expect(res.body.copy).to.equal(MOCK.EDITED_OTHER_WORK.copy);
-          expect(res.body.mainImageUrl).to.equal(MOCK.EDITED_OTHER_WORK.mainImageUrl);
+          expect(res.body.imageUrl).to.equal(MOCK.EDITED_OTHER_WORK.imageUrl);
           expect(res.body.releaseDate).to.be.a('string');
           expect(res.body.externalLink).to.equal(MOCK.EDITED_OTHER_WORK.externalLink);
           expect(res.body.createdAt).to.be.a('string');
