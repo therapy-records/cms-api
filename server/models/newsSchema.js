@@ -21,7 +21,8 @@ const NewsSchema = (add, collectionName) => {
       images: [{
         url: String
       }],
-      copy: String
+      copy: String,
+      videoEmbed: String
     }]
   }, _collectionName);
 

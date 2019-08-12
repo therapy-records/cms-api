@@ -34,17 +34,18 @@
 
 - PUT `api/news/:id`
   - returns 200 with saved article object
-  - expects an object containing at least:
+  - expects an object, example below
   ```
   {
     title: 'my title',
     sections: [
-      copy: 'hello world',
-      sections: [
-        {
-          images:  url: 'test.com/test.jpg'
-        }
-      ]
+      {
+        copy: 'hello world',
+        videoEmbed: '<iframe />'
+        images:  [
+          { url: 'test.com/test.jpg' }
+        ]
+      }
     ]
   }
   ```

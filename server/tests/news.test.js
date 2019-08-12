@@ -22,7 +22,8 @@ const MOCK = {
           { url: 'test.com/something.jpg' },
           { url: 'test.com/something2.jpg' }
         ],
-        copy: 'Testing'
+        copy: 'Testing',
+        videoEmbed: '<iframe />'
       }
     ]
   },
@@ -141,7 +142,8 @@ describe('## News APIs', () => {
             images: [
               { url: 'test.com/something-else.jpg' }
             ],
-            copy: 'updated copy'
+            copy: 'updated copy',
+            videoEmbed: '<iframe test="true"/>'
           }
         ]
       };
