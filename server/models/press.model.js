@@ -65,4 +65,4 @@ PressSchema.statics = {
 /**
  * @typedef Press
  */
-module.exports = mongoose.model('Press', PressSchema);
+module.exports = mongoose.model('press', PressSchema);

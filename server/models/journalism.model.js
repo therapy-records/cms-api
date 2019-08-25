@@ -69,4 +69,4 @@ Journalism.statics = {
 /**
  * @typedef Journalism
  */
-module.exports = mongoose.model('Journalism', Journalism);
+module.exports = mongoose.model('journalism', Journalism);

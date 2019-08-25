@@ -96,4 +96,4 @@ CollaboratorSchema.statics = {
 /**
  * @typedef Collaborator
  */
-module.exports = mongoose.model('Collaborator', CollaboratorSchema);
+module.exports = mongoose.model('collaborators', CollaboratorSchema);

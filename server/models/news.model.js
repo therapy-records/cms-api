@@ -49,4 +49,4 @@ NewsSchema.statics = {
 /**
  * @typedef Post
  */
-module.exports = mongoose.model('Post', NewsSchema);
+module.exports = mongoose.model('news', NewsSchema);
