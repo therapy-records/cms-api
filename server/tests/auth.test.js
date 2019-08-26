@@ -43,7 +43,7 @@ describe('## Auth', () => {
 
   describe('# POST /api/auth', () => {
     describe('when username is invalid', () => {
-      it('should return 403 user not found message', (done) => {
+      it('should return 403 `Invalid username or password` message', (done) => {
         const userObj = { username: 'asdf' };
         request(app)
           .post('/api/auth')
@@ -52,7 +52,7 @@ describe('## Auth', () => {
           .expect(httpStatus.FORBIDDEN)
           .then((res) => {
             expect(res.body.success).to.eq(false);
-            expect(res.body.message).to.eq('User not found');
+            expect(res.body.message).to.eq('Invalid username or password');
             done();
           })
           .catch(done);
@@ -89,7 +89,7 @@ describe('## Auth', () => {
 
   describe('# POST /api/auth/login', () => {
     describe('when no username', () => {
-      it('should return 401 user not found message', (done) => {
+      it('should return 401 `Invalid username or password` message', (done) => {
         request(app)
           .post('/api/auth/login')
           .set('Authorization', 'Bearer invalid')
@@ -97,14 +97,14 @@ describe('## Auth', () => {
           .expect(httpStatus.UNAUTHORIZED)
           .then((res) => {
             expect(res.body.success).to.eq(false);
-            expect(res.body.message).to.eq('User not found');
+            expect(res.body.message).to.eq('Invalid username or password');
             done();
           })
           .catch(done);
       });
     });
     describe('when username is invalid', () => {
-      it('should return 401 user not found message', (done) => {
+      it('should return 401 `Invalid username or password` message', (done) => {
         request(app)
           .post('/api/auth/login')
           .set('Authorization', 'Bearer invalid')
@@ -112,7 +112,7 @@ describe('## Auth', () => {
           .expect(httpStatus.UNAUTHORIZED)
           .then((res) => {
             expect(res.body.success).to.eq(false);
-            expect(res.body.message).to.eq('User not found');
+            expect(res.body.message).to.eq('Invalid username or password');
             done();
           })
           .catch(done);
@@ -120,7 +120,7 @@ describe('## Auth', () => {
     });
 
     describe('when password does not match', () => {
-      it('should return 401 user not found message', (done) => {
+      it('should return 401 `Invalid username or password` message', (done) => {
         request(app)
           .post('/api/auth/login')
           .set('Authorization', 'Bearer invalid')

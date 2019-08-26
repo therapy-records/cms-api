@@ -11,7 +11,7 @@ function createAuthToken(req, res) {
   }, (err, usr) => {
     if (err) throw err;
     if (!usr || usr.username !== config.validUn) {
-      res.status(401).send({ success: false, message: 'User not found' });
+      res.status(401).send({ success: false, message: 'Invalid username or password' });
     } else {
       usr.comparePassword(req.body.password, (cPErr, isMatch) => {
         if (isMatch && !cPErr) {
