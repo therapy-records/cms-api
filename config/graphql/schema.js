@@ -23,7 +23,7 @@ const schema = gql`
     name: String!
     avatarUrl: String!
     collabOn: [String]!
-    role: String
+    role: String!
     about: String
     urls: CollaboratorUrls
   }
@@ -31,6 +31,23 @@ const schema = gql`
   type Query {
     collaborators: [Collaborator]
     getCollaborator(_id: ID!): Collaborator
+  }
+
+  input CollaboratorInput {
+    name: String!
+    avatarUrl: String!
+    collabOn: [String]!
+    role: String!
+    about: String
+  }
+
+  type Mutation {
+    createCollaborator(input: CollaboratorInput): Collaborator,
+    editCollaborator(
+      _id: ID!,
+      input: CollaboratorInput
+    ): Collaborator,
+    deleteCollaborator(_id: ID!): Collaborator
   }
 `;
 
