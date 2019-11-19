@@ -15,11 +15,12 @@ const routes = require('../server/routes/index.route');
 const config = require('./env');
 const passportConfig = require('./passport');
 const APIError = require('../server/helpers/APIError');
+const graphql = require('./graphql');
 
 const app = express();
 
 if (config.env === 'development') {
-  app.use(logger('dev'));
+  app.use('/api', logger('dev'));
 }
 
 // parse body params and attache them to req.body
@@ -49,7 +50,7 @@ app.use((req, res, next) => {
 if (config.env === 'development') {
   expressWinston.requestWhitelist.push('body');
   expressWinston.responseWhitelist.push('body');
-  app.use(expressWinston.logger({
+  app.use('/api', expressWinston.logger({
     winstonInstance,
     meta: true, // optional: log meta data about request (defaults to true)
     msg: 'HTTP {{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms',
@@ -63,6 +64,10 @@ passportConfig(passport);
 
 // mount all routes on /api path
 app.use('/api', routes);
+
+// mount graphql route
+graphql.applyMiddleware({ app });
+
 
 // if error is not an instanceOf APIError, convert it.
 app.use((err, req, res, next) => {

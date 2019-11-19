@@ -36,6 +36,7 @@
     "boilerplate"
   ],
   "dependencies": {
+    "apollo-server-express": "2.9.9",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "3.4.6",
     "body-parser": "1.19.0",
@@ -49,6 +50,7 @@
     "express-jwt": "5.1.0",
     "express-validation": "1.0.2",
     "express-winston": "3.2.0",
+    "graphql": "14.5.8",
     "helmet": "3.1.0",
     "http-status": "^1.3.2",
     "joi": "10.0.6",

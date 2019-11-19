@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const util = require('util');
 const config = require('./config/env');
 const app = require('./config/express');
+const graphql = require('./config/graphql');
 
 const port = process.env.PORT || config.port || 3000;
 
@@ -33,7 +34,9 @@ if (config.MONGOOSE_DEBUG) {
 
 // listen on port config.port
 app.listen(port, () => {
-  console.log(`server started on port ${port}(${config.env})`); // eslint-disable-line
+  console.log(`🚀 running ${config.env} env`); // eslint-disable-line
+  console.log(`🚀 express server started on port ${port}`); // eslint-disable-line
+  console.log(`🚀 graphql server started on port ${port}${graphql.graphqlPath}`); // eslint-disable-line
   // debug(`server started on port ${port} (${config.env})`);
 });
 
