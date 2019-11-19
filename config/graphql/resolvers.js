@@ -1,17 +1,14 @@
+const Collaborators = require('../../server/models/collaborators.model');
 
 const resolvers = {
   Query: {
-    collaborators() {
-      return [
-        {
-          id: 'abc1234',
-          name: 'testing'
-        },
-        {
-          id: 'WHAT',
-          name: 'saldfkjasdfkl'
-        }
-      ];
+    async collaborators() {
+      return await Collaborators.find();
+    },
+    async getCollaborator(root, {
+      _id
+    }) {
+      return await Collaborators.findById(_id);
     }
   }
 };
