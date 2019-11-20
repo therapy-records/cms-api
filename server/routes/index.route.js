@@ -1,6 +1,5 @@
 const express = require('express');
 const authRoutes = require('./auth.route');
-const collaboratorsRoutes = require('./collaborators.route');
 const newsRoutes = require('./news.route');
 const pressRoutes = require('./press.route');
 const journalismRoutes = require('./journalism.route');
@@ -15,8 +14,6 @@ router.get('/health-check', (req, res) =>
 );
 
 router.use('/auth', authRoutes);
-
-router.use('/collaborators', collaboratorsRoutes);
 
 router.use('/news', newsRoutes);
 
