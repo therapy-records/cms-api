@@ -5,7 +5,7 @@ const resolvers = {
     async collaborators() {
       return await Collaborators.find();
     },
-    async getCollaborator(root, {
+    async collaborator(root, {
       _id
     }) {
       return await Collaborators.findById(_id);

@@ -30,7 +30,7 @@ const schema = gql`
 
   type Query {
     collaborators: [Collaborator]
-    getCollaborator(_id: ID!): Collaborator
+    collaborator(_id: ID!): Collaborator
   }
 
   input CollaboratorInput {
