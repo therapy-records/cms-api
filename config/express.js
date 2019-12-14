@@ -34,8 +34,8 @@ app.use(methodOverride());
 app.use(helmet());
 
 let corsWhitelist;
-if (Array.isArray(config.corsOrigin)) {
-  corsWhitelist = [...config.corsOrigin];
+if (config.corsOrigin.includes(' ')) {
+  corsWhitelist = config.corsOrigin.split(' ');
 } else {
   corsWhitelist = [config.corsOrigin];
 }
@@ -52,7 +52,6 @@ app.use(cors({
 }));
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', config.corsOrigin);
   res.header('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Accept');
   next();
