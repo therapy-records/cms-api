@@ -40,6 +40,8 @@ if (config.corsOrigin.includes(' ')) {
   corsWhitelist = [config.corsOrigin];
 }
 
+console.log('*** whitelist \n', corsWhitelist); // eslint-disable-line
+
 app.use(cors({
   origin: (origin, callback) => {
     if (corsWhitelist.indexOf(origin) !== -1) {
