@@ -33,8 +33,21 @@ app.use(methodOverride());
 // secure apps by setting various HTTP headers
 app.use(helmet());
 
+let corsWhitelist;
+if (Array.isArray(config.corsOrigin)) {
+  corsWhitelist = [...config.corsOrigin];
+} else {
+  corsWhitelist = [config.corsOrigin];
+}
+
 app.use(cors({
-  origin: config.corsOrigin,
+  origin: (origin, callback) => {
+    if (corsWhitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
 
