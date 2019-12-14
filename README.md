@@ -6,11 +6,13 @@ An API for artist albums, news, bookings, releases and more.
 
 Boilerplate from [Express & mongoose REST API Boilerplate](https://github.com/KunalKapadia/express-mongoose-es6-rest-api)
 
-## Getting Started
+## Prerequisites
 
-```sh
-git clone git@github.com:therapy-records/cms-api.git && cd cms-api
-```
+- node `8.10.0` or greater
+- yarn `1.6.0` or greater
+- `.env` file with correct variables (speak to admin)
+
+## Getting Started
 
 ```sh
 yarn install && yarn start
@@ -18,23 +20,34 @@ yarn install && yarn start
 
 Port is 4040.
 
-Tests:
+## Available scripts
+
+### Tests
+
 ```sh
-# Run tests written in ES6 along with code coverage
 yarn test
-
-# Run tests on file change
-yarn test:watch
-
-# Run tests enforcing code coverage (configured via .istanbul.yml)
-yarn test:check-coverage
 ```
 
-Lint:
-```sh
-# Lint code with ESLint
-yarn lint
+### Run tests on file change
 
-# Run lint on any file change
+```sh
+yarn test:watch
+```
+
+### Run test coverage
+
+```sh
+yarn test-with-coverage
+```
+
+### Linting
+
+```sh
+yarn lint
+```
+
+### Run eslint on any file change
+
+```sh
 yarn lint:watch
 ```

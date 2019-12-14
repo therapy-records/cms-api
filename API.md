@@ -21,7 +21,7 @@
   }
   ```
 
-  See (news schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
+  See [news schema](https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
 
 
 ## News Article
@@ -49,7 +49,7 @@
     ]
   }
   ```
-  See (news schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
+  See [news schema](https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
 
 
 ## Collaborators
@@ -67,7 +67,7 @@
   }
   ```
 
-  See (collaborators schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/collaborators.model.js) for optional fields.
+  See [collaborators schema](https://github.com/therapy-records/cms-api/blob/master/server/models/collaborators.model.js) for optional fields.
 
 
 ## Collaborators - single
@@ -107,7 +107,7 @@
   }
   ```
 
-  See (press schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
+  See [press schema](https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
 
 
 ## Press - single
@@ -129,7 +129,7 @@
     externalLink: 'google.com/an-article'
   }
   ```
-  See (press schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
+  See [press schema](https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
 
 
 ## Journalism
@@ -149,7 +149,7 @@
   }
   ```
 
-  See (otehr-work schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
+  See [other-work schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
 
 ## Journalism - single
@@ -172,5 +172,5 @@
     externalLink: 'google.com/an-article'
   }
   ```
-  See (otehr-work schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
+  See [other-work schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
