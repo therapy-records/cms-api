@@ -149,7 +149,7 @@
   }
   ```
 
-  See [other-work schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
+  See [journalism schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
 
 ## Journalism - single
@@ -172,5 +172,5 @@
     externalLink: 'google.com/an-article'
   }
   ```
-  See [other-work schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
+  See [journalism schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
