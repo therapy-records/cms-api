@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('../../config/env');
 const User = require('../models/user.model');
+const { isValidUsername } = require('../utils');
 
 /**
  * create user
@@ -31,7 +32,7 @@ function checkToken(req, res) {
     // TODO: ensure expiry date checks
     return jwt.verify(token, config.jwtSecret, (err, decoded) => {
       if (err ||
-         (decoded._doc.username !== config.validUn)) {
+          !isValidUsername(decoded._doc.username, config.validUn)) {
         return res.status(403).send({ success: false, message: 'Invalid username or password' });
       }
       decodedObj = decoded;
@@ -58,7 +59,7 @@ function verifyToken(req, res) {
   const token = getToken(req.headers);
   if (token) {
     const decoded = jwt.verify(token, config.jwtSecret); // TODO: ensure expiry date checks
-    if (decoded._doc.username !== config.validUn) {
+    if (!isValidUsername(decoded._doc.username, config.validUn)) {
       res.status(403).send({ success: false, message: 'Invalid username or password' });
     }
     return User.findOne({

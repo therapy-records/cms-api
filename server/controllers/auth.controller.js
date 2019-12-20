@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const config = require('../../config/env');
+const { isValidUsername } = require('../utils');
 
 const JWT_EXPIRY_DATE = '7 days';
 
@@ -10,7 +11,7 @@ function createAuthToken(req, res) {
     username: req.body.username
   }, (err, usr) => {
     if (err) throw err;
-    if (!usr || usr.username !== config.validUn) {
+    if (!usr || !isValidUsername(usr.username, config.validUn)) {
       res.status(401).send({ success: false, message: 'Invalid username or password' });
     } else {
       usr.comparePassword(req.body.password, (cPErr, isMatch) => {

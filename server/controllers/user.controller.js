@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const config = require('../../config/env');
+const { isValidUsername } = require('../utils');
 
 /**
  * Load user and append to req.
@@ -34,7 +35,7 @@ function create(req, res) {
   }
 
   if (req.body.username &&
-      req.body.username !== config.validUn) {
+     !isValidUsername(req.body.username, config.validUn)) {
     res.status(400).send({ success: false, message: 'Invalid username' });
   } else {
     const newUser = new User({
