@@ -8,5 +8,6 @@ module.exports = {
   db: process.env.DB_HOST,
   port: 3000,
   corsOrigin: process.env.CORS_ORIGIN,
-  validUn: process.env.VALID_UN
+  validUn: process.env.VALID_UN,
+  rootUrl: process.env.ROOT_URL
 };

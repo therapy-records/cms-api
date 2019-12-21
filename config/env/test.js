@@ -10,6 +10,7 @@ module.exports = {
   username: process.env.TEST_USERNAME,
   pword: process.env.TEST_PWORD,
   port: process.env.PORT,
+  corsOrigin: process.env.CORS_ORIGIN,
   validUn: process.env.TEST_VALID_UN,
   nonProductionRoutes: process.env.NON_PRODUCTION_ROUTES
 };

@@ -3,6 +3,7 @@ const util = require('util');
 const config = require('./config/env');
 const app = require('./config/express');
 const graphql = require('./config/graphql');
+const wakeDyno = require('woke-dyno');
 
 const port = process.env.PORT || config.port || 3000;
 
@@ -38,6 +39,12 @@ app.listen(port, () => {
   console.log(`🚀 express server started on port ${port}`); // eslint-disable-line
   console.log(`🚀 graphql server started on port ${port}${graphql.graphqlPath}`); // eslint-disable-line
   // debug(`server started on port ${port} (${config.env})`);
+  if (config.env === 'production') {
+    wakeDyno({
+      url: `${config.rootUrl}/api/health-check`,
+      interval: 1680000
+    }).start();
+  }
 });
 
 module.exports = app;
