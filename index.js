@@ -38,7 +38,7 @@ app.listen(port, () => {
   // debug(`server started on port ${port} (${config.env})`);
   if (config.env === 'production') {
     wakeDyno({
-      url: `${config.rootUrl}/api/health-check`,
+      url: `${config.rootUrl}/public/health-check`,
       interval: 1680000
     }).start();
   }
