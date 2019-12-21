@@ -10,8 +10,10 @@ const expressWinston = require('express-winston');
 const expressValidation = require('express-validation');
 const helmet = require('helmet');
 const passport = require('passport');
+const pathToRegexp = require('path-to-regexp');
 const winstonInstance = require('./winston');
 const routes = require('../server/routes/index.route');
+const publicRoutes = require('../server/routes/public.route');
 const config = require('./env');
 const passportConfig = require('./passport');
 const APIError = require('../server/helpers/APIError');
@@ -34,6 +36,8 @@ app.use(methodOverride());
 // secure apps by setting various HTTP headers
 app.use(helmet());
 
+app.use('/public', publicRoutes);
+
 if (config.env !== 'test') {
   let corsWhitelist;
 
@@ -43,16 +47,28 @@ if (config.env !== 'test') {
     corsWhitelist = [config.corsOrigin];
   }
 
-  app.use(cors({
-    origin: (origin, callback) => {
-      if (corsWhitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }));
+  const except = (path, fn) => {
+    const regexp = pathToRegexp.pathToRegexp(path);
+    return (req, res, next) => {
+      if (regexp.test(req.path)) return next();
+      return fn(req, res, next);
+    };
+  };
+
+  app.use(
+    except(['/public'],
+      cors({
+        origin: (origin, callback) => {
+          if (corsWhitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+          } else {
+            callback(new Error('Not allowed by CORS'));
+          }
+        },
+        optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+      })
+    )
+  );
 }
 
 app.use((req, res, next) => {

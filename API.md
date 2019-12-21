@@ -3,7 +3,7 @@
 
 ## Misc
 #### Health check
-- GET `api/health-check`
+- GET `public/health-check`
   - returns 200 with 'OK' string
   
 ## News
