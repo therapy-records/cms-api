@@ -28,9 +28,21 @@ const schema = gql`
     urls: CollaboratorUrls
   }
 
+  type News {
+    _id: ID!
+    title: String!
+  }
+
+  type Journalism {
+    _id: ID!
+    title: String!
+  }
+
   type Query {
     collaborators: [Collaborator]
     collaborator(_id: ID!): Collaborator
+    news: [News],
+    journalism: [Journalism]
   }
 
   input CollaboratorInput {

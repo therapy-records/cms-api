@@ -1,4 +1,6 @@
 const Collaborators = require('../../server/models/collaborators.model');
+const News = require('../../server/models/news.model');
+const Journalism = require('../../server/models/journalism.model');
 
 const resolvers = {
   Query: {
@@ -9,6 +11,12 @@ const resolvers = {
       _id
     }) {
       return await Collaborators.findById(_id);
+    },
+    async news() {
+      return await News.find();
+    },
+    async journalism() {
+      return await Journalism.find();
     }
   },
   Mutation: {
