@@ -7,10 +7,10 @@ chai.config.includeStack = true;
 const expect = chai.expect;
 
 describe('## Misc', () => {
-  describe('# GET /api/health-check', () => {
+  describe('# GET /public/health-check', () => {
     it('should return OK', (done) => {
       request(app)
-        .get('/api/health-check')
+        .get('/public/health-check')
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.text).to.equal('OK');
