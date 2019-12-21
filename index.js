@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const util = require('util');
 const config = require('./config/env');
 const app = require('./config/express');
+const wakeDyno = require('woke-dyno');
 
 const port = process.env.PORT || config.port || 3000;
 
@@ -35,6 +36,12 @@ if (config.MONGOOSE_DEBUG) {
 app.listen(port, () => {
   console.log(`server started on port ${port}(${config.env})`); // eslint-disable-line
   // debug(`server started on port ${port} (${config.env})`);
+  if (config.env === 'production') {
+    wakeDyno({
+      url: `${config.rootUrl}/api/health-check`,
+      interval: 1680000
+    }).start();
+  }
 });
 
 module.exports = app;
