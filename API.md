@@ -174,3 +174,46 @@
   ```
   See [journalism schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
+## Gigs
+
+- GET `api/gigs`
+  - returns 200 with an array of objects
+
+- POST `api/gigs`
+  - returns 200 with the saved object
+  - expects an object containing:
+
+  ```json
+  {
+    title: 'Artist Name',
+    location: 'Chelsea, London, UK',
+    venue: 'Music bar',
+    date: 'Fri Jan 17 2020 11:34:54 GMT+0100 (BST)',
+    ticketsUrl: 'gettickets.com'
+  }
+  ```
+
+## Gigs - single
+
+- GET `api/gigs/:id`
+  - returns 200 with an object
+
+- DELETE `api/gigs/:id`
+  - returns 200 with a success message
+
+- PUT `api/gigs/:id`
+  - returns 200 with saved gig object
+  - expects an object containing:
+
+  ```json
+  {
+    title: 'Artist Name',
+    location: 'Chelsea, London, UK',
+    venue: 'Music bar',
+    date: 'Fri Jan 17 2020 11:34:54 GMT+0100 (BST)',
+    ticketsUrl: 'gettickets.com'
+  }
+  ```
+
+
+
