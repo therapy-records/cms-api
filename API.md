@@ -1,20 +1,22 @@
 # Therapy Records API docs
 
-
 ## Misc
-#### Health check
+
+### Health check
+
 - GET `public/health-check`
   - returns 200 with 'OK' string
   
 ## News
-#### Articles that are live
+
 - GET `api/news`
   - returns 200 with an array of objects
 
 - POST `api/news`
   - returns 200 with saved article object
   - expects an object containing at least:
-  ```
+  
+  ```js
   {
     title: 'my title',
     bodyMain: '<p>amazing article</p>'
@@ -23,9 +25,8 @@
 
   See [news schema](https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
 
+## News Articles
 
-## News Article
-#### Single articles that are live right now
 - GET `api/news/:id`
   - returns 200 with an object
 
@@ -35,7 +36,8 @@
 - PUT `api/news/:id`
   - returns 200 with saved article object
   - expects an object, example below
-  ```
+
+  ```js
   {
     title: 'my title',
     sections: [
@@ -49,17 +51,19 @@
     ]
   }
   ```
+
   See [news schema](https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
 
-
 ## Collaborators
+
 - GET `api/collaborators`
   - returns 200 with an array of objects
 
 - POST `api/collaborators`
   - returns 200 with saved article object
   - expects an object containing at least:
-  ```
+
+  ```js
   {
     name: 'my title',
     role: 'tea boy',
@@ -69,9 +73,10 @@
 
   See [collaborators schema](https://github.com/therapy-records/cms-api/blob/master/server/models/collaborators.model.js) for optional fields.
 
-
 ## Collaborators - single
-#### Single collaborator
+
+### Single collaborator
+
 - GET `api/collaborators/:id`
   - returns 200 with an object
 
@@ -81,24 +86,27 @@
 - PUT `api/collaborators/:id`
   - returns 200 with saved article object
   - expects an object containing at least:
-  ```
+
+  ```js
   {
     name: 'my title',
     role: 'tea boy',
     avatarUrl: 'me.com/profile.png'
   }
   ```
-  See (collaborators schema)(https://github.com/therapy-records/cms-api/blob/master/server/models/collaborators.model.js) for optional fields.
 
+  See [collaborators schema](https://github.com/therapy-records/cms-api/blob/master/server/models/collaborators.model.js) for optional fields.
 
 ## Press
+
 - GET `api/press`
   - returns 200 with an array of objects
 
 - POST `api/press`
   - returns 200 with the saved object
   - expects an object containing at least:
-  ```
+
+  ```js
   {
     author: 'my title',
     copy: '<p>fantastic performance...</p>',
@@ -109,9 +117,10 @@
 
   See [press schema](https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
 
-
 ## Press - single
-#### Single press article/release
+
+### Single press article/release
+
 - GET `api/press/:id`
   - returns 200 with an object
 
@@ -121,7 +130,8 @@
 - PUT `api/press/:id`
   - returns 200 with saved article object
   - expects an object containing at least:
-  ```
+
+  ```js
   {
     author: 'my title',
     copy: '<p>fantastic performance...</p>',
@@ -129,31 +139,34 @@
     externalLink: 'google.com/an-article'
   }
   ```
+
   See [press schema](https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
 
-
 ## Journalism
+
 - GET `api/journalism`
   - returns 200 with an array of objects
 
 - POST `api/journalism`
   - returns 200 with the saved object
   - expects an object containing at least:
-  ```
+
+  ```js
   {
     title: 'My title',
     copy: '<p>fantastic review...</p>',
     imageUrl: 'me.com/profile.png',
-    releaseDate: Mon Apr 02 2018 11:34:54 GMT+0100 (BST),
+    releaseDate: 'Mon Apr 02 2018 11:34:54 GMT+0100 (BST)',
     externalLink: 'google.com/an-article'
   }
   ```
 
   See [journalism schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
-
 ## Journalism - single
-#### Single journalism article
+
+### Single journalism article
+
 - GET `api/journalism/:id`
   - returns 200 with an object
 
@@ -163,15 +176,17 @@
 - PUT `api/journalism/:id`
   - returns 200 with saved article object
   - expects an object containing at least:
-  ```
+
+  ```js
   {
     title: 'My title',
     copy: '<p>fantastic review...</p>',
     imageUrl: 'me.com/profile.png',
-    releaseDate: Mon Apr 02 2018 11:34:54 GMT+0100 (BST),
+    releaseDate: 'Mon Apr 02 2018 11:34:54 GMT+0100 (BST)',
     externalLink: 'google.com/an-article'
   }
   ```
+
   See [journalism schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
 ## Gigs
@@ -183,7 +198,7 @@
   - returns 200 with the saved object
   - expects an object containing:
 
-  ```json
+  ```js
   {
     title: 'Artist Name',
     location: 'Chelsea, London, UK',
@@ -205,7 +220,7 @@
   - returns 200 with saved gig object
   - expects an object containing:
 
-  ```json
+  ```js
   {
     title: 'Artist Name',
     location: 'Chelsea, London, UK',
@@ -214,6 +229,3 @@
     ticketsUrl: 'gettickets.com'
   }
   ```
-
-
-
