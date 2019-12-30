@@ -23,6 +23,7 @@ const resolvers = {
     async createCollaborator(root, {
       input
     }) {
+      console.log('***** mutation input \n', input);
       return await Collaborators.create(input);
     },
     async editCollaborator(root, {

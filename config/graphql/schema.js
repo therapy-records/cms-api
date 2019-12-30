@@ -45,12 +45,30 @@ const schema = gql`
     journalism: [Journalism]
   }
 
+  input CollaboratorOtherUrlInput {
+    url: String
+    title: String
+  }
+
+  input CollaboratorUrlsInput {
+    website: String
+    facebook: String
+    instagram: String
+    twitter: String
+    soundcloud: String
+    bio: String
+    email: String
+    phone: String
+    other: [CollaboratorOtherUrlInput]
+  }
+
   input CollaboratorInput {
     name: String!
     avatarUrl: String!
     collabOn: [String]!
     role: String!
     about: String
+    urls: CollaboratorUrlsInput
   }
 
   type Mutation {
