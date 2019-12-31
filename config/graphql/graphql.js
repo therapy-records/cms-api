@@ -4,7 +4,11 @@ const resolvers = require('./resolvers');
 
 const graphql = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  formatError: ({ message, path }) => ({
+    message,
+    path
+  })
 });
 
 module.exports = graphql;
