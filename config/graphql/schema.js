@@ -72,7 +72,6 @@ const schema = gql`
   }
 
   type Mutation {
-    userInputError(input: String): String,
     createCollaborator(input: CollaboratorInput): Collaborator,
     editCollaborator(
       _id: ID!,
