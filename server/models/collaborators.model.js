@@ -39,6 +39,9 @@ const CollaboratorSchema = new mongoose.Schema({
     soundcloud: {
       type: String
     },
+    bandcamp: {
+      type: String
+    },
     bio: {
       type: String
     },
@@ -47,13 +50,7 @@ const CollaboratorSchema = new mongoose.Schema({
     },
     phone: {
       type: String
-    },
-    other: [
-      {
-        url: String,
-        title: String
-      }
-    ]
+    }
   },
   collabOn: {
     type: Array

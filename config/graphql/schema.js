@@ -1,21 +1,16 @@
 const { gql } = require('apollo-server-express');
 
 const schema = gql`
-  type CollaboratorOtherUrl {
-    url: String
-    title: String
-  }
-
   type CollaboratorUrls {
     website: String
     facebook: String
     instagram: String
     twitter: String
     soundcloud: String
+    bandcamp: String
     bio: String
     email: String
     phone: String
-    other: [CollaboratorOtherUrl]
   }
 
   type Collaborator {
@@ -45,21 +40,16 @@ const schema = gql`
     journalism: [Journalism]
   }
 
-  input CollaboratorOtherUrlInput {
-    url: String
-    title: String
-  }
-
   input CollaboratorUrlsInput {
     website: String
     facebook: String
     instagram: String
     twitter: String
     soundcloud: String
+    bandcamp: String
     bio: String
     email: String
     phone: String
-    other: [CollaboratorOtherUrlInput]
   }
 
   input CollaboratorInput {
