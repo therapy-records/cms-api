@@ -20,6 +20,9 @@ const CollaboratorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  orderNumber: {
+    type: String
+  },
   about: {
     type: String
   },
@@ -84,6 +87,36 @@ CollaboratorSchema.statics = {
         }
         const err = new APIError('Error saving collaborator', httpStatus.NOT_FOUND);
         return Promise.reject(err);
+      });
+  },
+
+  updateMultipleOrderNumbers(collaborators) {
+    const updatedCollabs = [];
+    return Promise.each(collaborators, collab =>
+      this.findOneAndUpdate({ _id: collab._id },
+        { orderNumber: collab.orderNumber },
+        { new: true }
+      )
+        .exec((error, updatedCollab) => {
+          if (error) {
+            const err = new APIError('Error saving collaborator', httpStatus.NOT_FOUND);
+            return Promise.reject(err);
+          }
+          updatedCollabs.push(updatedCollab);
+          return updatedCollab;
+        })
+    ).then(() => {
+      const collabsUpdated = [
+        ...updatedCollabs.map(c => ({
+          _id: c._id,
+          orderNumber: c.orderNumber
+        }))
+      ];
+      return collabsUpdated;
+    })
+      .catch(() => {
+        const errrrr = new APIError('Error updating collaborator with ', httpStatus.NOT_FOUND);
+        return Promise.reject(errrrr);
       });
   }
 

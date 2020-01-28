@@ -9,6 +9,7 @@ const collaboratorsMutationResolvers = {
       urlName: input.name.replace(/ /g, '-')
     });
   },
+
   async editCollaborator(root, {
     _id,
     input
@@ -22,10 +23,17 @@ const collaboratorsMutationResolvers = {
       new: true
     });
   },
+
   async deleteCollaborator(root, {
     _id
   }) {
     return await Collaborators.findOneAndRemove({ _id });
+  },
+
+  async editCollaboratorOrderNumbers(root, {
+    input
+  }) {
+    return await Collaborators.updateMultipleOrderNumbers(input.collaborators);
   }
 };
 

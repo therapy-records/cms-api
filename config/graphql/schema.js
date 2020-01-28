@@ -19,8 +19,14 @@ const schema = gql`
     avatarUrl: String!
     collabOn: [String]!
     role: String!
+    orderNumber: Int!
     about: String
     urls: CollaboratorUrls
+  }
+
+  type CollaboratorOrderNumbers {
+    _id: ID!
+    orderNumber: Int!
   }
 
   type News {
@@ -57,8 +63,18 @@ const schema = gql`
     avatarUrl: String!
     collabOn: [String]!
     role: String!
+    orderNumber: Int!
     about: String
     urls: CollaboratorUrlsInput
+  }
+
+  input CollaboratorOrderNumbersCollaboratorInput {
+    _id: ID!
+    orderNumber: Int!
+  }
+
+  input CollaboratorOrderNumbersInput {
+    collaborators: [CollaboratorOrderNumbersCollaboratorInput]!
   }
 
   type Mutation {
@@ -67,7 +83,8 @@ const schema = gql`
       _id: ID!,
       input: CollaboratorInput
     ): Collaborator,
-    deleteCollaborator(_id: ID!): Collaborator
+    deleteCollaborator(_id: ID!): Collaborator,
+    editCollaboratorOrderNumbers(input: CollaboratorOrderNumbersInput): [CollaboratorOrderNumbers]
   }
 `;
 
