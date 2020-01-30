@@ -4,10 +4,7 @@ const collaboratorsMutationResolvers = {
   async createCollaborator(root, {
     input
   }) {
-    return await Collaborators.create({
-      ...input,
-      urlName: input.name.replace(/ /g, '-')
-    });
+    return await Collaborators.createNew(input);
   },
 
   async editCollaborator(root, {

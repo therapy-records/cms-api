@@ -19,14 +19,15 @@ const schema = gql`
     avatarUrl: String!
     collabOn: [String]!
     role: String!
-    orderNumber: Int!
+    orderNumber: String!
+    urlName: String!
     about: String
     urls: CollaboratorUrls
   }
 
   type CollaboratorOrderNumbers {
     _id: ID!
-    orderNumber: Int!
+    orderNumber: String!
   }
 
   type News {
@@ -63,7 +64,8 @@ const schema = gql`
     avatarUrl: String!
     collabOn: [String]!
     role: String!
-    orderNumber: Int!
+    orderNumber: Int
+    urlName: String
     about: String
     urls: CollaboratorUrlsInput
   }
