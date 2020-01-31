@@ -99,6 +99,7 @@ CollaboratorSchema.statics = {
   },
 
   edit(obj) {
+    obj.urlName = obj.name.replace(/ /g, '-'); // eslint-disable-line no-param-reassign
     return this.findOneAndUpdate({ _id: obj._id },
       obj, { new: true })
       .exec()
