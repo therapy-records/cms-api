@@ -7,12 +7,12 @@ const resolvers = require('./resolvers');
 class BasicLogging {
   requestDidStart({ queryString, parsedQuery, variables }) {
     const query = queryString || print(parsedQuery);
-    console.log('GQL query', query);
-    console.log('GQL vars', JSON.stringify(variables));
+    console.log('GQL query', query); // eslint-disable-line no-console
+    console.log('GQL vars', JSON.stringify(variables)); // eslint-disable-line no-console
   }
 
   willSendResponse({ graphqlResponse }) {
-    console.log('GQL res', JSON.stringify(graphqlResponse));
+    console.log('GQL res', JSON.stringify(graphqlResponse)); // eslint-disable-line no-console
   }
 }
 /* eslint-enable class-methods-use-this */
