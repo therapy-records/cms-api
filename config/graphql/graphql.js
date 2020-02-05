@@ -21,6 +21,16 @@ class BasicLogging {
 const graphql = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => {
+    let token;
+
+    if (req.headers.authorization) {
+      token = req.headers.authorization;
+    }
+    return {
+      token
+    };
+  },
   formatError: ({ message, path }) => ({
     message,
     path

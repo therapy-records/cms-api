@@ -1,36 +1,45 @@
 const Collaborators = require('../../../../server/models/collaborators.model');
+const authCheck = require('../../../../server/utils/authCheck');
 
 const collaboratorsMutationResolvers = {
   async createCollaborator(root, {
     input
-  }) {
-    return await Collaborators.createNew(input);
+  }, context) {
+    return authCheck(context,
+      Collaborators.createNew(input)
+    );
   },
 
-  async editCollaborator(root, {
+  editCollaborator(root, {
     _id,
     input
-  }) {
+  }, context) {
     const editedCollaborator = input;
     editedCollaborator.urlName = input.name.replace(/ /g, '-');
 
-    return await Collaborators.findOneAndUpdate({
-      _id
-    }, editedCollaborator, {
-      new: true
-    });
+    return authCheck(context,
+      Collaborators.findOneAndUpdate({
+        _id
+      }, editedCollaborator, {
+        new: true
+      })
+    );
   },
 
   async deleteCollaborator(root, {
     _id
-  }) {
-    return await Collaborators.findOneAndRemove({ _id });
+  }, context) {
+    return authCheck(context,
+      Collaborators.findOneAndRemove({ _id })
+    );
   },
 
   async editCollaboratorOrderNumbers(root, {
     input
-  }) {
-    return await Collaborators.updateMultipleOrderNumbers(input.collaborators);
+  }, context) {
+    return authCheck(context,
+      Collaborators.updateMultipleOrderNumbers(input.collaborators)
+    );
   }
 };
 
