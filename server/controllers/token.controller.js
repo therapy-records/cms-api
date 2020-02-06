@@ -3,22 +3,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../../config/env');
 const User = require('../models/user.model');
 const { isValidUsername } = require('../utils');
-
-/**
- * create user
- */
-
-/* istanbul ignore next */
-const getToken = (headers) => {
-  if (headers && headers.authorization) {
-    const parted = headers.authorization.split(' ');
-    if (parted.length === 2) {
-      return parted[1];
-    }
-    return null;
-  }
-  return null;
-};
+const splitToken = require('../utils/splitToken');
 
 // TODO: refactor checkToken and verifyToken
 // one wants res.status response, other wants just return user.
@@ -26,7 +11,7 @@ const getToken = (headers) => {
 
 /* istanbul ignore next */
 function checkToken(req, res) {
-  const token = getToken(req.headers);
+  const token = splitToken(req.headers.authorization);
   if (token) {
     let decodedObj;
     // TODO: ensure expiry date checks
@@ -56,7 +41,7 @@ function checkToken(req, res) {
 
 /* istanbul ignore next */
 function verifyToken(req, res) {
-  const token = getToken(req.headers);
+  const token = splitToken(req.headers.authorization);
   if (token) {
     const decoded = jwt.verify(token, config.jwtSecret); // TODO: ensure expiry date checks
     if (!isValidUsername(decoded._doc.username, config.validUn)) {
