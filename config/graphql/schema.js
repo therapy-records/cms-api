@@ -46,7 +46,7 @@ const schema = gql`
     news: [News],
     journalism: [Journalism]
   }
-
+  
   input CollaboratorUrlsInput {
     website: String
     facebook: String
