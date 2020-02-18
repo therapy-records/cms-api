@@ -13,22 +13,15 @@ const MOCK = {
     username: config.username,
     password: config.pword
   },
-  NEWS_ARTICLE_BASE: {
-    title: 'Test article',
-    sections: [
-      {
-        images: [
-          { url: 'test.com/something.jpg' },
-          { url: 'test.com/something2.jpg' }
-        ],
-        copy: 'Testing',
-        videoEmbed: '<iframe />'
-      }
-    ]
+  JOURNALISM_ARTICLE: {
+    title: 'test 123',
+    copy: 'test copy',
+    imageUrl: 'images.com/me.jpg',
+    externalLink: 'google.com',
+    releaseDate: 'Mon Apr 02 2018 11:34:54 GMT+0100 (BST)'
   }
 };
 
-MOCK.NEWS_ARTICLE = MOCK.NEWS_ARTICLE_BASE;
 
 let JWT_VALID = '';
 
@@ -55,10 +48,10 @@ describe('# POST /api/auth/login', () => {
   });
 });
 
-describe('## GraphQL - News queries', () => {
+describe('## GraphQL - Journalism queries', () => {
   after((done) => {
     request(app)
-      .delete('api/test/news')
+      .delete('api/test/journalism')
       .then((err) => {
         if (err) {
           throw err;
@@ -68,36 +61,37 @@ describe('## GraphQL - News queries', () => {
     done();
   });
 
-  it('should create a new article', (done) => {
+  it('should create new journalism article', (done) => {
     request(app)
-      .post('/api/news')
+      .post('/api/journalism')
       .set('Authorization', JWT_VALID)
-      .send(MOCK.NEWS_ARTICLE)
+      .send(MOCK.JOURNALISM_ARTICLE)
       .expect(httpStatus.OK)
       .then((res) => {
-        expect(res.body.title).to.equal(MOCK.NEWS_ARTICLE.title);
+        expect(res.body.title).to.equal(MOCK.JOURNALISM_ARTICLE.title);
+        expect(res.body.copy).to.equal(MOCK.JOURNALISM_ARTICLE.copy);
+        expect(res.body.imageUrl).to.deep.eq(MOCK.JOURNALISM_ARTICLE.imageUrl);
+        expect(res.body.releaseDate).to.deep.eq(MOCK.JOURNALISM_ARTICLE.releaseDate);
         expect(res.body.createdAt).to.be.a('string');
-        expect(res.body.sections).to.be.an('array');
-        MOCK.EDITED_NEWS_ARTICLE = res.body;
         done();
       })
       .catch(done);
   });
 
-  describe('graphql - get all news', () => {
+  describe('graphql - get all journalism', () => {
     it('should return all articles', (done) => {
       request(app)
         .post('/graphql')
         .send({
-          query: 'query{news{_id, title}}'
+          query: 'query{journalism{_id, title}}'
         })
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.data.news).to.be.an('array');
-          expect(res.body.data.news[0]).to.be.an('object');
-          expect(res.body.data.news[0]._id).to.be.a('string');
-          expect(res.body.data.news[0].title).to.be.a('string');
-          expect(res.body.data.news[0].title).to.eq(MOCK.NEWS_ARTICLE.title);
+          expect(res.body.data.journalism).to.be.an('array');
+          expect(res.body.data.journalism[0]).to.be.an('object');
+          expect(res.body.data.journalism[0]._id).to.be.a('string');
+          expect(res.body.data.journalism[0].title).to.be.a('string');
+          expect(res.body.data.journalism[0].title).to.eq(MOCK.JOURNALISM_ARTICLE.title);
           done();
         });
     });

@@ -13,14 +13,14 @@ const MOCK = {
     username: config.username,
     password: config.pword
   },
-  OTHER_WORK: {
+  JOURNALISM: {
     title: 'test 123',
     copy: 'test copy',
     imageUrl: 'images.com/me.jpg',
     externalLink: 'google.com',
     releaseDate: 'Mon Apr 02 2018 11:34:54 GMT+0100 (BST)'
   },
-  EDITED_OTHER_WORK: {}
+  EDITED_JOURNALISM: {}
 };
 
 let JWT_VALID = '';
@@ -66,24 +66,24 @@ describe('## Journalism APIs', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
         .post('/api/journalism')
-        .send(MOCK.OTHER_WORK)
+        .send(MOCK.JOURNALISM)
         .expect(httpStatus.UNAUTHORIZED)
         .then(() => done())
         .catch(done);
     });
-    it('should create new journalism', (done) => {
+    it('should create new journalism article', (done) => {
       request(app)
         .post('/api/journalism')
         .set('Authorization', JWT_VALID)
-        .send(MOCK.OTHER_WORK)
+        .send(MOCK.JOURNALISM)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.title).to.equal(MOCK.OTHER_WORK.title);
-          expect(res.body.copy).to.equal(MOCK.OTHER_WORK.copy);
-          expect(res.body.imageUrl).to.deep.eq(MOCK.OTHER_WORK.imageUrl);
-          expect(res.body.releaseDate).to.deep.eq(MOCK.OTHER_WORK.releaseDate);
+          expect(res.body.title).to.equal(MOCK.JOURNALISM.title);
+          expect(res.body.copy).to.equal(MOCK.JOURNALISM.copy);
+          expect(res.body.imageUrl).to.deep.eq(MOCK.JOURNALISM.imageUrl);
+          expect(res.body.releaseDate).to.deep.eq(MOCK.JOURNALISM.releaseDate);
           expect(res.body.createdAt).to.be.a('string');
-          MOCK.EDITED_OTHER_WORK = res.body;
+          MOCK.EDITED_JOURNALISM = res.body;
           done();
         })
         .catch(done);
@@ -106,7 +106,7 @@ describe('## Journalism APIs', () => {
   describe('# GET /api/journalism/id', () => {
     it('should get single journalism', (done) => {
       request(app)
-        .get(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
+        .get(`/api/journalism/${MOCK.EDITED_JOURNALISM._id}`)
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body).to.be.an('object');
@@ -119,8 +119,8 @@ describe('## Journalism APIs', () => {
   describe('# PUT /api/journalism/id', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
-        .put(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
-        .send(MOCK.EDITED_OTHER_WORK)
+        .put(`/api/journalism/${MOCK.EDITED_JOURNALISM._id}`)
+        .send(MOCK.EDITED_JOURNALISM)
         .expect(httpStatus.UNAUTHORIZED)
         .then(() => done())
         .catch(done);
@@ -135,24 +135,24 @@ describe('## Journalism APIs', () => {
         createdAt: new Date()
       };
 
-      MOCK.EDITED_OTHER_WORK.title = editedJournalism.title;
-      MOCK.EDITED_OTHER_WORK.copy = editedJournalism.copy;
-      MOCK.EDITED_OTHER_WORK.imageUrl = editedJournalism.imageUrl;
-      MOCK.EDITED_OTHER_WORK.releaseDate = editedJournalism.releaseDate;
-      MOCK.EDITED_OTHER_WORK.externalLink = editedJournalism.externalLink;
-      MOCK.EDITED_OTHER_WORK.createdAt = editedJournalism.createdAt;
+      MOCK.EDITED_JOURNALISM.title = editedJournalism.title;
+      MOCK.EDITED_JOURNALISM.copy = editedJournalism.copy;
+      MOCK.EDITED_JOURNALISM.imageUrl = editedJournalism.imageUrl;
+      MOCK.EDITED_JOURNALISM.releaseDate = editedJournalism.releaseDate;
+      MOCK.EDITED_JOURNALISM.externalLink = editedJournalism.externalLink;
+      MOCK.EDITED_JOURNALISM.createdAt = editedJournalism.createdAt;
 
       request(app)
-        .put(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
+        .put(`/api/journalism/${MOCK.EDITED_JOURNALISM._id}`)
         .set('Authorization', JWT_VALID)
-        .send(MOCK.EDITED_OTHER_WORK)
+        .send(MOCK.EDITED_JOURNALISM)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.title).to.equal(MOCK.EDITED_OTHER_WORK.title);
-          expect(res.body.copy).to.equal(MOCK.EDITED_OTHER_WORK.copy);
-          expect(res.body.imageUrl).to.equal(MOCK.EDITED_OTHER_WORK.imageUrl);
+          expect(res.body.title).to.equal(MOCK.EDITED_JOURNALISM.title);
+          expect(res.body.copy).to.equal(MOCK.EDITED_JOURNALISM.copy);
+          expect(res.body.imageUrl).to.equal(MOCK.EDITED_JOURNALISM.imageUrl);
           expect(res.body.releaseDate).to.be.a('string');
-          expect(res.body.externalLink).to.equal(MOCK.EDITED_OTHER_WORK.externalLink);
+          expect(res.body.externalLink).to.equal(MOCK.EDITED_JOURNALISM.externalLink);
           expect(res.body.createdAt).to.be.a('string');
           done();
         })
@@ -162,17 +162,17 @@ describe('## Journalism APIs', () => {
   describe('# DELETE /api/journalism/id', () => {
     it('should return unauthorized when no token provided', (done) => {
       request(app)
-        .delete(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
-        .send(MOCK.EDITED_OTHER_WORK)
+        .delete(`/api/journalism/${MOCK.EDITED_JOURNALISM._id}`)
+        .send(MOCK.EDITED_JOURNALISM)
         .expect(httpStatus.UNAUTHORIZED)
         .then(() => done())
         .catch(done);
     });
     it('should remove journalism', (done) => {
       request(app)
-        .delete(`/api/journalism/${MOCK.EDITED_OTHER_WORK._id}`)
+        .delete(`/api/journalism/${MOCK.EDITED_JOURNALISM._id}`)
         .set('Authorization', JWT_VALID)
-        .send(MOCK.EDITED_OTHER_WORK)
+        .send(MOCK.EDITED_JOURNALISM)
         .expect(httpStatus.OK)
         .then((res) => {
           expect(res.body.message).to.equal('Journalism article deleted');
