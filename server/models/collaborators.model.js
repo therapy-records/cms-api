@@ -68,22 +68,17 @@ CollaboratorSchema.statics = {
   async createNew(obj) {
     const totalCollaborators = await this.count({});
 
-    if (totalCollaborators) {
-      // note: orderNumber is zero index based, .count() is not.
-      obj.orderNumber = String(totalCollaborators); // eslint-disable-line no-param-reassign
-      obj.urlName = obj.name.replace(/ /g, '-'); // eslint-disable-line no-param-reassign
+    obj.orderNumber = String(totalCollaborators || 0); // eslint-disable-line no-param-reassign
+    obj.urlName = obj.name.replace(/ /g, '-'); // eslint-disable-line no-param-reassign
 
-      return this.create(obj)
-        .then((collab) => {
-          if (collab) {
-            return collab;
-          }
-          const err = new APIError('Error creating collaborator', httpStatus.NOT_FOUND);
-          return Promise.reject(err);
-        });
-    }
-    const err = new APIError('Error creating collaborator', httpStatus.NOT_FOUND);
-    return Promise.reject(err);
+    return this.create(obj)
+      .then((collab) => {
+        if (collab) {
+          return collab;
+        }
+        const err = new APIError('Error creating collaborator', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
   },
 
   getSingle(id) {
