@@ -56,7 +56,7 @@ if (config.env !== 'test') {
   };
 
   app.use(
-    except(['/public', '/graphql'],
+    except(['/public'],
       cors({
         origin: (origin, callback) => {
           if (corsWhitelist.indexOf(origin) !== -1) {
