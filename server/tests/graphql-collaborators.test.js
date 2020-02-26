@@ -26,6 +26,8 @@ let JWT_VALID = '';
 
 let COLLABORATOR_ID = '';
 
+let ALL_COLLABORATORS = [];
+
 after((done) => {
   // required because https://github.com/Automattic/mongoose/issues/1251#issuecomment-65793092
   mongoose.models = {};
@@ -100,6 +102,7 @@ describe('## GraphQL - Collaborators mutations/queries', () => {
         })
         .expect(httpStatus.OK)
         .then((res) => {
+          ALL_COLLABORATORS = res.body.data.collaborators;
           expect(res.body.data.collaborators).to.be.an('array');
           expect(res.body.data.collaborators[0]._id).to.be.a('string');
           expect(res.body.data.collaborators[0].name).to.be.a('string');
@@ -140,6 +143,104 @@ describe('## GraphQL - Collaborators mutations/queries', () => {
           expect(res.body.data.collaborator.avatarUrl).to.eq(MOCK.COLLABORATOR.avatarUrl);
           expect(res.body.data.collaborator.collabOn).to.be.an('array');
           expect(res.body.data.collaborator.collabOn).to.deep.eq(MOCK.COLLABORATOR.collabOn);
+          done();
+        });
+    });
+  });
+
+  describe('graphql - edit collaborator', () => {
+    it('should edit collaborator', (done) => {
+      const edited = {
+        name: 'new name',
+        role: 'edited role',
+        about: '<p>new about</p>',
+        avatarUrl: 'http://test.comnewpic.jpg',
+        collabOn: [
+          'edited collab',
+          'second edited collab'
+        ]
+      };
+      const lastCreatedCollab = ALL_COLLABORATORS[ALL_COLLABORATORS.length - 1];
+
+      request(app)
+        .post('/graphql')
+        .set('Authorization', JWT_VALID)
+        .send({
+          query: `mutation{ editCollaborator(_id: "${lastCreatedCollab._id}", input: { name: "${edited.name}", role: "${edited.role}", about: "${edited.about}", avatarUrl: "${edited.avatarUrl}", collabOn: [ "${edited.collabOn[0]}", "${edited.collabOn[1]}" ] }) {_id, name, role, about, avatarUrl, collabOn}}`
+        })
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.data.editCollaborator).to.be.an('object');
+          expect(res.body.data.editCollaborator._id).to.be.a('string');
+          expect(res.body.data.editCollaborator.name).to.be.a('string');
+          expect(res.body.data.editCollaborator.name).to.eq(edited.name);
+          expect(res.body.data.editCollaborator.role).to.be.a('string');
+          expect(res.body.data.editCollaborator.role).to.eq(edited.role);
+          expect(res.body.data.editCollaborator.about).to.be.a('string');
+          expect(res.body.data.editCollaborator.about).to.eq(edited.about);
+          expect(res.body.data.editCollaborator.avatarUrl).to.be.a('string');
+          expect(res.body.data.editCollaborator.avatarUrl).to.eq(edited.avatarUrl);
+          expect(res.body.data.editCollaborator.collabOn).to.be.an('array');
+          expect(res.body.data.editCollaborator.collabOn).to.deep.eq(edited.collabOn);
+          done();
+        });
+    });
+  });
+
+  describe('graphql - edit collaborators order numbers', () => {
+    it('should edit given collaborators order numbers', (done) => {
+      const lastCreatedCollab = ALL_COLLABORATORS[ALL_COLLABORATORS.length - 1];
+      const secondFromLastCreatedCollab = ALL_COLLABORATORS[ALL_COLLABORATORS.length - 2];
+      const mockInput = {
+        collaborators: [
+          {
+            _id: lastCreatedCollab._id,
+            orderNumber: 1
+          },
+          {
+            _id: secondFromLastCreatedCollab._id,
+            orderNumber: 2
+          }
+        ]
+      };
+
+      request(app)
+        .post('/graphql')
+        .set('Authorization', JWT_VALID)
+        .send({
+          query: `mutation{ editCollaboratorOrderNumbers(input: { collaborators: [ { _id: "${mockInput.collaborators[0]._id}", orderNumber: ${mockInput.collaborators[0].orderNumber} }, { _id: "${mockInput.collaborators[1]._id}", orderNumber: ${mockInput.collaborators[1].orderNumber} } ] }) {_id, orderNumber}}`
+        })
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.data.editCollaboratorOrderNumbers).to.be.an('array');
+          expect(res.body.data.editCollaboratorOrderNumbers[0]._id).to.be.a('string');
+          expect(res.body.data.editCollaboratorOrderNumbers[0]._id).to.eq(mockInput.collaborators[0]._id); // eslint-disable-line max-len
+          expect(res.body.data.editCollaboratorOrderNumbers[0].orderNumber).to.be.a('string');
+          expect(res.body.data.editCollaboratorOrderNumbers[0].orderNumber).to.eq(mockInput.collaborators[0].orderNumber.toString()); // eslint-disable-line max-len
+          expect(res.body.data.editCollaboratorOrderNumbers[1]._id).to.be.a('string');
+          expect(res.body.data.editCollaboratorOrderNumbers[1]._id).to.eq(mockInput.collaborators[1]._id); // eslint-disable-line max-len
+          expect(res.body.data.editCollaboratorOrderNumbers[1].orderNumber).to.be.a('string');
+          expect(res.body.data.editCollaboratorOrderNumbers[1].orderNumber).to.eq(mockInput.collaborators[1].orderNumber.toString()); // eslint-disable-line max-len
+          done();
+        });
+    });
+  });
+
+  describe('graphql - delete collaborator', () => {
+    it('should delete collaborator', (done) => {
+      const lastCreatedCollab = ALL_COLLABORATORS[ALL_COLLABORATORS.length - 1];
+
+      request(app)
+        .post('/graphql')
+        .set('Authorization', JWT_VALID)
+        .send({
+          query: `mutation{ deleteCollaborator(_id: "${lastCreatedCollab._id}") {_id}}`
+        })
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.data.deleteCollaborator).to.deep.eq({
+            _id: lastCreatedCollab._id
+          });
           done();
         });
     });
