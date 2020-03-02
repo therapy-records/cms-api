@@ -14,10 +14,6 @@ const PressSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  imageUrl: {
-    type: String,
-    required: true
-  },
   externalLink: {
     type: String,
     required: true
