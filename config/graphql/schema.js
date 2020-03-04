@@ -30,6 +30,14 @@ const schema = gql`
     orderNumber: String!
   }
 
+  type Press {
+    _id: ID!
+    author: String!
+    copy: String!
+    externalLink: String!
+    createdAt: String!
+  }
+
   type News {
     _id: ID!
     title: String!
@@ -43,8 +51,10 @@ const schema = gql`
   type Query {
     collaborators: [Collaborator]
     collaborator(_id: ID!): Collaborator
+    press: [Press]
+    pressArticle(_id: ID!): Press    
     news: [News],
-    journalism: [Journalism]
+    journalism: [Journalism],
   }
   
   input CollaboratorUrlsInput {
