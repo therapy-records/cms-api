@@ -33,9 +33,10 @@ const schema = gql`
   type Press {
     _id: ID!
     author: String!
-    copy: String!
+    title: String!
+    excerpt: String!
     externalLink: String!
-    createdAt: String!
+    releaseDate: String!
   }
 
   type News {

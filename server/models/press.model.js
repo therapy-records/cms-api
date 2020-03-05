@@ -10,7 +10,11 @@ const PressSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  copy: {
+  title: {
+    type: String,
+    required: true
+  },
+  excerpt: {
     type: String,
     required: true
   },
@@ -18,7 +22,7 @@ const PressSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  createdAt: {
+  releaseDate: {
     type: String,
     required: true
   }

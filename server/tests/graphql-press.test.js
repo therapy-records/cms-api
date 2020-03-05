@@ -15,9 +15,10 @@ const MOCK = {
   },
   PRESS_ARTICLE: {
     author: 'website.com',
-    copy: '<p>testing</p>',
+    title: 'test title',
+    excerpt: '<p>testing</p>',
     externalLink: 'article.com/test',
-    createdAt: 'date string'
+    releaseDate: 'date string'
   }
 };
 
@@ -66,7 +67,7 @@ describe('## GraphQL - Press mutations/queries', () => {
         .post('/graphql')
         .set('Authorization', JWT_VALID)
         .send({
-          query: `mutation{ createPress(input: { author: "${MOCK.PRESS_ARTICLE.author}", copy: "${MOCK.PRESS_ARTICLE.copy}", externalLink: "${MOCK.PRESS_ARTICLE.externalLink}", createdAt: "${MOCK.PRESS_ARTICLE.createdAt}" }) {_id, author, copy, externalLink, createdAt}}`
+          query: `mutation{ createPress(input: { author: "${MOCK.PRESS_ARTICLE.author}", title: "${MOCK.PRESS_ARTICLE.title}", excerpt: "${MOCK.PRESS_ARTICLE.excerpt}", externalLink: "${MOCK.PRESS_ARTICLE.externalLink}", releaseDate: "${MOCK.PRESS_ARTICLE.releaseDate}" }) {_id, author, title, excerpt, externalLink, releaseDate}}`
         })
         .expect(httpStatus.OK)
         .then((res) => {
@@ -75,12 +76,14 @@ describe('## GraphQL - Press mutations/queries', () => {
           expect(res.body.data.createPress._id).to.be.a('string');
           expect(res.body.data.createPress.author).to.be.a('string');
           expect(res.body.data.createPress.author).to.eq(MOCK.PRESS_ARTICLE.author);
-          expect(res.body.data.createPress.copy).to.be.a('string');
-          expect(res.body.data.createPress.copy).to.eq(MOCK.PRESS_ARTICLE.copy);
+          expect(res.body.data.createPress.title).to.be.a('string');
+          expect(res.body.data.createPress.title).to.eq(MOCK.PRESS_ARTICLE.title);
+          expect(res.body.data.createPress.excerpt).to.be.a('string');
+          expect(res.body.data.createPress.excerpt).to.eq(MOCK.PRESS_ARTICLE.excerpt);
           expect(res.body.data.createPress.externalLink).to.be.a('string');
           expect(res.body.data.createPress.externalLink).to.eq(MOCK.PRESS_ARTICLE.externalLink);
-          expect(res.body.data.createPress.createdAt).to.be.a('string');
-          expect(res.body.data.createPress.createdAt).to.eq(MOCK.PRESS_ARTICLE.createdAt);
+          expect(res.body.data.createPress.releaseDate).to.be.a('string');
+          expect(res.body.data.createPress.releaseDate).to.eq(MOCK.PRESS_ARTICLE.releaseDate);
           done();
         });
     });
@@ -92,7 +95,7 @@ describe('## GraphQL - Press mutations/queries', () => {
         .post('/graphql')
         .set('Authorization', JWT_VALID)
         .send({
-          query: 'query{press{_id, author, copy, externaLink, createdAt}}'
+          query: 'query{press{_id, title, author, excerpt, externalLink, releaseDate}}'
         })
         .expect(httpStatus.OK)
         .then((res) => {
@@ -100,12 +103,14 @@ describe('## GraphQL - Press mutations/queries', () => {
           expect(res.body.data.press[0]._id).to.be.a('string');
           expect(res.body.data.press[0].author).to.be.a('string');
           expect(res.body.data.press[0].author).to.eq(MOCK.PRESS_ARTICLE.author);
-          expect(res.body.data.press[0].copy).to.be.a('string');
-          expect(res.body.data.press[0].copy).to.eq(MOCK.PRESS_ARTICLE.copy);
+          expect(res.body.data.press[0].title).to.be.a('string');
+          expect(res.body.data.press[0].title).to.eq(MOCK.PRESS_ARTICLE.title);
+          expect(res.body.data.press[0].excerpt).to.be.a('string');
+          expect(res.body.data.press[0].excerpt).to.eq(MOCK.PRESS_ARTICLE.excerpt);
           expect(res.body.data.press[0].externalLink).to.be.a('string');
           expect(res.body.data.press[0].externalLink).to.eq(MOCK.PRESS_ARTICLE.externalLink);
-          expect(res.body.data.press[0].createdAt).to.be.a('string');
-          expect(res.body.data.press[0].createdAt).to.eq(MOCK.PRESS_ARTICLE.createdAt);
+          expect(res.body.data.press[0].releaseDate).to.be.a('string');
+          expect(res.body.data.press[0].releaseDate).to.eq(MOCK.PRESS_ARTICLE.releaseDate);
           done();
         });
     });
@@ -117,7 +122,7 @@ describe('## GraphQL - Press mutations/queries', () => {
         .post('/graphql')
         .set('Authorization', JWT_VALID)
         .send({
-          query: `query{press(_id: "${PRESS_ARTICLE_ID}"){ _id, author, copy, externaLink, createdAt}}`
+          query: `query{pressArticle(_id: "${PRESS_ARTICLE_ID}"){ _id, author, title, excerpt, externalLink, releaseDate}}`
         })
         .expect(httpStatus.OK)
         .then((res) => {
@@ -125,12 +130,14 @@ describe('## GraphQL - Press mutations/queries', () => {
           expect(res.body.data.press._id).to.be.a('string');
           expect(res.body.data.press.author).to.be.a('string');
           expect(res.body.data.press.author).to.eq(MOCK.PRESS_ARTICLE.author);
-          expect(res.body.data.press.copy).to.be.a('string');
-          expect(res.body.data.press.copy).to.eq(MOCK.PRESS_ARTICLE.copy);
+          expect(res.body.data.press.title).to.be.a('string');
+          expect(res.body.data.press.title).to.eq(MOCK.PRESS_ARTICLE.title);
+          expect(res.body.data.press.excerpt).to.be.a('string');
+          expect(res.body.data.press.excerpt).to.eq(MOCK.PRESS_ARTICLE.excerpt);
           expect(res.body.data.press.externalLink).to.be.a('string');
           expect(res.body.data.press.externalLink).to.eq(MOCK.PRESS_ARTICLE.externalLink);
-          expect(res.body.data.press.createdAt).to.be.a('string');
-          expect(res.body.data.press.createdAt).to.eq(MOCK.PRESS_ARTICLE.createdAt);
+          expect(res.body.data.press.releaseDate).to.be.a('string');
+          expect(res.body.data.press.releaseDate).to.eq(MOCK.PRESS_ARTICLE.releaseDate);
           done();
         });
     });
