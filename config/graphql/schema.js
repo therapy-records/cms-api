@@ -39,6 +39,14 @@ const schema = gql`
     releaseDate: String!
   }
 
+  input PressInput {
+    author: String!
+    title: String!
+    excerpt: String!
+    externalLink: String!
+    releaseDate: String!
+  }
+
   type News {
     _id: ID!
     title: String!
@@ -97,7 +105,14 @@ const schema = gql`
       input: CollaboratorInput
     ): Collaborator,
     deleteCollaborator(_id: ID!): Collaborator,
-    editCollaboratorOrderNumbers(input: CollaboratorOrderNumbersInput): [CollaboratorOrderNumbers]
+    editCollaboratorOrderNumbers(input: CollaboratorOrderNumbersInput): [CollaboratorOrderNumbers],
+    createPress(input: PressInput): Press,
+    editPress(
+      _id: ID!,
+      input: PressInput
+    ): Press,
+    deletePress(_id: ID!): Press,
+
   }
 `;
 

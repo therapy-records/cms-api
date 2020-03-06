@@ -29,11 +29,17 @@ const PressSchema = new mongoose.Schema({
 });
 
 PressSchema.statics = {
-  /**
-   * Get single press
-   * @param {ObjectId} id - The objectId of the press.
-   * @returns {Promise<Press, APIError>}
-   */
+  async createNew(obj) {
+    return this.create(obj)
+      .then((press) => {
+        if (press) {
+          return press;
+        }
+        const err = new APIError('Error creating press', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
+  },
+
   getSingle(id) {
     return this.findById(id)
       .exec()

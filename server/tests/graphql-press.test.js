@@ -24,6 +24,7 @@ const MOCK = {
 
 let JWT_VALID = '';
 let PRESS_ARTICLE_ID = '';
+let ALL_PRESS_ARTICLES = [];
 
 after((done) => {
   // required because https://github.com/Automattic/mongoose/issues/1251#issuecomment-65793092
@@ -99,6 +100,7 @@ describe('## GraphQL - Press mutations/queries', () => {
         })
         .expect(httpStatus.OK)
         .then((res) => {
+          ALL_PRESS_ARTICLES = res.body.data.press;
           expect(res.body.data.press).to.be.an('array');
           expect(res.body.data.press[0]._id).to.be.a('string');
           expect(res.body.data.press[0].author).to.be.a('string');
@@ -126,18 +128,75 @@ describe('## GraphQL - Press mutations/queries', () => {
         })
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.data.press).to.be.an('object');
-          expect(res.body.data.press._id).to.be.a('string');
-          expect(res.body.data.press.author).to.be.a('string');
-          expect(res.body.data.press.author).to.eq(MOCK.PRESS_ARTICLE.author);
-          expect(res.body.data.press.title).to.be.a('string');
-          expect(res.body.data.press.title).to.eq(MOCK.PRESS_ARTICLE.title);
-          expect(res.body.data.press.excerpt).to.be.a('string');
-          expect(res.body.data.press.excerpt).to.eq(MOCK.PRESS_ARTICLE.excerpt);
-          expect(res.body.data.press.externalLink).to.be.a('string');
-          expect(res.body.data.press.externalLink).to.eq(MOCK.PRESS_ARTICLE.externalLink);
-          expect(res.body.data.press.releaseDate).to.be.a('string');
-          expect(res.body.data.press.releaseDate).to.eq(MOCK.PRESS_ARTICLE.releaseDate);
+          expect(res.body.data.pressArticle).to.be.an('object');
+          expect(res.body.data.pressArticle._id).to.be.a('string');
+          expect(res.body.data.pressArticle.author).to.be.a('string');
+          expect(res.body.data.pressArticle.author).to.eq(MOCK.PRESS_ARTICLE.author);
+          expect(res.body.data.pressArticle.title).to.be.a('string');
+          expect(res.body.data.pressArticle.title).to.eq(MOCK.PRESS_ARTICLE.title);
+          expect(res.body.data.pressArticle.excerpt).to.be.a('string');
+          expect(res.body.data.pressArticle.excerpt).to.eq(MOCK.PRESS_ARTICLE.excerpt);
+          expect(res.body.data.pressArticle.externalLink).to.be.a('string');
+          expect(res.body.data.pressArticle.externalLink).to.eq(MOCK.PRESS_ARTICLE.externalLink);
+          expect(res.body.data.pressArticle.releaseDate).to.be.a('string');
+          expect(res.body.data.pressArticle.releaseDate).to.eq(MOCK.PRESS_ARTICLE.releaseDate);
+          done();
+        });
+    });
+  });
+
+  describe('graphql - edit press article', () => {
+    it('should edit the article', (done) => {
+      const edited = {
+        author: 'new author',
+        title: 'edited title',
+        excerpt: 'new excerpt',
+        releaseDate: 'edited date',
+        externalLink: 'edited.com'
+      };
+      const lastCreatedPressArticle = ALL_PRESS_ARTICLES[ALL_PRESS_ARTICLES.length - 1];
+
+      request(app)
+        .post('/graphql')
+        .set('Authorization', JWT_VALID)
+        .send({
+          query: `mutation{ editPress(_id: "${lastCreatedPressArticle._id}", input: { author: "${edited.author}", title: "${edited.title}", excerpt: "${edited.excerpt}", externalLink: "${edited.externalLink}", releaseDate: "${edited.releaseDate}" }) {_id, author, title, excerpt, externalLink, releaseDate}}`
+
+        })
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.data.editPress).to.be.an('object');
+          expect(res.body.data.editPress._id).to.be.a('string');
+          expect(res.body.data.editPress.author).to.be.a('string');
+          expect(res.body.data.editPress.author).to.eq(edited.author);
+          expect(res.body.data.editPress.title).to.be.a('string');
+          expect(res.body.data.editPress.title).to.eq(edited.title);
+          expect(res.body.data.editPress.excerpt).to.be.a('string');
+          expect(res.body.data.editPress.excerpt).to.eq(edited.excerpt);
+          expect(res.body.data.editPress.externalLink).to.be.a('string');
+          expect(res.body.data.editPress.externalLink).to.eq(edited.externalLink);
+          expect(res.body.data.editPress.releaseDate).to.be.a('string');
+          expect(res.body.data.editPress.releaseDate).to.eq(edited.releaseDate);
+          done();
+        });
+    });
+  });
+
+  describe('graphql - delete press', () => {
+    it('should delete press article', (done) => {
+      const lastCreatedPressArticle = ALL_PRESS_ARTICLES[ALL_PRESS_ARTICLES.length - 1];
+
+      request(app)
+        .post('/graphql')
+        .set('Authorization', JWT_VALID)
+        .send({
+          query: `mutation{ deletePress(_id: "${lastCreatedPressArticle._id}") {_id}}`
+        })
+        .expect(httpStatus.OK)
+        .then((res) => {
+          expect(res.body.data.deletePress).to.deep.eq({
+            _id: lastCreatedPressArticle._id
+          });
           done();
         });
     });

@@ -3,6 +3,7 @@ const journalismQueryResolvers = require('./queries/journalism');
 const newsQueryResolvers = require('./queries/news');
 const pressQueryResolvers = require('./queries/press');
 const collaboratorsMutationResolvers = require('./mutations/collaborators');
+const pressMutationResolvers = require('./mutations/press');
 
 const resolvers = {
   Query: {
@@ -12,7 +13,8 @@ const resolvers = {
     ...pressQueryResolvers
   },
   Mutation: {
-    ...collaboratorsMutationResolvers
+    ...collaboratorsMutationResolvers,
+    ...pressMutationResolvers
   }
 };
 
