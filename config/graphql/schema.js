@@ -57,13 +57,27 @@ const schema = gql`
     title: String!
   }
 
+  type Gig {
+    _id: ID!
+    title: String!
+    location: String!
+    venue: String!
+    date: String!
+    ticketsUrl: String
+  }
+
   type Query {
-    collaborators: [Collaborator]
-    collaborator(_id: ID!): Collaborator
-    press: [Press]
-    pressArticle(_id: ID!): Press    
-    news: [News],
+    collaborators: [Collaborator],
+    collaborator(_id: ID!): Collaborator,
+
+    gigs: [Gig],
+    gig(_id: ID!): Gig,
+
     journalism: [Journalism],
+    news: [News],
+
+    press: [Press],
+    pressArticle(_id: ID!): Press
   }
   
   input CollaboratorUrlsInput {
@@ -98,6 +112,14 @@ const schema = gql`
     collaborators: [CollaboratorOrderNumbersCollaboratorInput]!
   }
 
+  input GigInput {
+    title: String!
+    location: String!
+    venue: String!
+    date: String!
+    ticketsUrl: String
+  }
+
   type Mutation {
     createCollaborator(input: CollaboratorInput): Collaborator,
     editCollaborator(
@@ -106,13 +128,20 @@ const schema = gql`
     ): Collaborator,
     deleteCollaborator(_id: ID!): Collaborator,
     editCollaboratorOrderNumbers(input: CollaboratorOrderNumbersInput): [CollaboratorOrderNumbers],
+
+    createGig(input: GigInput): Gig,
+    editGig(
+      _id: ID!,
+      input: GigInput
+    ): Gig,
+    deleteGig(_id: ID!): Gig
+
     createPress(input: PressInput): Press,
     editPress(
       _id: ID!,
       input: PressInput
     ): Press,
     deletePress(_id: ID!): Press,
-
   }
 `;
 

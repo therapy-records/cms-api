@@ -31,11 +31,18 @@ const GigsSchema = new mongoose.Schema({
 });
 
 GigsSchema.statics = {
-  /**
-   * Get single gig
-   * @param {ObjectId} id - The objectId of gig.
-   * @returns {Promise<Gig, APIError>}
-   */
+  async createNew(obj) {
+    return this.create(obj)
+      .then((gig) => {
+        if (gig) {
+          return gig;
+        }
+        const err = new APIError('Error creating gig', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
+  },
+
+
   getSingle(id) {
     return this.findById(id)
       .exec()
