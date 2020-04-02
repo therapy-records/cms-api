@@ -1,13 +1,244 @@
 # Therapy Records API docs
 
-## Misc
+## **GraphQL API**
 
-### Health check
+[GraphQL Schema](https://github.com/therapy-records/cms-api/blob/master/config/graphql/schema.js)
+
+### Press Queries
+
+#### Get all Press
+
+```js
+{
+  press {
+    _id,
+    author,
+    title,
+    excerpt,
+    releaseDate
+  }
+}
+```
+
+#### Get single Press
+
+```js
+query($id: ID!) {
+  pressArticle(_id: $id) {
+    _id,
+    author,
+    title,
+    excerpt,
+    externalLink,
+    releaseDate
+  }
+}
+```
+
+### Press Mutations
+
+#### Create Press
+
+```js
+mutation($input: PressInput) {
+  createPress(input: $input) {
+    author,
+    title,
+    excerpt,
+    externalLink,
+    releaseDate
+  }
+}
+```
+
+#### Edit Press
+
+```js
+mutation($id: ID!, $input: PressInput) {
+  editPress(_id: $id, input: $input) {
+    _id,
+    author,
+    title,
+    excerpt,
+    externalLink,
+    releaseDate
+  }
+}
+```
+
+#### Delete Press
+
+```js
+mutation($id: ID!) {
+  deletePress(_id: $id) {
+    _id
+  }
+}
+```
+
+### Collaborators Queries
+
+#### Get all Collaborators
+
+```js
+{
+  collaborators {
+    _id,
+    name,
+    avatarUrl
+  }
+}
+```
+
+#### Get single Collaborator
+
+```js
+query($id: ID!) {
+  collaborator(_id: $id) {
+    _id,
+    name,
+    role,
+    about,
+    avatarUrl,
+    collabOn,
+    urls {
+      website,
+      facebook,
+      instagram,
+      twitter,
+      soundcloud,
+      bandcamp,
+      bio,
+      email,
+      phone
+    }
+  }
+}
+```
+
+### Collaborator Mutations
+
+#### Create Collaborator
+
+```js
+mutation($input: CollaboratorInput) {
+  createCollaborator(input: $input) {
+    name,
+    avatarUrl,
+    collabOn,
+    role,
+    about
+  }
+}
+```
+
+#### Edit Collaborator
+
+```js
+mutation($id: ID!, $input: CollaboratorInput) {
+  editCollaborator(_id: $id, input: $input) {
+    _id,
+    name,
+    avatarUrl,
+    collabOn,
+    role,
+    about
+  }
+}
+```
+
+#### Delete Collaborator
+
+```js
+mutation($id: ID!) {
+  deleteCollaborator(_id: $id) {
+    _id
+  }
+}
+```
+
+
+### Gigs Queries
+
+#### Get all Gigs
+
+```js
+{
+  gigs {
+    _id,
+    title,
+    location,
+    venue,
+    date,
+    ticketsUrl
+  }
+}
+```
+
+#### Get single Gig
+
+```js
+query($id: ID!) {
+  gig(_id: $id) {
+    _id,
+    title,
+    location,
+    venue,
+    date,
+    ticketsUrl
+  }
+}
+```
+
+### Gigs Mutations
+
+#### Create Gig
+
+```js
+mutation($input: GigInput) {
+  createGig(input: $input) {
+    title,
+    location,
+    date,
+    venue,
+    ticketsUrl
+  }
+}
+```
+
+#### Edit Gig
+
+```js
+mutation($id: ID!, $input: GigInput) {
+  editGig(_id: $id, input: $input) {
+    _id,
+    title,
+    location,
+    date,
+    venue,
+    ticketsUrl
+  }
+}
+```
+
+#### Delete Gig
+
+```js
+mutation($id: ID!) {
+  deleteGig(_id: $id) {
+    _id
+  }
+}
+```
+
+## **REST API**
+
+### **Health check**
 
 - GET `public/health-check`
   - returns 200 with 'OK' string
   
-## News
+## **News**
 
 - GET `api/news`
   - returns 200 with an array of objects
@@ -25,7 +256,7 @@
 
   See [news schema](https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
 
-## News Articles
+## **News Articles**
 
 - GET `api/news/:id`
   - returns 200 with an object
@@ -54,95 +285,7 @@
 
   See [news schema](https://github.com/therapy-records/cms-api/blob/master/server/models/newsSchema.js) for optional fields.
 
-## Collaborators
-
-- GET `api/collaborators`
-  - returns 200 with an array of objects
-
-- POST `api/collaborators`
-  - returns 200 with saved article object
-  - expects an object containing at least:
-
-  ```js
-  {
-    name: 'my title',
-    role: 'tea boy',
-    avatarUrl: 'me.com/profile.png'
-  }
-  ```
-
-  See [collaborators schema](https://github.com/therapy-records/cms-api/blob/master/server/models/collaborators.model.js) for optional fields.
-
-## Collaborators - single
-
-### Single collaborator
-
-- GET `api/collaborators/:id`
-  - returns 200 with an object
-
-- DELETE `api/collaborators/:id`
-  - returns 200 with a success message
-
-- PUT `api/collaborators/:id`
-  - returns 200 with saved article object
-  - expects an object containing at least:
-
-  ```js
-  {
-    name: 'my title',
-    role: 'tea boy',
-    avatarUrl: 'me.com/profile.png'
-  }
-  ```
-
-  See [collaborators schema](https://github.com/therapy-records/cms-api/blob/master/server/models/collaborators.model.js) for optional fields.
-
-## Press
-
-- GET `api/press`
-  - returns 200 with an array of objects
-
-- POST `api/press`
-  - returns 200 with the saved object
-  - expects an object containing at least:
-
-  ```js
-  {
-    author: 'my title',
-    copy: '<p>fantastic performance...</p>',
-    imageUrl: 'me.com/profile.png',
-    externalLink: 'google.com/an-article'
-  }
-  ```
-
-  See [press schema](https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
-
-## Press - single
-
-### Single press article/release
-
-- GET `api/press/:id`
-  - returns 200 with an object
-
-- DELETE `api/press/:id`
-  - returns 200 with a success message
-
-- PUT `api/press/:id`
-  - returns 200 with saved article object
-  - expects an object containing at least:
-
-  ```js
-  {
-    author: 'my title',
-    copy: '<p>fantastic performance...</p>',
-    imageUrl: 'me.com/profile.png',
-    externalLink: 'google.com/an-article'
-  }
-  ```
-
-  See [press schema](https://github.com/therapy-records/cms-api/blob/master/server/models/press.model.js) for optional fields.
-
-## Journalism
+## **Journalism**
 
 - GET `api/journalism`
   - returns 200 with an array of objects
@@ -163,9 +306,9 @@
 
   See [journalism schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
 
-## Journalism - single
+## **Journalism - single**
 
-### Single journalism article
+### **Single journalism article**
 
 - GET `api/journalism/:id`
   - returns 200 with an object
@@ -188,44 +331,3 @@
   ```
 
   See [journalism schema](https://github.com/therapy-records/cms-api/blob/master/server/models/journalism.model.js) for optional fields.
-
-## Gigs
-
-- GET `api/gigs`
-  - returns 200 with an array of objects
-
-- POST `api/gigs`
-  - returns 200 with the saved object
-  - expects an object containing:
-
-  ```js
-  {
-    title: 'Artist Name',
-    location: 'Chelsea, London, UK',
-    venue: 'Music bar',
-    date: 'Fri Jan 17 2020 11:34:54 GMT+0100 (BST)',
-    ticketsUrl: 'gettickets.com'
-  }
-  ```
-
-## Gigs - single
-
-- GET `api/gigs/:id`
-  - returns 200 with an object
-
-- DELETE `api/gigs/:id`
-  - returns 200 with a success message
-
-- PUT `api/gigs/:id`
-  - returns 200 with saved gig object
-  - expects an object containing:
-
-  ```js
-  {
-    title: 'Artist Name',
-    location: 'Chelsea, London, UK',
-    venue: 'Music bar',
-    date: 'Fri Jan 17 2020 11:34:54 GMT+0100 (BST)',
-    ticketsUrl: 'gettickets.com'
-  }
-  ```
