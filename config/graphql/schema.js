@@ -131,6 +131,12 @@ const schema = gql`
     ticketsUrl: String
   }
 
+  input VideoInput {
+    title: String!
+    description: String!
+    date: String!
+  }
+
   type Mutation {
     createCollaborator(input: CollaboratorInput): Collaborator,
     editCollaborator(
@@ -146,6 +152,13 @@ const schema = gql`
       input: GigInput
     ): Gig,
     deleteGig(_id: ID!): Gig
+
+    createVideo(input: VideoInput): Video,
+    editVideo(
+      _id: ID!,
+      input: VideoInput
+    ): Video,
+    deleteVideo(_id: ID!): Video
 
     createPress(input: PressInput): Press,
     editPress(
