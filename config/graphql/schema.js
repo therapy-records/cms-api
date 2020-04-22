@@ -66,6 +66,13 @@ const schema = gql`
     ticketsUrl: String
   }
 
+  type Video {
+    _id: ID!
+    title: String!
+    description: String!
+    date: String!
+  }
+
   type Query {
     collaborators: [Collaborator],
     collaborator(_id: ID!): Collaborator,
@@ -78,6 +85,10 @@ const schema = gql`
 
     press: [Press],
     pressArticle(_id: ID!): Press
+
+    videos: [Videos],
+    video(_id: ID!): Video
+    
   }
   
   input CollaboratorUrlsInput {
