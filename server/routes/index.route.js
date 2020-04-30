@@ -38,7 +38,11 @@ router.get('/cloudinary-signature', (req, res) => {
 router.delete('/cloudinary-destroy', (req, res) => {
   const { publicId } = req.body;
 
-  cloudinary.v2.uploader.destroy(publicId, {}, (error) => {
+  const options = {
+    invalidate: true
+  };
+
+  cloudinary.v2.uploader.destroy(publicId, options, (error) => {
     if (error) {
       return res.status(500).send(error);
     }
