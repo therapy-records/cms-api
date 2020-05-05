@@ -59,7 +59,7 @@ const schema = gql`
 
   type Gig {
     _id: ID!
-    title: String!
+    title: String
     location: String!
     venue: String!
     date: String!

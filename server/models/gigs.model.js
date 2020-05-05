@@ -9,8 +9,7 @@ const Schema = mongoose.Schema; // eslint-disable-line no-unused-vars
  */
 const GigsSchema = new mongoose.Schema({
   title: {
-    type: String,
-    required: true
+    type: String
   },
   location: {
     type: String,
