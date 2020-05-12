@@ -15,24 +15,10 @@ router.use('/journalism', journalismRoutes);
 
 router.use('/news', newsRoutes);
 
-
 cloudinary.config({
   cloud_name: config.cloudinaryCloudName,
   api_secret: config.cloudinaryApiSecret,
   api_key: config.cloudinaryApiKey
-});
-
-router.get('/cloudinary-signature', (req, res) => {
-  const timestamp = Math.floor(Date.now() / 1000);
-  const data = {
-    timestamp
-  };
-  const signature = cloudinary.utils.api_sign_request(data, config.cloudinaryApiSecret);
-  return res.json({
-    key: config.cloudinaryApiKey,
-    signature,
-    timestamp
-  });
 });
 
 router.delete('/cloudinary-destroy', (req, res) => {

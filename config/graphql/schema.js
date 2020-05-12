@@ -66,6 +66,12 @@ const schema = gql`
     ticketsUrl: String
   }
 
+  type CloudinarySignature {
+    key: String!,
+    signature: String!,
+    timestamp: String!,
+  }
+
   type Query {
     collaborators: [Collaborator],
     collaborator(_id: ID!): Collaborator,
@@ -77,7 +83,9 @@ const schema = gql`
     news: [News],
 
     press: [Press],
-    pressArticle(_id: ID!): Press
+    pressArticle(_id: ID!): Press,
+
+    cloudinarySignature: CloudinarySignature
   }
   
   input CollaboratorUrlsInput {
