@@ -25,8 +25,10 @@ if (config.env === 'development') {
   app.use('/api', logger('dev'));
 }
 
-// parse body params and attache them to req.body
-app.use(bodyParser.json());
+// TOOD: is 50mb ok? perhaps too large
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
