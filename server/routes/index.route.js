@@ -36,24 +36,6 @@ router.delete('/cloudinary-destroy', (req, res) => {
   });
 });
 
-
-router.post('/cloudinary-upload', (req, res) => {
-  const { image } = req.body;
-
-  cloudinary.v2.uploader.upload(image, {}, (error, response) => {
-    if (error) {
-      return res.status(500).send(error);
-    }
-    return res.json({
-      success: true,
-      data: {
-        public_id: response.public_id,
-        url: response.url,
-      }
-    });
-  });
-});
-
 if (config.nonProductionRoutes === 'true') {
   router.use('/user', userRoutes);
   router.use('/test', testRoutes);

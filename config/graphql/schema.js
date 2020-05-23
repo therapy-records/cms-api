@@ -69,7 +69,12 @@ const schema = gql`
   type CloudinarySignature {
     key: String!,
     signature: String!,
-    timestamp: String!,
+    timestamp: String!
+  }
+  
+  type CloudinaryUpload {
+    publicId: String!,
+    url: String!
   }
 
   type Query {
@@ -128,6 +133,10 @@ const schema = gql`
     ticketsUrl: String
   }
 
+  input CloudinaryUploadInput {
+    image: String!
+  }
+
   type Mutation {
     createCollaborator(input: CollaboratorInput): Collaborator,
     editCollaborator(
@@ -150,6 +159,8 @@ const schema = gql`
       input: PressInput
     ): Press,
     deletePress(_id: ID!): Press,
+
+    cloudinaryUpload(input: CloudinaryUploadInput): CloudinaryUpload
   }
 `;
 
