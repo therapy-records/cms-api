@@ -1,5 +1,4 @@
 const express = require('express');
-const cloudinary = require('cloudinary');
 const authRoutes = require('./auth.route');
 const journalismRoutes = require('./journalism.route');
 const newsRoutes = require('./news.route');
@@ -14,27 +13,6 @@ router.use('/auth', authRoutes);
 router.use('/journalism', journalismRoutes);
 
 router.use('/news', newsRoutes);
-
-cloudinary.config({
-  cloud_name: config.cloudinaryCloudName,
-  api_secret: config.cloudinaryApiSecret,
-  api_key: config.cloudinaryApiKey
-});
-
-router.delete('/cloudinary-destroy', (req, res) => {
-  const { publicId } = req.body;
-
-  const options = {
-    invalidate: true
-  };
-
-  cloudinary.v2.uploader.destroy(publicId, options, (error) => {
-    if (error) {
-      return res.status(500).send(error);
-    }
-    return res.json({ success: true });
-  });
-});
 
 if (config.nonProductionRoutes === 'true') {
   router.use('/user', userRoutes);

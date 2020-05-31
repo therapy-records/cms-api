@@ -77,6 +77,10 @@ const schema = gql`
     url: String!
   }
 
+  type CloudinaryDelete {
+    success: String!
+  }
+
   type Query {
     collaborators: [Collaborator],
     collaborator(_id: ID!): Collaborator,
@@ -137,6 +141,10 @@ const schema = gql`
     image: String!
   }
 
+  input CloudinaryDeleteInput {
+    publicId: String!
+  }
+
   type Mutation {
     createCollaborator(input: CollaboratorInput): Collaborator,
     editCollaborator(
@@ -161,6 +169,7 @@ const schema = gql`
     deletePress(_id: ID!): Press,
 
     cloudinaryUpload(input: CloudinaryUploadInput): CloudinaryUpload
+    cloudinaryDelete(input: CloudinaryDeleteInput): CloudinaryDelete
   }
 `;
 
