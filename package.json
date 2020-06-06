@@ -36,7 +36,7 @@
     "boilerplate"
   ],
   "dependencies": {
-    "apollo-server-express": "2.9.9",
+    "apollo-server-express": "2.14.2",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "3.4.6",
     "body-parser": "1.19.0",
