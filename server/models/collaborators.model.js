@@ -26,9 +26,15 @@ const CollaboratorSchema = new mongoose.Schema({
   about: {
     type: String
   },
-  avatarUrl: {
-    type: String,
-    required: true
+  avatar: {
+    cloudinaryUrl: {
+      type: String,
+      required: true
+    },
+    cloudinaryPublicId: {
+      type: String,
+      required: true
+    }
   },
   urls: {
     website: {

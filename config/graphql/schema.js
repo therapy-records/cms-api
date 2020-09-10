@@ -1,6 +1,14 @@
 const { gql } = require('apollo-server-express');
 
 const schema = gql`
+  type ImageObject {
+    cloudinaryUrl: String!
+  }
+
+  input ImageObjectInput {
+    cloudinaryUrl: String!
+  }
+
   type CollaboratorUrls {
     website: String
     facebook: String
@@ -16,7 +24,7 @@ const schema = gql`
   type Collaborator {
     _id: ID!
     name: String!
-    avatarUrl: String!
+    avatar: ImageObject!
     collabOn: [String]!
     role: String!
     orderNumber: String!
@@ -111,7 +119,7 @@ const schema = gql`
 
   input CollaboratorInput {
     name: String!
-    avatarUrl: String!
+    avatar: ImageObjectInput!
     collabOn: [String]!
     role: String!
     orderNumber: Int
