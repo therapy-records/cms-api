@@ -19,7 +19,8 @@ const NewsSchema = (add, collectionName) => {
     },
     sections: [{
       images: [{
-        url: String
+        url: String,
+        cloudinaryPublicId: String
       }],
       copy: String,
       videoEmbed: String

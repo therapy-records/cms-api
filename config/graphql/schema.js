@@ -3,10 +3,12 @@ const { gql } = require('apollo-server-express');
 const schema = gql`
   type ImageObject {
     cloudinaryUrl: String!
+    cloudinaryPublicId: String!
   }
 
   input ImageObjectInput {
     cloudinaryUrl: String!
+    cloudinaryPublicId: String!
   }
 
   type CollaboratorUrls {
