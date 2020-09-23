@@ -65,6 +65,7 @@ const schema = gql`
   type Journalism {
     _id: ID!
     title: String!
+    image: ImageObject!
   }
 
   type Gig {
