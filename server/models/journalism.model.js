@@ -15,9 +15,14 @@ const Journalism = new mongoose.Schema({
     required: true
   },
   image: {
-    cloudinaryUrl: String,
-    cloudinaryPublicId: String,
-    required: true
+    cloudinaryUrl: {
+      type: String,
+      required: true
+    },
+    cloudinaryPublicId: {
+      type: String,
+      required: true
+    }
   },
   releaseDate: {
     type: String,

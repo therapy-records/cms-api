@@ -11,7 +11,8 @@ function createSingle(req, res, next) {
   const journalismObj = new Journalism({
     title: req.body.title,
     copy: req.body.copy,
-    imageUrl: req.body.imageUrl,
+    // imageUrl: req.body.imageUrl,
+    image: req.body.image,
     releaseDate: req.body.releaseDate,
     externalLink: req.body.externalLink,
     createdAt: new Date()
