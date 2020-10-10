@@ -48,6 +48,7 @@ const schema = gql`
   type GalleryImage {
     _id: ID!
     image: GalleryImageObj!
+    description: String
   }
 
   input GalleryImageObjInput {
