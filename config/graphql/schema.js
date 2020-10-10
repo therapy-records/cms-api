@@ -40,6 +40,21 @@ const schema = gql`
     orderNumber: String!
   }
 
+  type GalleryImageObj {
+    cloudinaryUrl: String!
+    cloudinaryPublicId: String!
+  }
+
+  type GalleryImage {
+    _id: ID!
+    image: GalleryImageObj!
+  }
+
+  input GalleryImageObjInput {
+    cloudinaryUrl: String!
+    cloudinaryPublicId: String!
+  }
+
   type Press {
     _id: ID!
     author: String!
@@ -96,6 +111,9 @@ const schema = gql`
     collaborators: [Collaborator],
     collaborator(_id: ID!): Collaborator,
 
+    gallery: [GalleryImage],
+    galleryImage(_id: ID!): GalleryImage,
+
     gigs: [Gig],
     gig(_id: ID!): Gig,
 
@@ -140,6 +158,10 @@ const schema = gql`
     collaborators: [CollaboratorOrderNumbersCollaboratorInput]!
   }
 
+  input GalleryInput {
+    image: GalleryImageObjInput!
+  }
+
   input GigInput {
     title: String!
     location: String!
@@ -164,6 +186,12 @@ const schema = gql`
     ): Collaborator,
     deleteCollaborator(_id: ID!): Collaborator,
     editCollaboratorOrderNumbers(input: CollaboratorOrderNumbersInput): [CollaboratorOrderNumbers],
+
+    createGalleryImage(input: GalleryInput): GalleryImage,
+    editGallreyImage(
+      _id: ID!,
+      input: GalleryInput
+    ): GalleryImage,
 
     createGig(input: GigInput): Gig,
     editGig(

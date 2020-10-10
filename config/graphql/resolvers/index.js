@@ -1,5 +1,6 @@
 const cloudinaryQueryResolvers = require('./queries/cloudinary');
 const collaboratorsQueryResolvers = require('./queries/collaborators');
+const galleryQueryResolvers = require('./queries/gallery');
 const gigsQueryResolvers = require('./queries/gigs');
 const journalismQueryResolvers = require('./queries/journalism');
 const newsQueryResolvers = require('./queries/news');
@@ -14,6 +15,7 @@ const resolvers = {
   Query: {
     ...cloudinaryQueryResolvers,
     ...collaboratorsQueryResolvers,
+    ...galleryQueryResolvers,
     ...gigsQueryResolvers,
     ...journalismQueryResolvers,
     ...newsQueryResolvers,
