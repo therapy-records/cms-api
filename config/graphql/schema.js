@@ -188,10 +188,12 @@ const schema = gql`
     editCollaboratorOrderNumbers(input: CollaboratorOrderNumbersInput): [CollaboratorOrderNumbers],
 
     createGalleryImage(input: GalleryInput): GalleryImage,
-    editGallreyImage(
+    editGalleryImage(
       _id: ID!,
       input: GalleryInput
     ): GalleryImage,
+
+    deleteGalleryImage(_id: ID!): GalleryImage,
 
     createGig(input: GigInput): Gig,
     editGig(
