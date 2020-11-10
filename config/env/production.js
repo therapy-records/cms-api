@@ -9,5 +9,8 @@ module.exports = {
   port: 3000,
   corsOrigin: process.env.CORS_ORIGIN,
   validUn: process.env.VALID_UN,
-  rootUrl: process.env.ROOT_URL
+  rootUrl: process.env.ROOT_URL,
+  cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
+  cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+  cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME
 };
