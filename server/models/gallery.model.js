@@ -45,7 +45,7 @@ GallerySchema.statics = {
             { new: true }
           ).exec((collabError) => {
             if (collabError) {
-              const err = new APIError('Error saving collaborator', httpStatus.NOT_FOUND);
+              const err = new APIError(`Error adding imageTags to collaborator: ${collabId}`, httpStatus.NOT_FOUND);
               return Promise.reject(err);
             }
             return imageObj;
