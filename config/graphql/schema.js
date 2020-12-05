@@ -40,20 +40,19 @@ const schema = gql`
     orderNumber: String!
   }
 
-  type GalleryImageObj {
-    cloudinaryUrl: String!
-    cloudinaryPublicId: String!
-  }
-
   type GalleryImage {
     _id: ID!
-    image: GalleryImageObj!
-    description: String
+    cloudinaryUrl: String!
+    cloudinaryPublicId: String!
+    description: String!
+    collaboratorsInImage: [String]
   }
 
   input GalleryImageObjInput {
     cloudinaryUrl: String!
     cloudinaryPublicId: String!
+    description: String!
+    collaboratorsInImage: [String]
   }
 
   type Press {
@@ -160,7 +159,7 @@ const schema = gql`
   }
 
   input GalleryInput {
-    image: GalleryImageObjInput!
+    images: [GalleryImageObjInput]!
   }
 
   input GigInput {
@@ -188,7 +187,7 @@ const schema = gql`
     deleteCollaborator(_id: ID!): Collaborator,
     editCollaboratorOrderNumbers(input: CollaboratorOrderNumbersInput): [CollaboratorOrderNumbers],
 
-    createGalleryImage(input: GalleryInput): GalleryImage,
+    createGalleryImages(input: GalleryInput): [GalleryImage],
     editGalleryImage(
       _id: ID!,
       input: GalleryInput

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const APIError = require('../helpers/APIError');
+const Collaborators = require('./collaborators.model');
 
 const Schema = mongoose.Schema; // eslint-disable-line no-unused-vars
 
@@ -8,34 +9,50 @@ const Schema = mongoose.Schema; // eslint-disable-line no-unused-vars
  * Gallery Schema
  */
 const GallerySchema = new mongoose.Schema({
-  image: {
-    cloudinaryUrl: {
-      type: String,
-      required: true
-    },
-    cloudinaryPublicId: {
-      type: String,
-      required: true
-    }
+  cloudinaryUrl: {
+    type: String,
+    required: true
+  },
+  cloudinaryPublicId: {
+    type: String,
+    required: true
   },
   description: {
     type: String,
     required: true
+  },
+  collaboratorsInImage: {
+    type: Array
   }
 }, {
   collection: 'gallery'
 });
 
 GallerySchema.statics = {
-  async createNew(obj) {
-    return this.create(obj)
-      .then((galleryImage) => {
-        if (galleryImage) {
-          return galleryImage;
-        }
-        const err = new APIError('Error uploading gallery image', httpStatus.NOT_FOUND);
+  createNew(imagesArray) {
+    return this.insertMany(imagesArray, (error, savedImages) => {
+      if (error) {
+        const err = new APIError('Error saving gallery images', httpStatus.NOT_FOUND);
         return Promise.reject(err);
+      }
+
+      return Promise.each(savedImages, (imageObj) => {
+        const { collaboratorsInImage } = imageObj;
+
+        return Promise.each(collaboratorsInImage, collabId =>
+          Collaborators.findOneAndUpdate({ _id: collabId },
+            { $push: { imageTags: imageObj._id } },
+            { new: true }
+          ).exec((collabError) => {
+            if (collabError) {
+              const err = new APIError('Error saving collaborator', httpStatus.NOT_FOUND);
+              return Promise.reject(err);
+            }
+            return imageObj;
+          })
+        );
       });
+    });
   },
 
   getSingle(id) {

@@ -21,6 +21,7 @@ mongoose.connect(config.db, {
     socketOptions: { keepAlive: 3000 },
     autoReconnect: true
   },
+  useFindAndModify: false
 });
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${config.db}`);

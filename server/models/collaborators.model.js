@@ -67,6 +67,9 @@ const CollaboratorSchema = new mongoose.Schema({
   },
   collabOn: {
     type: Array
+  },
+  imageTags: {
+    type: Array
   }
 });
 
@@ -138,8 +141,8 @@ CollaboratorSchema.statics = {
       return collabsUpdated;
     })
       .catch(() => {
-        const errrrr = new APIError('Error updating collaborator with ', httpStatus.NOT_FOUND);
-        return Promise.reject(errrrr);
+        const err = new APIError('Error updating collaborator with ', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
       });
   }
 
