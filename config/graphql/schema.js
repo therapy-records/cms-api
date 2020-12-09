@@ -40,6 +40,11 @@ const schema = gql`
     orderNumber: String!
   }
 
+   type CollaboratorSummary {
+     _id: ID!
+     name: String!
+   }
+
   type GalleryImage {
     _id: ID!
     cloudinaryUrl: String!
@@ -53,6 +58,14 @@ const schema = gql`
     cloudinaryPublicId: String!
     description: String!
     collaboratorsInImage: [String]
+  }
+
+  type GalleryImageWithCollaboratorNames {
+    _id: ID!
+    cloudinaryUrl: String!
+    cloudinaryPublicId: String!
+    description: String!
+    collaboratorsInImage: [CollaboratorSummary]!
   }
 
   type Press {
@@ -113,6 +126,7 @@ const schema = gql`
 
     gallery: [GalleryImage],
     galleryImage(_id: ID!): GalleryImage,
+    galleryImageWithCollaboratorNames(_id: ID!): GalleryImageWithCollaboratorNames,
 
     gigs: [Gig],
     gig(_id: ID!): Gig,

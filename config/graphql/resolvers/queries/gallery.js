@@ -8,7 +8,12 @@ const galleryQueryResolvers = {
     _id
   }) {
     return await Gallery.findById(_id);
-  }
+  },
+  async galleryImageWithCollabNames(root, {
+    _id
+  }) {
+    return await Gallery.getSingleWithCollaboratorNames(_id);
+  },
 };
 
 module.exports = galleryQueryResolvers;

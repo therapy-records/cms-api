@@ -67,6 +67,32 @@ GallerySchema.statics = {
       });
   },
 
+  async getSingleWithCollaboratorNames(id) {
+    const allCollaborators = await Collaborators.find({});
+
+    return this.findById(id)
+      .exec()
+      .then((galleryImage) => {
+        if (!galleryImage) {
+          const err = new APIError('No such gallery image exists', httpStatus.NOT_FOUND);
+          return Promise.reject(err);
+        }
+
+        const mapCollaboratorsInImage = collabIdArray =>
+          collabIdArray.map(collabId =>
+            allCollaborators.find(c => String(c._id) === String(collabId))
+          );
+
+        return {
+          _id: galleryImage._id,
+          cloudinaryUrl: galleryImage.cloudinaryUrl,
+          cloudinaryPublicId: galleryImage.cloudinaryPublicId,
+          description: galleryImage.description,
+          collaboratorsInImage: mapCollaboratorsInImage(galleryImage.collaboratorsInImage)
+        };
+      });
+  },
+
   edit(obj) {
     obj.urlName = obj.name.replace(/ /g, '-'); // eslint-disable-line no-param-reassign
     return this.findOneAndUpdate({ _id: obj._id },
