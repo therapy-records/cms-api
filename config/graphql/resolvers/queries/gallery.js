@@ -9,7 +9,7 @@ const galleryQueryResolvers = {
   }) {
     return await Gallery.findById(_id);
   },
-  async galleryImageWithCollabNames(root, {
+  async galleryImageWithCollaboratorNames(root, {
     _id
   }) {
     return await Gallery.getSingleWithCollaboratorNames(_id);
