@@ -1,4 +1,5 @@
 const Gallery = require('../../../../server/models/gallery.model');
+const Collaborators = require('../../../../server/models/collaborators.model');
 
 const galleryQueryResolvers = {
   async gallery() {
@@ -13,6 +14,17 @@ const galleryQueryResolvers = {
     _id
   }) {
     return await Gallery.getSingleWithCollaboratorNames(_id);
+  },
+  async galleryImageWithAllCollaborators(root, {
+    _id
+  }) {
+    const galleryImage = await Gallery.getSingleWithCollaboratorNames(_id);
+    const collaborators = await Collaborators.find();
+
+    return {
+      ...galleryImage,
+      collaborators
+    };
   },
 };
 

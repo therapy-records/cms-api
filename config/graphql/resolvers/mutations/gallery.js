@@ -16,6 +16,18 @@ const galleryMutationResolvers = {
     return authCheck(context,
       Gallery.findOneAndRemove({ _id })
     );
+  },
+
+  async editGalleryImage(root, {
+    _id,
+    input
+  }, context) {
+    return authCheck(context,
+      Gallery.edit({
+        _id,
+        ...input
+      })
+    );
   }
 };
 
