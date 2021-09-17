@@ -47,6 +47,7 @@ const schema = gql`
     excerpt: String!
     externalLink: String!
     releaseDate: String!
+    image: ImageObject
   }
 
   input PressInput {
@@ -55,6 +56,7 @@ const schema = gql`
     excerpt: String!
     externalLink: String!
     releaseDate: String!
+    image: ImageObjectInput!
   }
 
   type News {

@@ -25,6 +25,16 @@ const PressSchema = new mongoose.Schema({
   releaseDate: {
     type: String,
     required: true
+  },
+  image: {
+    cloudinaryUrl: {
+      type: String,
+      required: true
+    },
+    cloudinaryPublicId: {
+      type: String,
+      required: true
+    }
   }
 });
 
