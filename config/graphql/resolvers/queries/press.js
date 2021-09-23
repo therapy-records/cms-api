@@ -1,8 +1,12 @@
 const Press = require('../../../../server/models/press.model');
+const { pressReducer } = require('../../reducers');
 
 const PressQueryResolvers = {
   async press() {
-    return await Press.find();
+    const articles = await Press.find();
+
+    const mapped = articles.map(a => pressReducer(a));
+    return mapped;
   },
   async pressArticle(root, {
     _id
