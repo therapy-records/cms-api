@@ -67,7 +67,9 @@ const schema = gql`
   type Journalism {
     _id: ID!
     title: String!
-    image: ImageObject!
+    copy: String
+    externalLink: String
+    image: ImageObject
   }
 
   type Gig {
