@@ -81,6 +81,11 @@ const schema = gql`
     ticketsUrl: String
   }
 
+  type GigsYear {
+    year: String
+    gigs: [Gig]
+  }
+
   type CloudinarySignature {
     key: String!,
     signature: String!,
@@ -102,6 +107,7 @@ const schema = gql`
 
     gigs: [Gig],
     gig(_id: ID!): Gig,
+    gigsByYear: [GigsYear]
 
     journalism: [Journalism],
     news: [News],
