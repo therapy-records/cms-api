@@ -1,19 +1,24 @@
-const pressReducer = (p) => {
-  const press = JSON.parse(JSON.stringify(p));
+const pressReducer = (articles) => {
+  const mapped = articles;
 
-  let mappedImage = {
-    cloudinaryUrl: '',
-    cloudinaryPublicId: ''
-  };
+  mapped.map((article) => {
+    const press = JSON.parse(JSON.stringify(article));
 
-  if (press.image) {
-    mappedImage = press.image;
-  }
+    let mappedImage = {
+      cloudinaryUrl: '',
+      cloudinaryPublicId: ''
+    };
 
-  return {
-    ...press,
-    image: mappedImage,
-  };
+    if (press.image) {
+      mappedImage = press.image;
+    }
+
+    return {
+      ...press,
+      image: mappedImage,
+    };
+  });
+  return mapped;
 };
 
 const reducers = {
