@@ -63,6 +63,7 @@
     "passport-jwt": "2.2.1",
     "path-to-regexp": "6.1.0",
     "run-sequence": "2.2.1",
+    "serverless-http": "2.7.0",
     "winston": "3.2.1",
     "woke-dyno": "0.0.4"
   },

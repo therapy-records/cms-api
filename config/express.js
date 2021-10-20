@@ -11,6 +11,7 @@ const expressValidation = require('express-validation');
 const helmet = require('helmet');
 const passport = require('passport');
 const pathToRegexp = require('path-to-regexp');
+const serverless = require('serverless-http');
 const winstonInstance = require('./winston');
 const routes = require('../server/routes/index.route');
 const publicRoutes = require('../server/routes/public.route');
@@ -101,6 +102,7 @@ app.use('/api', routes);
 // mount graphql route
 graphql.applyMiddleware({ app });
 
+app.use('/.netlify/functions/server', express.Router()); // eslint-disable-line
 
 // if error is not an instanceOf APIError, convert it.
 app.use((err, req, res, next) => {
@@ -138,3 +140,4 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
 );
 
 module.exports = app;
+module.exports.handler = serverless(app);
