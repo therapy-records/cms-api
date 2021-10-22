@@ -60,6 +60,7 @@
     "method-override": "3.0.0",
     "mongoose": "5.10.2",
     "morgan": "1.9.1",
+    "netlify-lambda": "2.0.15",
     "passport": "0.3.2",
     "passport-jwt": "2.2.1",
     "path-to-regexp": "6.1.0",
@@ -80,7 +81,6 @@
     "ghooks": "^2.0.4",
     "isparta": "4.1.1",
     "mocha": "6.1.4",
-    "netlify-lambda": "2.0.15",
     "nyc": "14.1.1",
     "supertest": "4.0.2"
   },
