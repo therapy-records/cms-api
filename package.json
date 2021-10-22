@@ -11,6 +11,7 @@
     "yarn": ">=1.6.0"
   },
   "scripts": {
+    "build": "netlify-lambda build /",
     "start": "node index.js",
     "lint": "esw *.js server config --color",
     "lint:watch": "yarn lint -- --watch",
@@ -79,6 +80,7 @@
     "ghooks": "^2.0.4",
     "isparta": "4.1.1",
     "mocha": "6.1.4",
+    "netlify-lambda": "2.0.15",
     "nyc": "14.1.1",
     "supertest": "4.0.2"
   },
