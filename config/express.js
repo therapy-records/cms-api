@@ -10,6 +10,7 @@ const expressWinston = require('express-winston');
 const expressValidation = require('express-validation');
 const helmet = require('helmet');
 const passport = require('passport');
+const serverless = require('serverless-http');
 // const pathToRegexp = require('path-to-regexp');
 const winstonInstance = require('./winston');
 const routes = require('../server/routes/index.route');
@@ -144,3 +145,4 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
 app.use('/.netlify/functions/server', router);
 
 module.exports = app;
+module.exports.handler = serverless(app);
