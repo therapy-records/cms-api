@@ -24,6 +24,8 @@ const app = express();
 
 const router = express.Router(); // eslint-disable-line
 
+app.use('/.netlify/functions/server', router);
+
 router.get('/public/tony-test', (req, res) => res.json({ helloWorld: true }));
 app.use('/', router);
 
@@ -141,8 +143,6 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
     stack: config.env === 'development' ? err.stack : {}
   })
 );
-
-app.use('/.netlify/functions/server', router);
 
 module.exports = app;
 module.exports.handler = serverless(app);
