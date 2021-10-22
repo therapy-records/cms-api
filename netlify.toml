@@ -1,5 +1,5 @@
 [build]
-  command = "yarn install && yarn run build"
+  command = "npm install && npm run build"
   functions = "functions"
 [dev]
   command = "yarn start"
