@@ -1,7 +1,5 @@
 [build]
-  functions = "./functions"
-[functions]
-  directory = "functions"
+  functions = "functions"
 [dev]
   command = "yarn start"
   targetPort = 4040
