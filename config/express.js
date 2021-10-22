@@ -10,7 +10,6 @@ const expressWinston = require('express-winston');
 const expressValidation = require('express-validation');
 const helmet = require('helmet');
 const passport = require('passport');
-const serverless = require('serverless-http');
 // const pathToRegexp = require('path-to-regexp');
 const winstonInstance = require('./winston');
 const routes = require('../server/routes/index.route');
@@ -23,11 +22,6 @@ const graphql = require('./graphql');
 const app = express();
 
 const router = express.Router(); // eslint-disable-line
-
-app.use('/.netlify/functions/server', router);
-
-router.get('/public/tony-test', (req, res) => res.json({ helloWorld: true }));
-app.use('/', router);
 
 if (config.env === 'development') {
   app.use('/api', logger('dev'));
@@ -45,6 +39,13 @@ app.use(methodOverride());
 
 // secure apps by setting various HTTP headers
 app.use(helmet());
+
+app.use('/.netlify/functions/server', router);
+
+router.get('/public/tony-test', (req, res) => res.json({ helloWorld: true }));
+app.use('/', router);
+
+router.get('/public/test', (req, res) => res.json({ helloWorld: true }));
 
 app.use('/public', publicRoutes);
 
@@ -145,4 +146,3 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
 );
 
 module.exports = app;
-module.exports.handler = serverless(app);
