@@ -1,10 +1,9 @@
 const cloudinary = require('cloudinary');
-const config = require('../../../../config/env');
 
 cloudinary.config({
-  cloud_name: config.cloudinaryCloudName,
-  api_secret: config.cloudinaryApiSecret,
-  api_key: config.cloudinaryApiKey
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  api_key: process.env.CLOUDINARY_API_KEY
 });
 
 const cloudinaryQueryResolvers = {
@@ -14,10 +13,13 @@ const cloudinaryQueryResolvers = {
       timestamp
     };
 
-    const signature = await cloudinary.utils.api_sign_request(data, config.cloudinaryApiSecret);
+    const signature = await cloudinary.utils.api_sign_request(
+      data,
+      process.env.CLOUDINARY_API_SECRET
+    );
 
     return {
-      key: config.cloudinaryApiKey,
+      key: process.env.CLOUDINARY_API_KEY,
       signature,
       timestamp
     };
