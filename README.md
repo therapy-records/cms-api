@@ -20,9 +20,19 @@ yarn install && yarn start
 
 Port is 4040.
 
-## Available scripts
+## Running Netlify functions localy
 
-### Tests
+```sh
+netlify dev
+```
+
+Port is 8888. You can then ping function endpoints e.g:
+
+```sh
+curl http://localhost:8888/.netlify/functions/my-function
+```
+
+## Tests
 
 ```sh
 yarn test
