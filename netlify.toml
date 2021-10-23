@@ -1,6 +1,5 @@
 [build]
   command = "npm install && npm run build"
-  functions = "functions"
+  functions = "netlify-functions"
 [dev]
-  command = "yarn start"
   targetPort = 4040

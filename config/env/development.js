@@ -4,6 +4,7 @@ dotenv.load();
 
 module.exports = {
   env: 'development',
+  rootUrl: process.env.ROOT_URL,
   MONGOOSE_DEBUG: true,
   jwtSecret: process.env.JWT_SECRET,
   db: process.env.DB_HOST,

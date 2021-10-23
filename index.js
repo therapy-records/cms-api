@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const util = require('util');
-const serverless = require('serverless-http');
 const config = require('./config/env');
 const app = require('./config/express');
 const graphql = require('./config/graphql');
@@ -49,4 +48,3 @@ app.listen(port, () => {
 });
 
 module.exports = app;
-module.exports.handler = serverless(app);
