@@ -11,7 +11,6 @@
     "yarn": ">=1.6.0"
   },
   "scripts": {
-    "build": "netlify-lambda build /",
     "start": "node index.js",
     "lint": "esw *.js server config --color",
     "lint:watch": "yarn lint -- --watch",
@@ -62,7 +61,6 @@
     "method-override": "3.0.0",
     "mongoose": "5.10.2",
     "morgan": "1.9.1",
-    "netlify-lambda": "2.0.15",
     "passport": "0.3.2",
     "passport-jwt": "2.2.1",
     "path-to-regexp": "6.1.0",

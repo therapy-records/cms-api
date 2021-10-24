@@ -32,6 +32,34 @@ Port is 8888. You can then ping function endpoints e.g:
 curl http://localhost:8888/.netlify/functions/my-function
 ```
 
+## Running docker locally
+
+Not required for local dev. Docker is used in the cloud environment.
+
+- 1. Build the container with a tag
+
+```sh
+docker build . -t api
+```
+
+- 2. start the container
+
+```sh
+docker run -p 49160:4040 -d api
+```
+
+- 3. Now can call the API via the mapped port. e.g:
+
+```sh
+curl http://localhost:49160/public/health-check
+```
+
+Stop the container with:
+
+```sh
+docker stop 123-containerId
+```
+
 ## Tests
 
 ```sh
