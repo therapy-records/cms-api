@@ -102,9 +102,23 @@ CollaboratorSchema.statics = {
   findByName(name) {
     return this.findOne({ urlName: name })
       .exec()
-      .then((collab) => {
+      .then(async (collab) => {
         if (collab) {
-          return collab;
+          let nextCollab = await this.findOne({
+            orderNumber: String(Number(collab.orderNumber) + 1) }).exec();
+
+          if (!nextCollab) {
+            // if no next collaborator, return first collaborator
+            nextCollab = await this.findOne({ orderNumber: '1' }).exec();
+          }
+
+          return {
+            ...collab._doc,
+            nextCollaborator: {
+              name: nextCollab.name,
+              urlName: nextCollab.urlName
+            }
+          };
         }
         const err = new APIError('No such collaborator exists', httpStatus.NOT_FOUND);
         return Promise.reject(err);

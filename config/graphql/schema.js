@@ -35,6 +35,24 @@ const schema = gql`
     urls: CollaboratorUrls
   }
 
+  type NextCollaborator {
+    name: String!
+    urlName: String!
+  }
+
+  type CollaboratorByName {
+    _id: ID!
+    name: String!
+    avatar: ImageObject!
+    collabOn: [String]!
+    role: String!
+    orderNumber: String!
+    urlName: String!
+    about: String
+    urls: CollaboratorUrls
+    nextCollaborator: NextCollaborator
+  }
+
   type CollaboratorOrderNumbers {
     _id: ID!
     orderNumber: String!
@@ -104,7 +122,7 @@ const schema = gql`
   type Query {
     collaborators: [Collaborator],
     collaborator(_id: ID!): Collaborator,
-    collaboratorByName(name: String!): Collaborator,
+    collaboratorByName(name: String!): CollaboratorByName,
 
     gigs: [Gig],
     gig(_id: ID!): Gig,
