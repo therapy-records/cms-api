@@ -99,6 +99,18 @@ CollaboratorSchema.statics = {
       });
   },
 
+  findByName(name) {
+    return this.findOne({ urlName: name })
+      .exec()
+      .then((collab) => {
+        if (collab) {
+          return collab;
+        }
+        const err = new APIError('No such collaborator exists', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
+  },
+
   edit(obj) {
     obj.urlName = obj.name.replace(/ /g, '-'); // eslint-disable-line no-param-reassign
     return this.findOneAndUpdate({ _id: obj._id },

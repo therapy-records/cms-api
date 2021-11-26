@@ -8,6 +8,11 @@ const collaboratorsQueryResolvers = {
     _id
   }) {
     return await Collaborators.findById(_id);
+  },
+  async collaboratorByName(root, {
+    name
+  }) {
+    return await Collaborators.findByName(name);
   }
 };
 

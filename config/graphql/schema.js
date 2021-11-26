@@ -104,6 +104,7 @@ const schema = gql`
   type Query {
     collaborators: [Collaborator],
     collaborator(_id: ID!): Collaborator,
+    collaboratorByName(name: String!): Collaborator,
 
     gigs: [Gig],
     gig(_id: ID!): Gig,
