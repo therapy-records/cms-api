@@ -77,9 +77,18 @@ const schema = gql`
     image: ImageObjectInput!
   }
 
-  type News {
+  type NewsArticleSection {
+    _id: ID,
+    copy: String
+    images: [ImageObject]
+  }
+
+  type NewsArticle {
     _id: ID!
     title: String!
+    urlTitle: String
+    createdAt: String
+    sections: [NewsArticleSection]
   }
 
   type Journalism {
@@ -129,7 +138,7 @@ const schema = gql`
     gigsByYear: [GigsYear]
 
     journalism: [Journalism],
-    news: [News],
+    news: [NewsArticle],
 
     press: [Press],
     pressArticle(_id: ID!): Press,
