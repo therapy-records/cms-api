@@ -81,6 +81,7 @@ const schema = gql`
     _id: ID,
     copy: String
     images: [ImageObject]
+    videoEmbed: String
   }
 
   type NewsArticle {
