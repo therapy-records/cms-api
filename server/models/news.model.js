@@ -43,6 +43,18 @@ NewsSchema.statics = {
         const err = new APIError('Error saving post', httpStatus.NOT_FOUND);
         return Promise.reject(err);
       });
+  },
+
+  findByUrlTitle(urlTitle) {
+    return this.findOne({ urlTitle })
+      .exec()
+      .then(async (article) => {
+        if (article) {
+          return article;
+        }
+        const err = new APIError('No such post exists', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
   }
 };
 

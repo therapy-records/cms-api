@@ -140,6 +140,7 @@ const schema = gql`
 
     journalism: [Journalism],
     news: [NewsArticle],
+    newsArticleByUrlTitle(urlTitle: String!): NewsArticle
 
     press: [Press],
     pressArticle(_id: ID!): Press,
