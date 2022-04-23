@@ -11,6 +11,11 @@ const schema = gql`
     cloudinaryPublicId: String!
   }
 
+  type NewsImageObject {
+    cloudinaryUrl: String
+    cloudinaryPublicId: String
+  }
+
   type CollaboratorUrls {
     website: String
     facebook: String
@@ -80,7 +85,7 @@ const schema = gql`
   type NewsArticleSection {
     _id: ID,
     copy: String
-    images: [ImageObject]
+    images: [NewsImageObject]
     videoEmbed: String
   }
 
