@@ -98,6 +98,7 @@ const schema = gql`
     copy: String
     externalLink: String
     image: ImageObject
+    releaseDate: String
   }
 
   type Gig {
