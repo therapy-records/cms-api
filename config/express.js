@@ -4,13 +4,13 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const compress = require('compression');
 const methodOverride = require('method-override');
-// const cors = require('cors');
+const cors = require('cors');
 const httpStatus = require('http-status');
 const expressWinston = require('express-winston');
 const expressValidation = require('express-validation');
 const helmet = require('helmet');
 const passport = require('passport');
-// const pathToRegexp = require('path-to-regexp');
+const pathToRegexp = require('path-to-regexp');
 const winstonInstance = require('./winston');
 const routes = require('../server/routes/index.route');
 const publicRoutes = require('../server/routes/public.route');
@@ -20,8 +20,6 @@ const APIError = require('../server/helpers/APIError');
 const graphql = require('./graphql');
 
 const app = express();
-
-const router = express.Router(); // eslint-disable-line
 
 if (config.env === 'development') {
   app.use('/api', logger('dev'));
@@ -40,47 +38,41 @@ app.use(methodOverride());
 // secure apps by setting various HTTP headers
 app.use(helmet());
 
-app.use('/.netlify/functions/server', router);
-
-router.get('/public/tony-test', (req, res) => res.json({ helloWorld: true }));
-app.use('/', router);
-
-router.get('/public/test', (req, res) => res.json({ helloWorld: true }));
 
 app.use('/public', publicRoutes);
 
-// if (config.env !== 'test') {
-//   let corsWhitelist;
+if (config.env !== 'test') {
+  let corsWhitelist;
 
-//   if (config.corsOrigin.includes(' ')) {
-//     corsWhitelist = config.corsOrigin.split(' ');
-//   } else {
-//     corsWhitelist = [config.corsOrigin];
-//   }
+  if (config.corsOrigin.includes(' ')) {
+    corsWhitelist = config.corsOrigin.split(' ');
+  } else {
+    corsWhitelist = [config.corsOrigin];
+  }
 
-//   const except = (path, fn) => {
-//     const regexp = pathToRegexp.pathToRegexp(path);
-//     return (req, res, next) => {
-//       if (regexp.test(req.path)) return next();
-//       return fn(req, res, next);
-//     };
-//   };
+  const except = (path, fn) => {
+    const regexp = pathToRegexp.pathToRegexp(path);
+    return (req, res, next) => {
+      if (regexp.test(req.path)) return next();
+      return fn(req, res, next);
+    };
+  };
 
-//   app.use(
-//     except(['/public'],
-//       cors({
-//         origin: (origin, callback) => {
-//           if (corsWhitelist.indexOf(origin) !== -1) {
-//             callback(null, true);
-//           } else {
-//             callback(new Error('Not allowed by CORS'));
-//           }
-//         },
-//         optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-//       })
-//     )
-//   );
-// }
+  app.use(
+    except(['/public'],
+      cors({
+        origin: (origin, callback) => {
+          if (corsWhitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+          } else {
+            callback(new Error('Not allowed by CORS'));
+          }
+        },
+        optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+      })
+    )
+  );
+}
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE');
