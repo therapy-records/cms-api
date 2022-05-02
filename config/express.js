@@ -50,9 +50,6 @@ if (config.env !== 'test') {
     corsWhitelist = [config.corsOrigin];
   }
 
-  console.log('corsWhitelist \n', corsWhitelist);
-
-
   const except = (path, fn) => {
     const regexp = pathToRegexp.pathToRegexp(path);
     return (req, res, next) => {
@@ -65,8 +62,6 @@ if (config.env !== 'test') {
     except(['/public'],
       cors({
         origin: (origin, callback) => {
-          console.log('cors - origin \n', origin);
-
           if (corsWhitelist.indexOf(origin) !== -1) {
             callback(null, true);
           } else {
