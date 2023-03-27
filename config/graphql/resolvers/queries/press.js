@@ -10,6 +10,7 @@ const PressQueryResolvers = {
 
 
     const mapped = pressReducer(sortedArticles);
+
     return mapped;
   },
   async pressArticle(root, {
