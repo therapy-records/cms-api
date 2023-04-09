@@ -14,7 +14,7 @@ function createSingle(req, res, next) {
     image: req.body.image,
     releaseDate: req.body.releaseDate,
     externalLink: req.body.externalLink,
-    category: req.body.category,
+    categoryId: Number(req.body.categoryId),
     createdAt: new Date()
   });
   verifyToken(req, res, next)

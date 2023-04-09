@@ -66,7 +66,7 @@ const schema = gql`
   type Press {
     _id: ID!
     author: String!
-    category: String
+    categoryId: Int
     title: String!
     excerpt: String!
     externalLink: String!
@@ -76,7 +76,7 @@ const schema = gql`
 
   input PressInput {
     author: String!
-    category: String!
+    categoryId: String!
     title: String!
     excerpt: String!
     externalLink: String!
@@ -106,7 +106,7 @@ const schema = gql`
     externalLink: String
     image: ImageObject
     releaseDate: String
-    category: String!
+    categoryId: Int!
   }
 
   type Gig {
