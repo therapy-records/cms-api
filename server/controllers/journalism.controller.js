@@ -7,6 +7,12 @@ function getAll(req, res, next) {
     .catch(err => next(err));
 }
 
+function getAllByCategoryId(req, res, next) {
+  Journalism.find({ categoryId: req.params.categoryId })
+    .then(journalism => res.json(journalism))
+    .catch(err => next(err));
+}
+
 function createSingle(req, res, next) {
   const journalismObj = new Journalism({
     title: req.body.title,
@@ -60,6 +66,7 @@ function removeSingle(req, res) {
 
 module.exports = {
   getAll,
+  getAllByCategoryId,
   createSingle,
   loadSingle,
   getSingle,

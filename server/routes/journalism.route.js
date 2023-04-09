@@ -5,13 +5,17 @@ const journalismCtrl = require('../controllers/journalism.controller');
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
-  /** GET /api/journalism - Get all */
+  /** GET /api/journalism - Get all journalism articles */
   .get(journalismCtrl.getAll)
 
   /** POST /api/journalism - Create journalism */
   .post(passport.authenticate('jwt', { session: false }), (req, res, next) => {
     journalismCtrl.createSingle(req, res, next);
   });
+
+router.route('/category/:categoryId')
+  /** GET /api/journalism/category/:categoryId - Get journalism articles by category ID */
+  .get(journalismCtrl.getAllByCategoryId);
 
 router.route('/:journalismId')
   /** GET /api/journalism/:id - Get journalism */

@@ -54,6 +54,18 @@ PressSchema.statics = {
       });
   },
 
+  findByCategoryId(categoryId) {
+    return this.find({ categoryId })
+      .exec()
+      .then((press) => {
+        if (press) {
+          return press;
+        }
+        const err = new APIError('No such press exists', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
+  },
+
   getSingle(id) {
     return this.findById(id)
       .exec()

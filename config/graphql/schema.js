@@ -152,6 +152,7 @@ const schema = gql`
     newsArticleByUrlTitle(urlTitle: String!): NewsArticle
 
     press: [Press],
+    pressCategory(categoryId: ID!): [Press],
     pressArticle(_id: ID!): Press,
 
     cloudinarySignature: CloudinarySignature
