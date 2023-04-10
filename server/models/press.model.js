@@ -12,7 +12,7 @@ const PressSchema = new mongoose.Schema({
   },
   categoryId: {
     type: Number,
-    // required: true
+    required: true
   },
   title: {
     type: String,
