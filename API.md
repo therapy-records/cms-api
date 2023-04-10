@@ -11,11 +11,27 @@
 ```js
 {
   press {
-    _id,
-    author,
-    title,
-    excerpt,
+    _id
+    author
+    title
+    excerpt
     releaseDate
+    categoryId
+  }
+}
+```
+
+#### Get all Press by category ID
+
+```js
+{
+  pressCategory(categoryId: 1) {
+    _id
+    author
+    title
+    excerpt
+    releaseDate
+    categoryId
   }
 }
 ```
@@ -288,6 +304,9 @@ mutation($id: ID!) {
 ## **Journalism**
 
 - GET `api/journalism`
+  - returns 200 with an array of objects
+
+- GET `api/journalism/category/2`
   - returns 200 with an array of objects
 
 - POST `api/journalism`

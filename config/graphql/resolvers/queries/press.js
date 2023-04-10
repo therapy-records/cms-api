@@ -10,6 +10,19 @@ const PressQueryResolvers = {
 
 
     const mapped = pressReducer(sortedArticles);
+
+    return mapped;
+  },
+  async pressCategory(root, {
+    categoryId
+  }) {
+    const articles = await Press.findByCategoryId(categoryId);
+
+    const sortedArticles = articles.sort((a, b) =>
+      new Date(a.releaseDate) - new Date(b.releaseDate)).reverse();
+
+    const mapped = pressReducer(sortedArticles);
+
     return mapped;
   },
   async pressArticle(root, {

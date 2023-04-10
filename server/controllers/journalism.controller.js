@@ -7,14 +7,20 @@ function getAll(req, res, next) {
     .catch(err => next(err));
 }
 
+function getAllByCategoryId(req, res, next) {
+  Journalism.find({ categoryId: req.params.categoryId })
+    .then(journalism => res.json(journalism))
+    .catch(err => next(err));
+}
+
 function createSingle(req, res, next) {
   const journalismObj = new Journalism({
     title: req.body.title,
     copy: req.body.copy,
-    // imageUrl: req.body.imageUrl,
     image: req.body.image,
     releaseDate: req.body.releaseDate,
     externalLink: req.body.externalLink,
+    categoryId: Number(req.body.categoryId),
     createdAt: new Date()
   });
   verifyToken(req, res, next)
@@ -60,6 +66,7 @@ function removeSingle(req, res) {
 
 module.exports = {
   getAll,
+  getAllByCategoryId,
   createSingle,
   loadSingle,
   getSingle,

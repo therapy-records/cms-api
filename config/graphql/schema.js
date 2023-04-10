@@ -2,13 +2,13 @@ const { gql } = require('apollo-server-express');
 
 const schema = gql`
   type ImageObject {
-    cloudinaryUrl: String!
-    cloudinaryPublicId: String!
+    cloudinaryUrl: String
+    cloudinaryPublicId: String
   }
 
   input ImageObjectInput {
-    cloudinaryUrl: String!
-    cloudinaryPublicId: String!
+    cloudinaryUrl: String
+    cloudinaryPublicId: String
   }
 
   type NewsImageObject {
@@ -66,6 +66,7 @@ const schema = gql`
   type Press {
     _id: ID!
     author: String!
+    categoryId: Int
     title: String!
     excerpt: String!
     externalLink: String!
@@ -75,6 +76,7 @@ const schema = gql`
 
   input PressInput {
     author: String!
+    categoryId: String!
     title: String!
     excerpt: String!
     externalLink: String!
@@ -104,6 +106,7 @@ const schema = gql`
     externalLink: String
     image: ImageObject
     releaseDate: String
+    categoryId: Int!
   }
 
   type Gig {
@@ -149,6 +152,7 @@ const schema = gql`
     newsArticleByUrlTitle(urlTitle: String!): NewsArticle
 
     press: [Press],
+    pressCategory(categoryId: ID!): [Press],
     pressArticle(_id: ID!): Press,
 
     cloudinarySignature: CloudinarySignature

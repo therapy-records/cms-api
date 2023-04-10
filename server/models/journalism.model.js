@@ -32,6 +32,10 @@ const Journalism = new mongoose.Schema({
     type: String,
     required: true
   },
+  categoryId: {
+    type: Number,
+    required: true
+  },
   createdAt: {
     type: String,
     required: true

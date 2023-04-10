@@ -10,6 +10,10 @@ const PressSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  categoryId: {
+    type: Number,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -46,6 +50,18 @@ PressSchema.statics = {
           return press;
         }
         const err = new APIError('Error creating press', httpStatus.NOT_FOUND);
+        return Promise.reject(err);
+      });
+  },
+
+  findByCategoryId(categoryId) {
+    return this.find({ categoryId })
+      .exec()
+      .then((press) => {
+        if (press) {
+          return press;
+        }
+        const err = new APIError('No such press exists', httpStatus.NOT_FOUND);
         return Promise.reject(err);
       });
   },
