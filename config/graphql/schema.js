@@ -7,8 +7,8 @@ const schema = gql`
   }
 
   input ImageObjectInput {
-    cloudinaryUrl: String!
-    cloudinaryPublicId: String!
+    cloudinaryUrl: String
+    cloudinaryPublicId: String
   }
 
   type NewsImageObject {
