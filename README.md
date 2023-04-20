@@ -8,8 +8,9 @@ Boilerplate from [Express & mongoose REST API Boilerplate](https://github.com/Ku
 
 ## Prerequisites
 
-- node `8.10.0` or greater
-- yarn `1.6.0` or greater
+- node `16.4.2`
+- yarn `1.22.19`
+- npm `8.5.0` or greater
 - `.env` file with correct variables (speak to admin)
 
 ## Getting Started
