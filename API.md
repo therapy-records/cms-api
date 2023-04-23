@@ -92,6 +92,49 @@ mutation($id: ID!) {
 }
 ```
 
+### Journalism Queries
+
+#### Get all Journalism
+
+```js
+{
+  journalism {
+    _id
+    title
+    externalLink
+    releaseDate
+    categoryId
+  }
+}
+```
+
+#### Get all Journalism by category ID
+
+```js
+{
+  journalismCategory(categoryId: 1) {
+    _id
+    title
+    externalLink
+    releaseDate
+    categoryId
+  }
+}
+```
+
+#### Get single Journalism
+
+```js
+query($id: ID!) {
+  journalismArticle(_id: $id) {
+    _id,
+    title,
+    externalLink,
+    releaseDate
+  }
+}
+```
+
 ### Collaborators Queries
 
 #### Get all Collaborators
