@@ -61,7 +61,7 @@ PressSchema.statics = {
         if (press) {
           return press;
         }
-        const err = new APIError('No such press exists', httpStatus.NOT_FOUND);
+        const err = new APIError('No such press category exists', httpStatus.NOT_FOUND);
         return Promise.reject(err);
       });
   },

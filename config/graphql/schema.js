@@ -148,6 +148,8 @@ const schema = gql`
     gigsByYear: [GigsYear]
 
     journalism: [Journalism],
+    journalismCategory(categoryId: ID!): [Journalism],
+
     news: [NewsArticle],
     newsArticleByUrlTitle(urlTitle: String!): NewsArticle
 
