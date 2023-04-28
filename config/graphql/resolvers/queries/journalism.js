@@ -12,7 +12,20 @@ const journalismQueryResolvers = {
     const sortedArticles = articles.sort((a, b) =>
       new Date(a.releaseDate) - new Date(b.releaseDate)).reverse();
 
-    return sortedArticles;
+    const mappedArticles = sortedArticles.map((article) => {
+      if (!article.image) {
+        return {
+          ...article,
+          image: {
+            cloudinaryUrl: ''
+          }
+        };
+      }
+
+      return article;
+    });
+
+    return mappedArticles;
   },
 };
 
