@@ -109,7 +109,7 @@ CollaboratorSchema.statics = {
 
           if (!nextCollab) {
             // if no next collaborator, return first collaborator
-            nextCollab = await this.findOne({ orderNumber: '1' }).exec();
+            nextCollab = await this.findOne({ orderNumber: '0' }).exec();
           }
 
           return {
