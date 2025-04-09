@@ -96,6 +96,7 @@ const schema = gql`
     title: String!
     urlTitle: String
     createdAt: String
+    isArchived: Boolean
     sections: [NewsArticleSection]
   }
 
