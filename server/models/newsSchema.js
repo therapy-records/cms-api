@@ -4,6 +4,10 @@ const NewsSchema = (add, collectionName) => {
   const _collectionName = collectionName ? { collection: collectionName } : {};
 
   const schema = mongoose.Schema({ // eslint-disable-line new-cap
+    isArchived: {
+      type: Boolean,
+      required: false
+    },
     title: {
       type: String,
       required: true

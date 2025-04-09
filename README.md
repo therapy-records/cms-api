@@ -91,3 +91,19 @@ yarn lint
 yarn lint:watch
 ```
 
+### Exporting and importing data
+
+The database is hosted with cloud.mongodb.com.
+
+Sometimes, we need to make some manual database updates - for example to:
+
+- Edit/delete an entry from a collection
+- Bulk operations
+- Etc
+
+Recommend approach is to use [MongoDB Compass GUI](https://www.mongodb.com/products/tools/compass)
+
+Alternatively, you can use the MongoDB CLI:
+
+- [mongoexport](https://www.mongodb.com/docs/database-tools/mongoexport)
+- [mongoimport](https://www.mongodb.com/docs/database-tools/mongoimport)
